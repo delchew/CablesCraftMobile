@@ -4,6 +4,7 @@ using System.Linq;
 using Cables.Materials;
 using System.Collections.ObjectModel;
 using Cables.CableCalculations;
+using Cables;
 
 namespace CablesCraftMobile
 {
