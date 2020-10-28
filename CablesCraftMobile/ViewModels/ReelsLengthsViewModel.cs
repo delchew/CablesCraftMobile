@@ -25,7 +25,7 @@ namespace CablesCraftMobile
                 {
                     reelsLengthsMode.CoreDiameter = value;
                     RecalculateReelsLengths();
-                    OnPropertyChanged("CoreDiameter");
+                    OnPropertyChanged(nameof(CoreDiameter));
                 }
             }
         }
@@ -39,7 +39,7 @@ namespace CablesCraftMobile
                 {
                     reelsLengthsMode.EdgeClearance = value;
                     RecalculateReelsLengths();
-                    OnPropertyChanged("EdgeClearance");
+                    OnPropertyChanged(nameof(EdgeClearance));
                 }
             }
         }

@@ -38,13 +38,13 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0,
                 Offset = 5,
-                Value = 5
+                Value = 0
             };
             var edgeClearanceBinding = new Binding
             {
                 Source = reelsLengthsViewModel,
-                Path = "EdgeClearance",
-                Mode = BindingMode.OneWayToSource
+                Path = nameof(reelsLengthsViewModel.EdgeClearance),
+                Mode = BindingMode.TwoWay
             };
             edgeClearanceNumEntry.SetBinding(NumEntryControllable.ValueProperty, edgeClearanceBinding);
             controlsGrid.Children.Add(edgeClearanceNumEntry, 0, 0);
@@ -57,13 +57,13 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0.5,
                 Offset = 0.1,
-                Value = 10
+                Value = 0
             };
             var coreDiameterBinding = new Binding
             {
                 Source = reelsLengthsViewModel,
-                Path = "CoreDiameter",
-                Mode = BindingMode.OneWayToSource
+                Path = nameof(reelsLengthsViewModel.CoreDiameter),
+                Mode = BindingMode.TwoWay
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
@@ -151,7 +151,12 @@ namespace CablesCraftMobile
             noteLable.SetBinding(Label.TextProperty, "Note");
             grid.Children.Add(noteLable, 3, 0);
 
-            var cableLengthLabel = new Label { FontSize = fontsize, FontAttributes = FontAttributes.Bold, Style = labelStyle };
+            var cableLengthLabel = new Label
+            {
+                FontSize = fontsize,
+                FontAttributes = FontAttributes.Bold,
+                Style = (Style)App.Current.Properties["changingLabelStyle"]
+            };
             cableLengthLabel.SetBinding(Label.TextProperty, "Length");
             grid.Children.Add(cableLengthLabel, 4, 0);
 
@@ -173,6 +178,13 @@ namespace CablesCraftMobile
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
             return grid;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            reelsLengthsViewModel.EdgeClearance = 48;
+            reelsLengthsViewModel.CoreDiameter = 13.5;
         }
     }
 }

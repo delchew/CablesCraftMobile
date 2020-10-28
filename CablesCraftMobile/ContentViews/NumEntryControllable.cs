@@ -36,7 +36,7 @@ namespace CablesCraftMobile
         }
 
         public static readonly BindableProperty ValueProperty =
-            BindableProperty.Create("Value", typeof(double), typeof(NumEntryControllable), 0d);
+            BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), 0d);
 
         public double Value
         {
