@@ -1,0 +1,545 @@
+﻿{
+  "2": {
+    "QuantityElements": 2,
+    "TwistCoefficient": 2.0,
+    "LayersElementsCount": [
+      2
+    ]
+  },
+  "3": {
+    "QuantityElements": 3,
+    "TwistCoefficient": 2.15,
+    "LayersElementsCount": [
+      3
+    ]
+  },
+  "4": {
+    "QuantityElements": 4,
+    "TwistCoefficient": 2.41,
+    "LayersElementsCount": [
+      4
+    ]
+  },
+  "5": {
+    "QuantityElements": 5,
+    "TwistCoefficient": 2.7,
+    "LayersElementsCount": [
+      5
+    ]
+  },
+  "6": {
+    "QuantityElements": 6,
+    "TwistCoefficient": 3.0,
+    "LayersElementsCount": [
+      6
+    ]
+  },
+  "7": {
+    "QuantityElements": 7,
+    "TwistCoefficient": 3.0,
+    "LayersElementsCount": [
+      1,
+      6
+    ]
+  },
+  "8": {
+    "QuantityElements": 8,
+    "TwistCoefficient": 3.3,
+    "LayersElementsCount": [
+      1,
+      7
+    ]
+  },
+  "9": {
+    "QuantityElements": 9,
+    "TwistCoefficient": 3.7,
+    "LayersElementsCount": [
+      1,
+      8
+    ]
+  },
+  "10": {
+    "QuantityElements": 10,
+    "TwistCoefficient": 4.0,
+    "LayersElementsCount": [
+      2,
+      8
+    ]
+  },
+  "11": {
+    "QuantityElements": 11,
+    "TwistCoefficient": 4.15,
+    "LayersElementsCount": [
+      3,
+      8
+    ]
+  },
+  "12": {
+    "QuantityElements": 12,
+    "TwistCoefficient": 4.15,
+    "LayersElementsCount": [
+      3,
+      9
+    ]
+  },
+  "13": {
+    "QuantityElements": 13,
+    "TwistCoefficient": 4.41,
+    "LayersElementsCount": [
+      4,
+      9
+    ]
+  },
+  "14": {
+    "QuantityElements": 14,
+    "TwistCoefficient": 4.41,
+    "LayersElementsCount": [
+      4,
+      10
+    ]
+  },
+  "15": {
+    "QuantityElements": 15,
+    "TwistCoefficient": 4.7,
+    "LayersElementsCount": [
+      5,
+      10
+    ]
+  },
+  "16": {
+    "QuantityElements": 16,
+    "TwistCoefficient": 4.7,
+    "LayersElementsCount": [
+      5,
+      11
+    ]
+  },
+  "17": {
+    "QuantityElements": 17,
+    "TwistCoefficient": 5.0,
+    "LayersElementsCount": [
+      6,
+      11
+    ]
+  },
+  "18": {
+    "QuantityElements": 18,
+    "TwistCoefficient": 5.0,
+    "LayersElementsCount": [
+      6,
+      12
+    ]
+  },
+  "19": {
+    "QuantityElements": 19,
+    "TwistCoefficient": 5.0,
+    "LayersElementsCount": [
+      1,
+      6,
+      12
+    ]
+  },
+  "20": {
+    "QuantityElements": 20,
+    "TwistCoefficient": 5.3,
+    "LayersElementsCount": [
+      7,
+      13
+    ]
+  },
+  "21": {
+    "QuantityElements": 21,
+    "TwistCoefficient": 5.3,
+    "LayersElementsCount": [
+      1,
+      7,
+      13
+    ]
+  },
+  "22": {
+    "QuantityElements": 22,
+    "TwistCoefficient": 6.0,
+    "LayersElementsCount": [
+      2,
+      6,
+      14
+    ]
+  },
+  "23": {
+    "QuantityElements": 23,
+    "TwistCoefficient": 6.0,
+    "LayersElementsCount": [
+      2,
+      8,
+      13
+    ]
+  },
+  "24": {
+    "QuantityElements": 24,
+    "TwistCoefficient": 6.0,
+    "LayersElementsCount": [
+      2,
+      8,
+      14
+    ]
+  },
+  "25": {
+    "QuantityElements": 25,
+    "TwistCoefficient": 6.15,
+    "LayersElementsCount": [
+      3,
+      8,
+      14
+    ]
+  },
+  "26": {
+    "QuantityElements": 26,
+    "TwistCoefficient": 6.15,
+    "LayersElementsCount": [
+      2,
+      9,
+      15
+    ]
+  },
+  "27": {
+    "QuantityElements": 27,
+    "TwistCoefficient": 6.15,
+    "LayersElementsCount": [
+      3,
+      9,
+      15
+    ]
+  },
+  "28": {
+    "QuantityElements": 28,
+    "TwistCoefficient": 6.41,
+    "LayersElementsCount": [
+      4,
+      9,
+      15
+    ]
+  },
+  "29": {
+    "QuantityElements": 29,
+    "TwistCoefficient": 6.41,
+    "LayersElementsCount": [
+      4,
+      10,
+      15
+    ]
+  },
+  "30": {
+    "QuantityElements": 30,
+    "TwistCoefficient": 6.41,
+    "LayersElementsCount": [
+      4,
+      10,
+      16
+    ]
+  },
+  "31": {
+    "QuantityElements": 31,
+    "TwistCoefficient": 6.7,
+    "LayersElementsCount": [
+      5,
+      10,
+      16
+    ]
+  },
+  "32": {
+    "QuantityElements": 32,
+    "TwistCoefficient": 6.7,
+    "LayersElementsCount": [
+      5,
+      11,
+      16
+    ]
+  },
+  "33": {
+    "QuantityElements": 33,
+    "TwistCoefficient": 6.7,
+    "LayersElementsCount": [
+      5,
+      11,
+      17
+    ]
+  },
+  "34": {
+    "QuantityElements": 34,
+    "TwistCoefficient": 7.0,
+    "LayersElementsCount": [
+      6,
+      11,
+      17
+    ]
+  },
+  "35": {
+    "QuantityElements": 35,
+    "TwistCoefficient": 7.0,
+    "LayersElementsCount": [
+      6,
+      12,
+      17
+    ]
+  },
+  "36": {
+    "QuantityElements": 36,
+    "TwistCoefficient": 7.0,
+    "LayersElementsCount": [
+      6,
+      12,
+      18
+    ]
+  },
+  "37": {
+    "QuantityElements": 37,
+    "TwistCoefficient": 7.0,
+    "LayersElementsCount": [
+      1,
+      6,
+      12,
+      18
+    ]
+  },
+  "38": {
+    "QuantityElements": 38,
+    "TwistCoefficient": 7.3,
+    "LayersElementsCount": [
+      1,
+      7,
+      12,
+      18
+    ]
+  },
+  "39": {
+    "QuantityElements": 39,
+    "TwistCoefficient": 7.3,
+    "LayersElementsCount": [
+      1,
+      7,
+      13,
+      18
+    ]
+  },
+  "40": {
+    "QuantityElements": 40,
+    "TwistCoefficient": 7.3,
+    "LayersElementsCount": [
+      1,
+      7,
+      13,
+      19
+    ]
+  },
+  "41": {
+    "QuantityElements": 41,
+    "TwistCoefficient": 8.0,
+    "LayersElementsCount": [
+      2,
+      7,
+      13,
+      19
+    ]
+  },
+  "42": {
+    "QuantityElements": 42,
+    "TwistCoefficient": 8.0,
+    "LayersElementsCount": [
+      2,
+      8,
+      13,
+      19
+    ]
+  },
+  "43": {
+    "QuantityElements": 43,
+    "TwistCoefficient": 8.0,
+    "LayersElementsCount": [
+      2,
+      8,
+      14,
+      19
+    ]
+  },
+  "44": {
+    "QuantityElements": 44,
+    "TwistCoefficient": 8.0,
+    "LayersElementsCount": [
+      2,
+      8,
+      14,
+      20
+    ]
+  },
+  "45": {
+    "QuantityElements": 45,
+    "TwistCoefficient": 8.15,
+    "LayersElementsCount": [
+      3,
+      8,
+      14,
+      20
+    ]
+  },
+  "46": {
+    "QuantityElements": 46,
+    "TwistCoefficient": 8.15,
+    "LayersElementsCount": [
+      3,
+      9,
+      14,
+      20
+    ]
+  },
+  "47": {
+    "QuantityElements": 47,
+    "TwistCoefficient": 8.15,
+    "LayersElementsCount": [
+      3,
+      9,
+      15,
+      20
+    ]
+  },
+  "48": {
+    "QuantityElements": 48,
+    "TwistCoefficient": 8.15,
+    "LayersElementsCount": [
+      3,
+      9,
+      15,
+      21
+    ]
+  },
+  "49": {
+    "QuantityElements": 49,
+    "TwistCoefficient": 8.41,
+    "LayersElementsCount": [
+      4,
+      9,
+      15,
+      21
+    ]
+  },
+  "50": {
+    "QuantityElements": 50,
+    "TwistCoefficient": 8.41,
+    "LayersElementsCount": [
+      4,
+      10,
+      15,
+      21
+    ]
+  },
+  "51": {
+    "QuantityElements": 51,
+    "TwistCoefficient": 8.41,
+    "LayersElementsCount": [
+      4,
+      10,
+      16,
+      21
+    ]
+  },
+  "52": {
+    "QuantityElements": 52,
+    "TwistCoefficient": 8.41,
+    "LayersElementsCount": [
+      4,
+      10,
+      16,
+      22
+    ]
+  },
+  "53": {
+    "QuantityElements": 53,
+    "TwistCoefficient": 8.7,
+    "LayersElementsCount": [
+      5,
+      10,
+      16,
+      22
+    ]
+  },
+  "54": {
+    "QuantityElements": 54,
+    "TwistCoefficient": 8.7,
+    "LayersElementsCount": [
+      5,
+      11,
+      16,
+      22
+    ]
+  },
+  "55": {
+    "QuantityElements": 55,
+    "TwistCoefficient": 8.7,
+    "LayersElementsCount": [
+      5,
+      11,
+      17,
+      22
+    ]
+  },
+  "56": {
+    "QuantityElements": 56,
+    "TwistCoefficient": 8.7,
+    "LayersElementsCount": [
+      5,
+      11,
+      17,
+      23
+    ]
+  },
+  "57": {
+    "QuantityElements": 57,
+    "TwistCoefficient": 9.0,
+    "LayersElementsCount": [
+      6,
+      11,
+      17,
+      23
+    ]
+  },
+  "58": {
+    "QuantityElements": 58,
+    "TwistCoefficient": 9.0,
+    "LayersElementsCount": [
+      6,
+      12,
+      17,
+      23
+    ]
+  },
+  "59": {
+    "QuantityElements": 59,
+    "TwistCoefficient": 9.0,
+    "LayersElementsCount": [
+      6,
+      12,
+      18,
+      23
+    ]
+  },
+  "60": {
+    "QuantityElements": 60,
+    "TwistCoefficient": 9.0,
+    "LayersElementsCount": [
+      6,
+      12,
+      18,
+      24
+    ]
+  },
+  "61": {
+    "QuantityElements": 61,
+    "TwistCoefficient": 9.0,
+    "LayersElementsCount": [
+      1,
+      6,
+      12,
+      18,
+      24
+    ]
+  }
+}

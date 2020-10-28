@@ -1,0 +1,164 @@
+﻿[
+  {
+    "Material": "Металл",
+    "Color": "Зелёный",
+    "Note": "",
+    "Diameter": 400,
+    "ReelCoreDiameter": 224,
+    "Width": 250,
+    "Length": 0
+  },
+  {
+    "Material": "Пластик",
+    "Color": "Чёрный",
+    "Note": "Узкий",
+    "Diameter": 500,
+    "ReelCoreDiameter": 260,
+    "Width": 250,
+    "Length": 0
+  },
+  {
+    "Material": "Металл",
+    "Color": "Серый",
+    "Note": "Узкий",
+    "Diameter": 630,
+    "ReelCoreDiameter": 250,
+    "Width": 250,
+    "Length": 0
+  },
+  {
+    "Material": "Пластик",
+    "Color": "Белый",
+    "Note": "отв. 57мм",
+    "Diameter": 630,
+    "ReelCoreDiameter": 250,
+    "Width": 400,
+    "Length": 0
+  },
+  {
+    "Material": "Пластик",
+    "Color": "Белый",
+    "Note": "отв. 127мм",
+    "Diameter": 630,
+    "ReelCoreDiameter": 355,
+    "Width": 400,
+    "Length": 0
+  },
+  {
+    "Material": "Пластик",
+    "Color": "Белый",
+    "Note": "",
+    "Diameter": 800,
+    "ReelCoreDiameter": 400,
+    "Width": 500,
+    "Length": 0
+  },
+  {
+    "Material": "Пластик",
+    "Color": "Белый",
+    "Note": "",
+    "Diameter": 1000,
+    "ReelCoreDiameter": 500,
+    "Width": 630,
+    "Length": 0
+  },
+  {
+    "Material": "Металл",
+    "Color": "Чёрный",
+    "Note": "",
+    "Diameter": 1250,
+    "ReelCoreDiameter": 630,
+    "Width": 800,
+    "Length": 0
+  },
+  {
+    "Material": "Металл",
+    "Color": "Чёрный",
+    "Note": "",
+    "Diameter": 1400,
+    "ReelCoreDiameter": 700,
+    "Width": 900,
+    "Length": 0
+  },
+  {
+    "Material": "Металл",
+    "Color": "Синий",
+    "Note": "",
+    "Diameter": 1600,
+    "ReelCoreDiameter": 800,
+    "Width": 1000,
+    "Length": 0
+  },
+  {
+    "Material": "Металл",
+    "Color": "Синий",
+    "Note": "",
+    "Diameter": 1800,
+    "ReelCoreDiameter": 1000,
+    "Width": 1120,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "8",
+    "Diameter": 800,
+    "ReelCoreDiameter": 470,
+    "Width": 400,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "10",
+    "Diameter": 1000,
+    "ReelCoreDiameter": 560,
+    "Width": 500,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "12",
+    "Diameter": 1200,
+    "ReelCoreDiameter": 640,
+    "Width": 510,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "12а",
+    "Diameter": 1200,
+    "ReelCoreDiameter": 640,
+    "Width": 710,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "14",
+    "Diameter": 1400,
+    "ReelCoreDiameter": 780,
+    "Width": 710,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "16",
+    "Diameter": 1600,
+    "ReelCoreDiameter": 800,
+    "Width": 800,
+    "Length": 0
+  },
+  {
+    "Material": "Дерево",
+    "Color": "-",
+    "Note": "18",
+    "Diameter": 1800,
+    "ReelCoreDiameter": 890,
+    "Width": 900,
+    "Length": 0
+  }
+]
