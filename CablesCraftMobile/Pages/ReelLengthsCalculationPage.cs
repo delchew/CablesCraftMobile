@@ -180,11 +180,6 @@ namespace CablesCraftMobile
             return grid;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            reelsLengthsViewModel.EdgeClearance = 48;
-            reelsLengthsViewModel.CoreDiameter = 13.5;
-        }
+        protected override On
     }
 }
