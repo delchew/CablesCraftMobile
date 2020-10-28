@@ -154,8 +154,8 @@ namespace CablesCraftMobile
             WiresDiametersCollection = new double[] { 0.12, 0.15, 0.20, 0.26, 0.30 };
             WiresMaterialsCollection = new Metal[]
             {
-                new Metal("Медь", 56, 8890),
-                new Metal("Сталь", 70, 7670)
+                new Metal { Name = "Медь", ElectricalResistance20 = 56, Density20 = 8890 },
+                new Metal { Name ="Сталь", ElectricalResistance20 = 70, Density20 = 7670 }
             };
         }
 

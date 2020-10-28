@@ -106,8 +106,9 @@ namespace CablesCraftMobile
         public TwistViewModel()
         {
             var filePath = FileProvider.SendResourceFileToLocalApplicationFolder(twistInfoFilePath);
-
-            builder = new TwistedCoreBuilder(new FileInfo(filePath));
+            var repository = new JsonRepository();
+            var twistInfoData = repository.GetObjects<int, TwistInfo>(new FileInfo(filePath));
+            builder = new TwistedCoreBuilder(twistInfoData);
             var twistInfo = builder.GetTwistInfo(2);
             twistMode = new TwistMode()
             {
