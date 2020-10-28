@@ -5,15 +5,6 @@ namespace CablesCraftMobile
 {
     public class BraidingCalculationPage : ContentPage
     {
-        private readonly NumEntryControllable coreDiameterNumEntry;
-        private readonly NumEntryControllable braidingStepNumEntry;
-        private readonly Picker coilsCountPicker;
-        private readonly Picker wiresCountPicker;
-        private readonly Picker wiresDiameterPicker;
-        private readonly Picker wiresMaterialPicker;
-        private readonly Label braidingDensityLable;
-        private readonly Label braidingAngleLable;
-        private readonly Label wiresWeightKilogramsLable;
         private readonly BraidingViewModel braidingViewModel;
 
         public BraidingCalculationPage()
@@ -40,7 +31,7 @@ namespace CablesCraftMobile
 
             var controlsColor = (Color)App.Current.Properties["controlsColor"];
             //braidingStepNumEntry
-            braidingStepNumEntry = new NumEntryControllable()
+            var braidingStepNumEntry = new NumEntryControllable()
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОПЛЕТКИ, ММ",
@@ -59,7 +50,7 @@ namespace CablesCraftMobile
             controlsGrid.Children.Add(braidingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
-            coreDiameterNumEntry = new NumEntryControllable()
+            var coreDiameterNumEntry = new NumEntryControllable()
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЗАГОТОВКИ, ММ",
@@ -82,7 +73,7 @@ namespace CablesCraftMobile
             #region Labels
 
             //braidingDensityLable
-            braidingDensityLable = new Label();
+            var braidingDensityLable = new Label();
             var braidingDensityBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -93,7 +84,7 @@ namespace CablesCraftMobile
             braidingDensityLable.SetBinding(Label.TextProperty, braidingDensityBinding);
 
             //braidingAngleLable
-            braidingAngleLable = new Label();
+            var braidingAngleLable = new Label();
             var braidingAngleBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -104,7 +95,7 @@ namespace CablesCraftMobile
             braidingAngleLable.SetBinding(Label.TextProperty, braidingAngleBinding);
 
             //wiresWeightKilogramsLable
-            wiresWeightKilogramsLable = new Label();
+            var wiresWeightKilogramsLable = new Label();
             var wiresWeightKilogramsBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -119,7 +110,7 @@ namespace CablesCraftMobile
             #region Pickers
 
             //CoilsCountPicker
-            coilsCountPicker = new Picker();
+            var coilsCountPicker = new Picker();
             var CoilsCountSourceBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -136,7 +127,7 @@ namespace CablesCraftMobile
             coilsCountPicker.SetBinding(Picker.SelectedItemProperty, coilsCountBinding);
 
             //WiresCountPicker
-            wiresCountPicker = new Picker();
+            var wiresCountPicker = new Picker();
             var wiresCountSourceBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -153,7 +144,7 @@ namespace CablesCraftMobile
             wiresCountPicker.SetBinding(Picker.SelectedItemProperty, wiresCountBinding);
 
             //WiresDiameterPicker
-            wiresDiameterPicker = new Picker();
+            var wiresDiameterPicker = new Picker();
             var wiresDiametersSourceBinding = new Binding
             {
                 Source = braidingViewModel,
@@ -170,7 +161,7 @@ namespace CablesCraftMobile
             wiresDiameterPicker.SetBinding(Picker.SelectedItemProperty, wiresDiameterBinding);
 
             //WiresMaterialPicker
-            wiresMaterialPicker = new Picker();
+            var wiresMaterialPicker = new Picker();
             var wiresMaterialSourceBinding = new Binding
             {
                 Source = braidingViewModel,

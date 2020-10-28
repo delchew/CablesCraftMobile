@@ -4,14 +4,6 @@ namespace CablesCraftMobile
 {
     public class ReelLengthsCalculationPage : ContentPage
     {
-        private readonly NumEntryControllable coreDiameterNumEntry;
-        private readonly NumEntryControllable edgeClearanceNumEntry;
-        private readonly ListView reelsTable;
-        private Label diametrLabel;
-        private Label materialLabel;
-        private Label noteLable;
-        private Label cableLengthLabel;
-        private Label colorLabel;
         private readonly ReelsLengthsViewModel reelsLengthsViewModel;
 
         public ReelLengthsCalculationPage()
@@ -36,10 +28,12 @@ namespace CablesCraftMobile
 
             #region Entries
 
+            var controlsColor = (Color)App.Current.Properties["controlsColor"];
+
             //edgeClearanceNumEntry
-            edgeClearanceNumEntry = new NumEntryControllable
+            var edgeClearanceNumEntry = new NumEntryControllable
             {
-                EntryTextColor = Color.DarkBlue,
+                EntryTextColor = controlsColor,
                 Caption = "ДО КРАЯ БАРАБАНА, ММ",
                 MaxValue = 50,
                 MinValue = 0,
@@ -56,9 +50,9 @@ namespace CablesCraftMobile
             controlsGrid.Children.Add(edgeClearanceNumEntry, 0, 0);
 
             //coreDiameterNumEntry
-            coreDiameterNumEntry = new NumEntryControllable
+            var coreDiameterNumEntry = new NumEntryControllable
             {
-                EntryTextColor = Color.DarkBlue,
+                EntryTextColor = controlsColor,
                 Caption = "Ø КАБЕЛЯ, ММ",
                 MaxValue = 50,
                 MinValue = 0.5,
@@ -78,7 +72,7 @@ namespace CablesCraftMobile
 
             var thickness = new Thickness(0);
 
-            reelsTable = new ListView
+            var reelsTable = new ListView
             {
                 Margin = thickness,
                 HasUnevenRows = true,
@@ -139,24 +133,25 @@ namespace CablesCraftMobile
             grid.Padding = new Thickness(5, 3, 0, 0);
 
             int fontsize = 15;
+            var labelStyle = (Style)App.Current.Properties["labelStyle"];
 
-            diametrLabel = new Label { FontSize = fontsize, Style = (Style)App.Current.Properties["labelStyle"] };
+            var diametrLabel = new Label { FontSize = fontsize, Style = labelStyle };
             diametrLabel.SetBinding(Label.TextProperty, "Diameter");
             grid.Children.Add(diametrLabel, 0, 0);
 
-            materialLabel = new Label { FontSize = fontsize, Style = (Style)App.Current.Properties["labelStyle"] };
+            var materialLabel = new Label { FontSize = fontsize, Style = labelStyle };
             materialLabel.SetBinding(Label.TextProperty, "Material");
             grid.Children.Add(materialLabel, 1, 0);
 
-            colorLabel = new Label { FontSize = fontsize, Style = (Style)App.Current.Properties["labelStyle"] };
+            var colorLabel = new Label { FontSize = fontsize, Style = labelStyle };
             colorLabel.SetBinding(Label.TextProperty, "Color");
             grid.Children.Add(colorLabel, 2, 0);
 
-            noteLable = new Label { FontSize = fontsize, Style = (Style)App.Current.Properties["labelStyle"] };
+            var noteLable = new Label { FontSize = fontsize, Style = labelStyle };
             noteLable.SetBinding(Label.TextProperty, "Note");
             grid.Children.Add(noteLable, 3, 0);
 
-            cableLengthLabel = new Label { FontSize = fontsize, FontAttributes = FontAttributes.Bold, Style = (Style)App.Current.Properties["changingLabelStyle"] };
+            var cableLengthLabel = new Label { FontSize = fontsize, FontAttributes = FontAttributes.Bold, Style = labelStyle };
             cableLengthLabel.SetBinding(Label.TextProperty, "Length");
             grid.Children.Add(cableLengthLabel, 4, 0);
 

@@ -5,16 +5,6 @@ namespace CablesCraftMobile
 {
     public class WindingCalculationPage : ContentPage
     {
-        private readonly NumEntryControllable coreDiameterNumEntry;
-        private readonly NumEntryControllable windingStepNumEntry;
-        private readonly Picker tapeWidthPicker;
-        private readonly Picker tapeThicknessPicker;
-        private readonly Picker tapeTypePicker;
-        private readonly Label tapeOverlapLabel;
-        private readonly Label windingAngleLabel;
-        private readonly Label tapeExpenseKilometresLabel;
-        private readonly Label tapeExpenseSquareMetresLabel;
-        private readonly Label tapeExpenseKilogramesLabel;
         private readonly WindingViewModel windingViewModel;
 
         public WindingCalculationPage()
@@ -42,7 +32,7 @@ namespace CablesCraftMobile
             var controlsColor = (Color)App.Current.Properties["controlsColor"];
 
             //windingStepNumEntry
-            windingStepNumEntry = new NumEntryControllable()
+            var windingStepNumEntry = new NumEntryControllable()
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОБМОТКИ, ММ",
@@ -61,7 +51,7 @@ namespace CablesCraftMobile
             controlsGrid.Children.Add(windingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
-            coreDiameterNumEntry = new NumEntryControllable()
+            var coreDiameterNumEntry = new NumEntryControllable()
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЗАГОТОВКИ",
@@ -84,7 +74,7 @@ namespace CablesCraftMobile
             #region Labels
 
             //tapeOverlapLabel
-            tapeOverlapLabel = new Label();
+            var tapeOverlapLabel = new Label();
             var tapeOverlapBinding = new Binding
             {
                 Source = windingViewModel,
@@ -95,7 +85,7 @@ namespace CablesCraftMobile
             tapeOverlapLabel.SetBinding(Label.TextProperty, tapeOverlapBinding);
 
             //windingAngleLabel
-            windingAngleLabel = new Label();
+            var windingAngleLabel = new Label();
             var windingAngleBinding = new Binding
             {
                 Source = windingViewModel,
@@ -106,7 +96,7 @@ namespace CablesCraftMobile
             windingAngleLabel.SetBinding(Label.TextProperty, windingAngleBinding);
 
             //tapeExpenseKilometresLabel
-            tapeExpenseKilometresLabel = new Label();
+            var tapeExpenseKilometresLabel = new Label();
             var tapeExpenseKilometresBinding = new Binding
             {
                 Source = windingViewModel,
@@ -117,7 +107,7 @@ namespace CablesCraftMobile
             tapeExpenseKilometresLabel.SetBinding(Label.TextProperty, tapeExpenseKilometresBinding);
 
             //tapeExpenseSquareMetresLabel
-            tapeExpenseSquareMetresLabel = new Label();
+            var tapeExpenseSquareMetresLabel = new Label();
             var tapeExpenseSquareMetresBinding = new Binding
             {
                 Source = windingViewModel,
@@ -128,7 +118,7 @@ namespace CablesCraftMobile
             tapeExpenseSquareMetresLabel.SetBinding(Label.TextProperty, tapeExpenseSquareMetresBinding);
 
             //tapeExpenseKilogramesLabel
-            tapeExpenseKilogramesLabel = new Label();
+            var tapeExpenseKilogramesLabel = new Label();
             var tapeExpenseKilogramesBinding = new Binding
             {
                 Source = windingViewModel,
@@ -143,7 +133,7 @@ namespace CablesCraftMobile
             #region Pickers
 
             //tapeWidthPicker
-            tapeWidthPicker = new Picker();
+            var tapeWidthPicker = new Picker();
             var tapesWidthsSourceBinding = new Binding
             {
                 Source = windingViewModel,
@@ -161,7 +151,7 @@ namespace CablesCraftMobile
             tapeWidthPicker.SetBinding(Picker.SelectedItemProperty, tapeWidthBinding);
 
             //tapeTypePicker
-            tapeTypePicker = new Picker { FontSize = 14 };
+            var tapeTypePicker = new Picker { FontSize = 14 };
             var tapesTypesSourceBinding = new Binding
             {
                 Source = windingViewModel,
@@ -179,7 +169,7 @@ namespace CablesCraftMobile
             //tapeTypePicker.SetBinding(Picker.SelectedItemProperty, tapeTypeBinding); //TODO
 
             //tapeThicknessPicker
-            tapeThicknessPicker = new Picker();
+            var tapeThicknessPicker = new Picker();
             var tapesThicknessSourceBinding = new Binding
             {
                 Source = windingViewModel,
@@ -227,13 +217,11 @@ namespace CablesCraftMobile
             foreach (var pair in viewsDictionary)
             {
                 windingParametresGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
-                windingParametresGrid.Children.Add(new Label { Text = pair.Key }, 0, ++rowIndex);
+                windingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Properties["labelStyle"] }, 0, ++rowIndex);
                 windingParametresGrid.Children.Add(pair.Value, 1, rowIndex);
                 if (pair.Value is Label label) label.Style = (Style)App.Current.Properties["changingLabelStyle"];
                 if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Properties["pickerStyle"]; }
             }
-
-            //tapeTypePicker.SelectedIndexChanged += (sender, args) => tapeThicknessPicker.SelectedIndex = 0;
 
             var absoluteLayout = new AbsoluteLayout();
             if (Device.RuntimePlatform == Device.iOS) absoluteLayout.Padding = new Thickness(0, 30, 0, 0);

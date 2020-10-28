@@ -5,12 +5,6 @@ namespace CablesCraftMobile
 {
     public class TwistCalculationPage : ContentPage
     {
-        private readonly NumEntryControllable coreDiameterNumEntry;
-        private readonly NumEntryControllable twistedElementsCountNumEntry;
-        private readonly Picker twistedElementTypePicker;
-        private readonly Label twistStepLabel;
-        private readonly Label twistCoreDiameterLabel;
-        private readonly Label twistSchemeLabel;
         private readonly TwistViewModel twistViewModel;
 
         public TwistCalculationPage()
@@ -43,7 +37,7 @@ namespace CablesCraftMobile
             var controlsColor = (Color)App.Current.Properties["controlsColor"];
 
             //twistedElementsCountNumEntry
-            twistedElementsCountNumEntry = new NumEntryControllable
+            var twistedElementsCountNumEntry = new NumEntryControllable
             {
                 EntryTextColor = controlsColor,
                 Caption = "КОЛИЧЕСТВО ЭЛЕМЕНТОВ СКРУТКИ",
@@ -62,7 +56,7 @@ namespace CablesCraftMobile
             gridLayout.Children.Add(twistedElementsCountNumEntry, 0, 2);
 
             //coreDiameterNumEntry
-            coreDiameterNumEntry = new NumEntryControllable
+            var coreDiameterNumEntry = new NumEntryControllable
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЭЛЕМЕНТА СКРУТКИ, ММ",
@@ -85,7 +79,7 @@ namespace CablesCraftMobile
             #region Labels
 
             //twistStepLabel
-            twistStepLabel = new Label();
+            var twistStepLabel = new Label();
             var twistStepBinding = new Binding
             {
                 Source = twistViewModel,
@@ -96,7 +90,7 @@ namespace CablesCraftMobile
             twistStepLabel.SetBinding(Label.TextProperty, twistStepBinding);
 
             //twistCoreDiameterLabel
-            twistCoreDiameterLabel = new Label();
+            var twistCoreDiameterLabel = new Label();
             var twistCoreDiameterBinding = new Binding
             {
                 Source = twistViewModel,
@@ -107,7 +101,7 @@ namespace CablesCraftMobile
             twistCoreDiameterLabel.SetBinding(Label.TextProperty, twistCoreDiameterBinding);
 
             //twistSchemeLabel
-            twistSchemeLabel = new Label();
+            var twistSchemeLabel = new Label();
             var twistSchemeLabelBinding = new Binding
             {
                 Source = twistViewModel,
@@ -120,7 +114,7 @@ namespace CablesCraftMobile
 
             #region Pickers
 
-            twistedElementTypePicker = new Picker();
+            var twistedElementTypePicker = new Picker();
             var twistedElementTypesSourceBinding = new Binding
             {
                 Source = twistViewModel,
