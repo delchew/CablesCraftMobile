@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="DataWorkers\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cables">
