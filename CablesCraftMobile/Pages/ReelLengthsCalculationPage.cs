@@ -28,7 +28,7 @@ namespace CablesCraftMobile
 
             #region Entries
 
-            var controlsColor = (Color)App.Current.Properties["controlsColor"];
+            var controlsColor = (Color)App.Current.Resources["controlsColor"];
 
             //edgeClearanceNumEntry
             var edgeClearanceNumEntry = new NumEntryControllable
@@ -38,7 +38,6 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0,
                 Offset = 5,
-                Value = 0
             };
             var edgeClearanceBinding = new Binding
             {
@@ -57,7 +56,6 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0.5,
                 Offset = 0.1,
-                Value = 0
             };
             var coreDiameterBinding = new Binding
             {
@@ -133,7 +131,7 @@ namespace CablesCraftMobile
             grid.Padding = new Thickness(5, 3, 0, 0);
 
             int fontsize = 15;
-            var labelStyle = (Style)App.Current.Properties["labelStyle"];
+            var labelStyle = (Style)App.Current.Resources["labelStyle"];
 
             var diametrLabel = new Label { FontSize = fontsize, Style = labelStyle };
             diametrLabel.SetBinding(Label.TextProperty, "Diameter");
@@ -155,7 +153,7 @@ namespace CablesCraftMobile
             {
                 FontSize = fontsize,
                 FontAttributes = FontAttributes.Bold,
-                Style = (Style)App.Current.Properties["changingLabelStyle"]
+                Style = (Style)App.Current.Resources["changingLabelStyle"]
             };
             cableLengthLabel.SetBinding(Label.TextProperty, "Length");
             grid.Children.Add(cableLengthLabel, 4, 0);
@@ -179,7 +177,5 @@ namespace CablesCraftMobile
 
             return grid;
         }
-
-        protected override On
     }
 }

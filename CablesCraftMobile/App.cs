@@ -4,18 +4,13 @@ namespace CablesCraftMobile
 {
     public class App : Application
     {
-        public static readonly Color controlsColor = Color.FromHex("#283593");
-        public static readonly Color backgroundColor = Color.FromHex("#E8E8E8");
-
-        public readonly Style labelStyle;
-
-        public readonly Style changingLabelStyle;
-
-        public readonly Style pickerStyle;
 
         public App()
         {
-            labelStyle = new Style(typeof(Label))
+            var controlsColor = Color.FromHex("#283593");
+            var greyColor = Color.FromHex("#E8E8E8");
+
+            var labelStyle = new Style(typeof(Label))
             {
                 Setters =
                 {
@@ -37,7 +32,7 @@ namespace CablesCraftMobile
                 }
             };
 
-            changingLabelStyle = new Style(typeof(Label))
+            var changingLabelStyle = new Style(typeof(Label))
             {
                 Setters =
                 {
@@ -49,7 +44,7 @@ namespace CablesCraftMobile
                     new Setter
                     {
                         Property = Label.VerticalOptionsProperty,
-                     Value = LayoutOptions.CenterAndExpand
+                        Value = LayoutOptions.CenterAndExpand
                     },
                     new Setter
                     {
@@ -69,7 +64,7 @@ namespace CablesCraftMobile
                 }
             };
 
-            pickerStyle = new Style(typeof(Picker))
+            var pickerStyle = new Style(typeof(Picker))
             {
                 Setters =
                 {
@@ -95,12 +90,12 @@ namespace CablesCraftMobile
                     },
                 }
             };
-            Properties.Add("labelStyle", labelStyle);
-            Properties.Add("changingLabelStyle", changingLabelStyle);
-            Properties.Add("pickerStyle", pickerStyle);
-            Properties.Add("controlsColor", controlsColor);
-            Properties.Add("blackColor", Color.Black);
-            Properties.Add("greyColor", Color.FromHex("#E8E8E8"));
+
+            Resources.Add("labelStyle", labelStyle);
+            Resources.Add("changingLabelStyle", changingLabelStyle);
+            Resources.Add("pickerStyle", pickerStyle);
+            Resources.Add("controlsColor", controlsColor);
+            Resources.Add("greyColor", greyColor);
 
             MainPage = new MainPage();
 

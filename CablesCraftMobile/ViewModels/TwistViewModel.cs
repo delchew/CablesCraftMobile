@@ -25,7 +25,7 @@ namespace CablesCraftMobile
                 if (twistMode.TwistStep != value)
                 {
                     twistMode.TwistStep = value;
-                    OnPropertyChanged("TwistStep");
+                    OnPropertyChanged(nameof(TwistStep));
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace CablesCraftMobile
                 if (twistMode.TwistedCoreDiameter != value)
                 {
                     twistMode.TwistedCoreDiameter = value;
-                    OnPropertyChanged("TwistedCoreDiameter");
+                    OnPropertyChanged(nameof(TwistedCoreDiameter));
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace CablesCraftMobile
                     twistMode.TwistedElementType = value;
 
                     RecalculateTwistParametres();
-                    OnPropertyChanged("TwistedElementType");
+                    OnPropertyChanged(nameof(TwistedElementType));
                 }
             }
         }
@@ -83,8 +83,8 @@ namespace CablesCraftMobile
 
                     painter.DrawTwistScheme(twistMode.TwistInfo);
                     RecalculateTwistParametres();
-                    OnPropertyChanged("QuantityElements");
-                    OnPropertyChanged("TwistScheme");
+                    OnPropertyChanged(nameof(QuantityElements));
+                    OnPropertyChanged(nameof(TwistScheme));
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace CablesCraftMobile
                 {
                     twistMode.TwistedElementDiameter = value;
                     RecalculateTwistParametres();
-                    OnPropertyChanged("TwistedElementDiameter");
+                    OnPropertyChanged(nameof(TwistedElementDiameter));
                 }
             }
         }

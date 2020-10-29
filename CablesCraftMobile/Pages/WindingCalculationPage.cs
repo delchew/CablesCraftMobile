@@ -29,7 +29,7 @@ namespace CablesCraftMobile
 
             #region Entries
 
-            var controlsColor = (Color)App.Current.Properties["controlsColor"];
+            var controlsColor = (Color)App.Current.Resources["controlsColor"];
 
             //windingStepNumEntry
             var windingStepNumEntry = new NumEntryControllable()
@@ -39,12 +39,11 @@ namespace CablesCraftMobile
                 MaxValue = 70,
                 MinValue = 5,
                 Offset = 1,
-                Value = 25
             };
             var windingStepBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "WindingStep",
+                Path = nameof(windingViewModel.WindingStep),
                 Mode = BindingMode.OneWayToSource
             };
             windingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, windingStepBinding);
@@ -63,7 +62,7 @@ namespace CablesCraftMobile
             var windingCoreDiameterBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "WindingCoreDiameter",
+                Path = nameof(windingViewModel.WindingCoreDiameter),
                 Mode = BindingMode.OneWayToSource
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, windingCoreDiameterBinding);
@@ -78,7 +77,7 @@ namespace CablesCraftMobile
             var tapeOverlapBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "Overlap",
+                Path = nameof(windingViewModel.Overlap),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} %"
             };
@@ -89,7 +88,7 @@ namespace CablesCraftMobile
             var windingAngleBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "WindingAngle",
+                Path = nameof(windingViewModel.WindingAngle),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} °"
             };
@@ -100,7 +99,7 @@ namespace CablesCraftMobile
             var tapeExpenseKilometresBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeExpenseKilometres",
+                Path = nameof(windingViewModel.TapeExpenseKilometres),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} км"
             };
@@ -111,7 +110,7 @@ namespace CablesCraftMobile
             var tapeExpenseSquareMetresBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeExpenseSquareMetres",
+                Path = nameof(windingViewModel.TapeExpenseSquareMetres),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} м²"
             };
@@ -122,7 +121,7 @@ namespace CablesCraftMobile
             var tapeExpenseKilogramesBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeExpenseKilogrames",
+                Path = nameof(windingViewModel.TapeExpenseKilogrames),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} кг/км"
             };
@@ -137,7 +136,7 @@ namespace CablesCraftMobile
             var tapesWidthsSourceBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapesWidthsCollection",
+                Path = nameof(windingViewModel.TapesWidthsCollection),
                 Mode = BindingMode.OneWay
             };
             tapeWidthPicker.SetBinding(Picker.ItemsSourceProperty, tapesWidthsSourceBinding);
@@ -145,7 +144,7 @@ namespace CablesCraftMobile
             var tapeWidthBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeWidth",
+                Path = nameof(windingViewModel.TapeWidth),
                 Mode = BindingMode.OneWayToSource
             };
             tapeWidthPicker.SetBinding(Picker.SelectedItemProperty, tapeWidthBinding);
@@ -155,7 +154,7 @@ namespace CablesCraftMobile
             var tapesTypesSourceBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapesNamesCollection",
+                Path = nameof(windingViewModel.TapesNamesCollection),
                 Mode = BindingMode.OneWay
             };
             tapeTypePicker.SetBinding(Picker.ItemsSourceProperty, tapesTypesSourceBinding);
@@ -163,7 +162,7 @@ namespace CablesCraftMobile
             var tapeTypeBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeName",
+                Path = nameof(windingViewModel.TapeName),
                 Mode = BindingMode.OneWayToSource
             };
             //tapeTypePicker.SetBinding(Picker.SelectedItemProperty, tapeTypeBinding); //TODO
@@ -173,7 +172,7 @@ namespace CablesCraftMobile
             var tapesThicknessSourceBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "CurrentTapeThicknessesCollection",
+                Path = nameof(windingViewModel.CurrentTapeThicknessesCollection),
                 Mode = BindingMode.OneWay
             };
             tapeThicknessPicker.SetBinding(Picker.ItemsSourceProperty, tapesThicknessSourceBinding);
@@ -181,7 +180,7 @@ namespace CablesCraftMobile
             var tapeThicknessBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = "TapeThickness",
+                Path = nameof(windingViewModel.TapeThickness),
                 Mode = BindingMode.OneWayToSource
             };
             tapeThicknessPicker.SetBinding(Picker.SelectedItemProperty, tapeThicknessBinding);
@@ -217,10 +216,10 @@ namespace CablesCraftMobile
             foreach (var pair in viewsDictionary)
             {
                 windingParametresGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
-                windingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Properties["labelStyle"] }, 0, ++rowIndex);
+                windingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Resources["labelStyle"] }, 0, ++rowIndex);
                 windingParametresGrid.Children.Add(pair.Value, 1, rowIndex);
-                if (pair.Value is Label label) label.Style = (Style)App.Current.Properties["changingLabelStyle"];
-                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Properties["pickerStyle"]; }
+                if (pair.Value is Label label) label.Style = (Style)App.Current.Resources["changingLabelStyle"];
+                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; }
             }
 
             var absoluteLayout = new AbsoluteLayout();

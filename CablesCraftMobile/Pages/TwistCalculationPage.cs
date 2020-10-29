@@ -34,7 +34,7 @@ namespace CablesCraftMobile
 
             #region Entries
 
-            var controlsColor = (Color)App.Current.Properties["controlsColor"];
+            var controlsColor = (Color)App.Current.Resources["controlsColor"];
 
             //twistedElementsCountNumEntry
             var twistedElementsCountNumEntry = new NumEntryControllable
@@ -44,12 +44,11 @@ namespace CablesCraftMobile
                 MaxValue = twistViewModel.MaxQuantityElements,
                 MinValue = 2,
                 Offset = 1,
-                Value = 2
             };
             var twistedElementsCountBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "QuantityElements",
+                Path = nameof(twistViewModel.QuantityElements),
                 Mode = BindingMode.OneWayToSource
             };
             twistedElementsCountNumEntry.SetBinding(NumEntryControllable.ValueProperty, twistedElementsCountBinding);
@@ -63,12 +62,11 @@ namespace CablesCraftMobile
                 MaxValue = 20,
                 MinValue = 0.1,
                 Offset = 0.1,
-                Value = 2.4
             };
             var coreDiameterBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistedElementDiameter",
+                Path = nameof(twistViewModel.TwistedElementDiameter),
                 Mode = BindingMode.OneWayToSource
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
@@ -83,7 +81,7 @@ namespace CablesCraftMobile
             var twistStepBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistStep",
+                Path = nameof(twistViewModel.TwistStep),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} мм"
             };
@@ -94,7 +92,7 @@ namespace CablesCraftMobile
             var twistCoreDiameterBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistedCoreDiameter",
+                Path = nameof(twistViewModel.TwistedCoreDiameter),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} мм"
             };
@@ -105,7 +103,7 @@ namespace CablesCraftMobile
             var twistSchemeLabelBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistScheme",
+                Path = nameof(twistViewModel.TwistScheme),
                 Mode = BindingMode.OneWay
             };
             twistSchemeLabel.SetBinding(Label.TextProperty, twistSchemeLabelBinding);
@@ -118,7 +116,7 @@ namespace CablesCraftMobile
             var twistedElementTypesSourceBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistedElementTypesCollection",
+                Path = nameof(twistViewModel.TwistedElementTypesCollection),
                 Mode = BindingMode.OneWay,
             };
             twistedElementTypePicker.SetBinding(Picker.ItemsSourceProperty, twistedElementTypesSourceBinding);
@@ -127,7 +125,7 @@ namespace CablesCraftMobile
             var twistedElementTypeBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = "TwistedElementType",
+                Path = nameof(twistViewModel.TwistedElementType),
                 Mode = BindingMode.OneWayToSource,
                 Converter = new TypeOfTwistToTwistedElementTypeConverter()
             };
@@ -161,10 +159,10 @@ namespace CablesCraftMobile
             foreach (var pair in viewsDictionary)
             {
                 twistParametresGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
-                twistParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Properties["labelStyle"] }, 0, ++rowIndex);
+                twistParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Resources["labelStyle"] }, 0, ++rowIndex);
                 twistParametresGrid.Children.Add(pair.Value, 1, rowIndex);
-                if (pair.Value is Label label) label.Style = (Style)App.Current.Properties["changingLabelStyle"];
-                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Properties["pickerStyle"]; }
+                if (pair.Value is Label label) label.Style = (Style)App.Current.Resources["changingLabelStyle"];
+                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; }
             }
             gridLayout.Children.Add(twistParametresGrid, 0, 0);
 

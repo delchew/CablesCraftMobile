@@ -29,7 +29,7 @@ namespace CablesCraftMobile
 
             #region Entries
 
-            var controlsColor = (Color)App.Current.Properties["controlsColor"];
+            var controlsColor = (Color)App.Current.Resources["controlsColor"];
             //braidingStepNumEntry
             var braidingStepNumEntry = new NumEntryControllable()
             {
@@ -38,12 +38,11 @@ namespace CablesCraftMobile
                 MaxValue = 280,
                 MinValue = 1,
                 Offset = 1,
-                Value = 10
             };
             var braidingStepBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "BraidingStep",
+                Path = nameof(braidingViewModel.BraidingStep),
                 Mode = BindingMode.OneWayToSource
             };
             braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, braidingStepBinding);
@@ -57,12 +56,11 @@ namespace CablesCraftMobile
                 MaxValue = 30,
                 MinValue = 0.5,
                 Offset = 0.1,
-                Value = 5
             };
             var coreDiameterBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "BraidingCoreDiameter",
+                Path = nameof(braidingViewModel.BraidingCoreDiameter),
                 Mode = BindingMode.OneWayToSource
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
@@ -77,7 +75,7 @@ namespace CablesCraftMobile
             var braidingDensityBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "BraidingDensity",
+                Path = nameof(braidingViewModel.BraidingDensity),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} %"
             };
@@ -88,7 +86,7 @@ namespace CablesCraftMobile
             var braidingAngleBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "BraidingAngle",
+                Path = nameof(braidingViewModel.BraidingAngle),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} °"
             };
@@ -99,7 +97,7 @@ namespace CablesCraftMobile
             var wiresWeightKilogramsBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresWeight",
+                Path = nameof(braidingViewModel.WiresWeight),
                 Mode = BindingMode.OneWay,
                 StringFormat = "{0:F2} кг/км"
             };
@@ -114,14 +112,14 @@ namespace CablesCraftMobile
             var CoilsCountSourceBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "CoilsCountCollection",
+                Path = nameof(braidingViewModel.CoilsCountCollection),
                 Mode = BindingMode.OneWay
             };
             coilsCountPicker.SetBinding(Picker.ItemsSourceProperty, CoilsCountSourceBinding);
             var coilsCountBinding = new Binding()
             {
                 Source = braidingViewModel,
-                Path = "CoilsCount",
+                Path = nameof(braidingViewModel.CoilsCount),
                 Mode = BindingMode.OneWayToSource
             };
             coilsCountPicker.SetBinding(Picker.SelectedItemProperty, coilsCountBinding);
@@ -131,14 +129,14 @@ namespace CablesCraftMobile
             var wiresCountSourceBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresCountCollection",
+                Path = nameof(braidingViewModel.WiresCountCollection),
                 Mode = BindingMode.OneWay
             };
             wiresCountPicker.SetBinding(Picker.ItemsSourceProperty, wiresCountSourceBinding);
             var wiresCountBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresCount",
+                Path = nameof(braidingViewModel.WiresCount),
                 Mode = BindingMode.OneWayToSource
             };
             wiresCountPicker.SetBinding(Picker.SelectedItemProperty, wiresCountBinding);
@@ -148,14 +146,14 @@ namespace CablesCraftMobile
             var wiresDiametersSourceBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresDiametersCollection",
+                Path = nameof(braidingViewModel.WiresDiametersCollection),
                 Mode = BindingMode.OneWay
             };
             wiresDiameterPicker.SetBinding(Picker.ItemsSourceProperty, wiresDiametersSourceBinding);
             var wiresDiameterBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresDiameter",
+                Path = nameof(braidingViewModel.WiresDiameter),
                 Mode = BindingMode.OneWayToSource
             };
             wiresDiameterPicker.SetBinding(Picker.SelectedItemProperty, wiresDiameterBinding);
@@ -165,7 +163,7 @@ namespace CablesCraftMobile
             var wiresMaterialSourceBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresMaterialsCollection",
+                Path = nameof(braidingViewModel.WiresMaterialsCollection),
                 Mode = BindingMode.OneWay
             };
             wiresMaterialPicker.SetBinding(Picker.ItemsSourceProperty, wiresMaterialSourceBinding);
@@ -173,7 +171,7 @@ namespace CablesCraftMobile
             var wiresMaterialBinding = new Binding
             {
                 Source = braidingViewModel,
-                Path = "WiresMaterial",
+                Path = nameof(braidingViewModel.WiresMaterial),
                 Mode = BindingMode.OneWayToSource
             };
             wiresMaterialPicker.SetBinding(Picker.SelectedItemProperty, wiresMaterialBinding);
@@ -208,10 +206,10 @@ namespace CablesCraftMobile
             foreach (var pair in viewsDictionary)
             {
                 braidingParametresGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
-                braidingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Properties["labelStyle"] }, 0, ++rowIndex);
+                braidingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Resources["labelStyle"] }, 0, ++rowIndex);
                 braidingParametresGrid.Children.Add(pair.Value, 1, rowIndex);
-                if (pair.Value is Label label) label.Style = (Style)App.Current.Properties["changingLabelStyle"];
-                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Properties["pickerStyle"]; picker.SelectedIndex = 0; }
+                if (pair.Value is Label label) label.Style = (Style)App.Current.Resources["changingLabelStyle"];
+                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; picker.SelectedIndex = 0; }
             }
 
             var absoluteLayout = new AbsoluteLayout();

@@ -14,8 +14,8 @@ namespace CablesCraftMobile
         {
             var iOS = Device.RuntimePlatform == Device.iOS;
 
-            BarBackgroundColor = iOS ? default : (Color)App.Current.Properties["controlsColor"];
-            BarTextColor = iOS ? (Color)App.Current.Properties["controlsColor"] : (Color)App.Current.Properties["greyColor"]; ;
+            BarBackgroundColor = iOS ? default : (Color)App.Current.Resources["controlsColor"];
+            BarTextColor = iOS ? (Color)App.Current.Resources["controlsColor"] : (Color)App.Current.Resources["greyColor"]; ;
 
             reelLengthsPage = new ReelLengthsCalculationPage { Title = "ДЛИНЫ" };
 
