@@ -4,6 +4,7 @@ namespace CablesCraftMobile
 {
     public class App : Application
     {
+        private readonly MainPage mainPage;
 
         public App()
         {
@@ -97,7 +98,8 @@ namespace CablesCraftMobile
             Resources.Add("controlsColor", controlsColor);
             Resources.Add("greyColor", greyColor);
 
-            MainPage = new MainPage();
+            mainPage = new MainPage();
+            MainPage = mainPage;
 
         }
 
@@ -107,6 +109,7 @@ namespace CablesCraftMobile
 
         protected override void OnSleep()
         {
+            mainPage.SaveParametres();
         }
 
         protected override void OnResume()

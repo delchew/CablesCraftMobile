@@ -38,6 +38,7 @@ namespace CablesCraftMobile
                 MaxValue = 280,
                 MinValue = 1,
                 Offset = 1,
+                Value = 10
             };
             var braidingStepBinding = new Binding
             {
@@ -56,6 +57,7 @@ namespace CablesCraftMobile
                 MaxValue = 30,
                 MinValue = 0.5,
                 Offset = 0.1,
+                Value = 5
             };
             var coreDiameterBinding = new Binding
             {

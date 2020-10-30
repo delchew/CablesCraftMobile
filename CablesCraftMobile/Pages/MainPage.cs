@@ -1,4 +1,6 @@
 ﻿using Xamarin.Forms;
+using System.Linq;
+using System;
 
 namespace CablesCraftMobile
 {
@@ -8,7 +10,6 @@ namespace CablesCraftMobile
         public TwistCalculationPage twistPage;
         public WindingCalculationPage windingPage;
         public BraidingCalculationPage braidingPage;
-
 
         public MainPage()
         {
@@ -29,6 +30,26 @@ namespace CablesCraftMobile
             Children.Add(twistPage);
             Children.Add(windingPage);
             Children.Add(braidingPage);
+
+            LoadParametres();
+        }
+
+        public void SaveParametres()
+        {
+            App.Current.Properties["CurrentPageName"] = CurrentPage.GetType().FullName;
+        }
+
+        private void LoadParametres()
+        {
+            if (App.Current.Properties.TryGetValue("CurrentPageName", out object obj))
+            {
+                var pageType = Type.GetType(obj.ToString());
+                var fieldInfo = GetType().GetFields().Where(field => field.FieldType == pageType).First();
+                var currentPage = fieldInfo.GetValue(this);
+                CurrentPage = currentPage as Page;
+            }
+            else
+                CurrentPage = reelLengthsPage;
         }
     }
 }

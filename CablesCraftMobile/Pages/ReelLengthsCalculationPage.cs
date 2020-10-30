@@ -38,6 +38,7 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0,
                 Offset = 5,
+                Value = 50
             };
             var edgeClearanceBinding = new Binding
             {
@@ -56,6 +57,7 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0.5,
                 Offset = 0.1,
+                Value = 10
             };
             var coreDiameterBinding = new Binding
             {

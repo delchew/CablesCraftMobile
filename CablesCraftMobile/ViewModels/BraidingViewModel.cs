@@ -22,7 +22,7 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingDensity != value)
                 {
                     braidingMode.BraidingDensity = value;
-                    OnPropertyChanged("BraidingDensity");
+                    OnPropertyChanged(nameof(BraidingDensity));
                 }
             }
         }
@@ -35,7 +35,7 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingAngle != value)
                 {
                     braidingMode.BraidingAngle = value;
-                    OnPropertyChanged("BraidingAngle");
+                    OnPropertyChanged(nameof(BraidingAngle));
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.WiresWeight = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("WiresWeight");
+                    OnPropertyChanged(nameof(WiresWeight));
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.CoilsCount = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("CoilsCount");
+                    OnPropertyChanged(nameof(CoilsCount));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.WiresCount = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("WiresCount");
+                    OnPropertyChanged(nameof(WiresCount));
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.WiresDiameter = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("WiresDiameter");
+                    OnPropertyChanged(nameof(WiresDiameter));
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.WiresMaterial = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("WiresMaterial");
+                    OnPropertyChanged(nameof(WiresMaterial));
                 }
             }
         }
@@ -119,7 +119,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.BraidingStep = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("BraidingStep");
+                    OnPropertyChanged(nameof(BraidingStep));
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace CablesCraftMobile
                 {
                     braidingMode.BraidingCoreDiameter = value;
                     RecalculateBraidingParametres();
-                    OnPropertyChanged("BraidingCoreDiameter");
+                    OnPropertyChanged(nameof(BraidingCoreDiameter));
                 }
             }
         }

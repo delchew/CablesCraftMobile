@@ -39,6 +39,7 @@ namespace CablesCraftMobile
                 MaxValue = 70,
                 MinValue = 5,
                 Offset = 1,
+                Value = 30
             };
             var windingStepBinding = new Binding
             {

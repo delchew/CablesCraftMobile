@@ -25,4 +25,12 @@
       <HintPath>..\..\Cables\Cables\bin\Debug\netstandard2.0\Cables.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="JsonDataFiles\twistInfo.json" />
+    <None Remove="JsonDataFiles\reels.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JsonDataFiles\twistInfo.json" />
+    <EmbeddedResource Include="JsonDataFiles\reels.json" />
+  </ItemGroup>
 </Project>

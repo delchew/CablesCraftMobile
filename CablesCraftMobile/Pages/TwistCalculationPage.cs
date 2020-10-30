@@ -44,6 +44,7 @@ namespace CablesCraftMobile
                 MaxValue = twistViewModel.MaxQuantityElements,
                 MinValue = 2,
                 Offset = 1,
+                Value = 2
             };
             var twistedElementsCountBinding = new Binding
             {
@@ -62,6 +63,7 @@ namespace CablesCraftMobile
                 MaxValue = 20,
                 MinValue = 0.1,
                 Offset = 0.1,
+                Value = 10
             };
             var coreDiameterBinding = new Binding
             {
