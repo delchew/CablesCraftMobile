@@ -37,6 +37,7 @@ namespace CablesCraftMobile
         public void SaveParametres()
         {
             App.Current.Properties["CurrentPageName"] = CurrentPage.GetType().FullName;
+            braidingPage.SaveParametres();
         }
 
         private void LoadParametres()
@@ -50,6 +51,8 @@ namespace CablesCraftMobile
             }
             else
                 CurrentPage = reelLengthsPage;
+
+            braidingPage.LoadParametres();
         }
     }
 }

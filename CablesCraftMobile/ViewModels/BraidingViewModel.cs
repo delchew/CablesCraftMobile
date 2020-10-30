@@ -7,7 +7,7 @@ namespace CablesCraftMobile
 {
     public class BraidingViewModel : INotifyPropertyChanged
     {
-        private readonly BraidingMode braidingMode;
+        private BraidingMode braidingMode;
 
         public int[] CoilsCountCollection { get; private set; }
         public int[] WiresCountCollection { get; private set; }
@@ -140,14 +140,7 @@ namespace CablesCraftMobile
 
         public BraidingViewModel()
         {
-            braidingMode = new BraidingMode
-            {
-                BraidingCoreDiameter = 10,
-                BraidingStep = 50,
-                CoilsCount = 16,
-                WiresDiameter = 0.15,
-                WiresCount = 7,
-            };
+            LoadParametres();
 
             CoilsCountCollection = new int[] { 16, 24, 36 };
             WiresCountCollection = new int[] { 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -170,6 +163,28 @@ namespace CablesCraftMobile
             BraidingDensity = Calculations.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter);
             BraidingAngle = Calculations.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter);
             WiresWeight = Calculations.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial);
+        }
+
+        public void SaveParametres()
+        {
+            App.Current.Properties["braidingMode"] = braidingMode;
+        }
+
+        public void LoadParametres()
+        {
+            if(App.Current.Properties.TryGetValue("braidingMode", out object obj))
+            {
+                braidingMode = obj as BraidingMode;
+            }
+            else
+                braidingMode = new BraidingMode
+                {
+                    BraidingCoreDiameter = 10,
+                    BraidingStep = 50,
+                    CoilsCount = 16,
+                    WiresDiameter = 0.15,
+                    WiresCount = 7,
+                };
         }
     }
 }

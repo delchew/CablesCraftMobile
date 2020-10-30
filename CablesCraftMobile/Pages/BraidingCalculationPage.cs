@@ -227,5 +227,9 @@ namespace CablesCraftMobile
 
             Content = absoluteLayout;
         }
+
+        public void SaveParametres() => braidingViewModel.SaveParametres();
+
+        public void LoadParametres() => braidingViewModel.LoadParametres();
     }
 }
