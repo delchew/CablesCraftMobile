@@ -1,0 +1,21 @@
+﻿{
+  "Braiding":
+  {
+    "CoilsCountCollection": [ 16, 24, 36 ],
+    "WiresCountCollection": [ 3, 4, 5, 6, 7, 8, 9, 10 ],
+    "WiresDiametersCollection": [ 0.12, 0.15, 0.20, 0.26, 0.30 ],
+    "WiresMaterialsCollection":
+    [
+      {
+        "Name": "Медь",
+        "Density20": 8890
+      },
+      {
+        "Name": "Сталь",
+        "Density20": 7670
+      }
+    ]
+  }
+
+
+}

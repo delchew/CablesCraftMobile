@@ -44,7 +44,7 @@ namespace CablesCraftMobile
             {
                 Source = reelsLengthsViewModel,
                 Path = nameof(reelsLengthsViewModel.EdgeClearance),
-                Mode = BindingMode.TwoWay
+                Mode = BindingMode.OneWayToSource
             };
             edgeClearanceNumEntry.SetBinding(NumEntryControllable.ValueProperty, edgeClearanceBinding);
             controlsGrid.Children.Add(edgeClearanceNumEntry, 0, 0);
@@ -63,7 +63,7 @@ namespace CablesCraftMobile
             {
                 Source = reelsLengthsViewModel,
                 Path = nameof(reelsLengthsViewModel.CoreDiameter),
-                Mode = BindingMode.TwoWay
+                Mode = BindingMode.OneWayToSource
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);

@@ -149,5 +149,15 @@ namespace CablesCraftMobile
             TwistedCoreDiameter = builder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TwistedElementType);
             TwistStep = builder.GetTwistStep(TwistedElementType, TwistedCoreDiameter);
         }
+
+        public void SaveParametres()
+        {
+
+        }
+
+        public void LoadParametres()
+        {
+
+        }
     }
 }

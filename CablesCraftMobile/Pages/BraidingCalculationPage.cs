@@ -9,7 +9,7 @@ namespace CablesCraftMobile
 
         public BraidingCalculationPage()
         {
-            braidingViewModel = new BraidingViewModel();
+            braidingViewModel =  new BraidingViewModel();
 
             var controlsGrid = new Grid
             {

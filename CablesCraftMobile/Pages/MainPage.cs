@@ -24,14 +24,12 @@ namespace CablesCraftMobile
 
             windingPage = new WindingCalculationPage { Title = "ОБМОТКА" };
 
-            braidingPage = new BraidingCalculationPage { Title = "ОПЛЁТКА" };
+            braidingPage = new BraidingCalculationPage() { Title = "ОПЛЁТКА" };
 
             Children.Add(reelLengthsPage);
             Children.Add(twistPage);
             Children.Add(windingPage);
             Children.Add(braidingPage);
-
-            LoadParametres();
         }
 
         public void SaveParametres()
@@ -40,19 +38,19 @@ namespace CablesCraftMobile
             braidingPage.SaveParametres();
         }
 
-        private void LoadParametres()
+        public void LoadParametres()
         {
+            braidingPage.LoadParametres();
+
             if (App.Current.Properties.TryGetValue("CurrentPageName", out object obj))
             {
                 var pageType = Type.GetType(obj.ToString());
-                var fieldInfo = GetType().GetFields().Where(field => field.FieldType == pageType).First();
-                var currentPage = fieldInfo.GetValue(this);
+                var pagefieldInfo = GetType().GetFields().Where(field => field.FieldType == pageType).First();
+                var currentPage = pagefieldInfo.GetValue(this);
                 CurrentPage = currentPage as Page;
             }
             else
                 CurrentPage = reelLengthsPage;
-
-            braidingPage.LoadParametres();
         }
     }
 }

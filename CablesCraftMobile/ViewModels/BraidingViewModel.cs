@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel;
 using Cables.Materials;
-using Cables.CableCalculations;
-using Cables;
+using Cables.Braiding;
+using System.Linq;
 
 namespace CablesCraftMobile
 {
     public class BraidingViewModel : INotifyPropertyChanged
     {
-        private BraidingMode braidingMode;
+        private readonly BraidingMode braidingMode;
+        private readonly string savedModeFileName = "braidingMode.json";
+        private readonly string dataFileName = "braidingData.json";
 
         public int[] CoilsCountCollection { get; private set; }
         public int[] WiresCountCollection { get; private set; }
-        public double [] WiresDiametersCollection { get; private set; }
+        public double[] WiresDiametersCollection { get; private set; }
         public Metal[] WiresMaterialsCollection { get; private set; }
 
         public double BraidingDensity
@@ -140,16 +142,7 @@ namespace CablesCraftMobile
 
         public BraidingViewModel()
         {
-            LoadParametres();
-
-            CoilsCountCollection = new int[] { 16, 24, 36 };
-            WiresCountCollection = new int[] { 3, 4, 5, 6, 7, 8, 9, 10 };
-            WiresDiametersCollection = new double[] { 0.12, 0.15, 0.20, 0.26, 0.30 };
-            WiresMaterialsCollection = new Metal[]
-            {
-                new Metal { Name = "Медь", ElectricalResistance20 = 56, Density20 = 8890 },
-                new Metal { Name ="Сталь", ElectricalResistance20 = 70, Density20 = 7670 }
-            };
+            LoadData();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -160,31 +153,33 @@ namespace CablesCraftMobile
 
         private void RecalculateBraidingParametres()
         {
-            BraidingDensity = Calculations.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter);
-            BraidingAngle = Calculations.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter);
-            WiresWeight = Calculations.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial);
+            BraidingDensity = BraidingBuilder.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter);
+            BraidingAngle = BraidingBuilder.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter);
+            WiresWeight = BraidingBuilder.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial);
         }
 
         public void SaveParametres()
         {
-            App.Current.Properties["braidingMode"] = braidingMode;
+            App.JsonRepository.SaveObject((CoilsCount, WiresCount, WiresDiameter, WiresMaterial, BraidingStep, BraidingCoreDiameter), savedModeFileName);
         }
 
         public void LoadParametres()
         {
-            if(App.Current.Properties.TryGetValue("braidingMode", out object obj))
-            {
-                braidingMode = obj as BraidingMode;
-            }
-            else
-                braidingMode = new BraidingMode
-                {
-                    BraidingCoreDiameter = 10,
-                    BraidingStep = 50,
-                    CoilsCount = 16,
-                    WiresDiameter = 0.15,
-                    WiresCount = 7,
-                };
+            var (coils, wires, diam, material, step, corediam) = App.JsonRepository.LoadObject<(int, int, double, Metal, double, double)>(savedModeFileName);
+            CoilsCount = coils;
+            WiresCount = wires;
+            WiresDiameter = diam;
+            WiresMaterial = material;
+            BraidingStep = step;
+            BraidingCoreDiameter = corediam;
+        }
+
+        private void LoadData()
+        {
+            CoilsCountCollection = App.JsonRepository.GetObjects<int>(dataFileName, @"$.Braiding.CoilsCountCollection").ToArray();
+            WiresCountCollection = App.JsonRepository.GetObjects<int>(dataFileName, @"$.Braiding.WiresCountCollection").ToArray();
+            WiresDiametersCollection = App.JsonRepository.GetObjects<double>(dataFileName, @"$.Braiding.WiresDiametersCollection").ToArray();
+            WiresMaterialsCollection = App.JsonRepository.GetObjects<Metal>(dataFileName, @"$.Braiding.WiresMaterialsCollection").ToArray();
         }
     }
 }

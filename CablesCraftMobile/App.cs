@@ -4,7 +4,23 @@ namespace CablesCraftMobile
 {
     public class App : Application
     {
+        private static readonly JsonRepository jsonRepository;
+        public static JsonRepository JsonRepository
+        {
+            get
+            {
+                if (jsonRepository == null)
+                    return new JsonRepository();
+                return jsonRepository;
+            }
+        }
+
         private readonly MainPage mainPage;
+
+        public readonly ReelsLengthsViewModel reelsLengthsViewModel;
+        public readonly TwistViewModel twistViewModel;
+        public readonly WindingViewModel windingViewModel;
+        public readonly BraidingViewModel braidingViewModel;
 
         public App()
         {
@@ -105,6 +121,7 @@ namespace CablesCraftMobile
 
         protected override void OnStart()
         {
+            mainPage.LoadParametres();
         }
 
         protected override void OnSleep()
@@ -114,6 +131,7 @@ namespace CablesCraftMobile
 
         protected override void OnResume()
         {
+            mainPage.LoadParametres();
         }
     }
 }
