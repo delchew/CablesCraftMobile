@@ -9,7 +9,6 @@ namespace CablesCraftMobile
     {
         private readonly BraidingMode braidingMode;
         private readonly string savedModeFileName = "braidingMode.json";
-        private readonly string dataFileName = "braidingData.json";
 
         public int[] CoilsCountCollection { get; private set; }
         public int[] WiresCountCollection { get; private set; }
@@ -142,7 +141,9 @@ namespace CablesCraftMobile
 
         public BraidingViewModel()
         {
+            braidingMode = new BraidingMode();
             LoadData();
+            LoadParametres();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -166,20 +167,20 @@ namespace CablesCraftMobile
         public void LoadParametres()
         {
             var (coils, wires, diam, material, step, corediam) = App.JsonRepository.LoadObject<(int, int, double, Metal, double, double)>(savedModeFileName);
-            CoilsCount = coils;
-            WiresCount = wires;
-            WiresDiameter = diam;
-            WiresMaterial = material;
-            BraidingStep = step;
-            BraidingCoreDiameter = corediam;
+            //CoilsCount = coils;
+            //WiresCount = wires;
+            //WiresDiameter = diam;
+            //WiresMaterial = material;
+            //BraidingStep = step;
+            //BraidingCoreDiameter = corediam;
         }
 
         private void LoadData()
         {
-            CoilsCountCollection = App.JsonRepository.GetObjects<int>(dataFileName, @"$.Braiding.CoilsCountCollection").ToArray();
-            WiresCountCollection = App.JsonRepository.GetObjects<int>(dataFileName, @"$.Braiding.WiresCountCollection").ToArray();
-            WiresDiametersCollection = App.JsonRepository.GetObjects<double>(dataFileName, @"$.Braiding.WiresDiametersCollection").ToArray();
-            WiresMaterialsCollection = App.JsonRepository.GetObjects<Metal>(dataFileName, @"$.Braiding.WiresMaterialsCollection").ToArray();
+            CoilsCountCollection = App.JsonRepository.GetObjects<int>(App.dataFileName, @"$.Braiding.CoilsCountCollection").ToArray();
+            WiresCountCollection = App.JsonRepository.GetObjects<int>(App.dataFileName, @"$.Braiding.WiresCountCollection").ToArray();
+            WiresDiametersCollection = App.JsonRepository.GetObjects<double>(App.dataFileName, @"$.Braiding.WiresDiametersCollection").ToArray();
+            WiresMaterialsCollection = App.JsonRepository.GetObjects<Metal>(App.dataFileName, @"$.Braiding.WiresMaterialsCollection").ToArray();
         }
     }
 }

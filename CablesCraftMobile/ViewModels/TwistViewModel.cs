@@ -10,7 +10,7 @@ namespace CablesCraftMobile
     {
         private readonly TwistMode twistMode;
         private readonly TwistedCoreBuilder builder;
-        private const string twistInfoFilePath = "twistInfo.json";
+        private const string twistInfoFileName = "twistInfo.json";
         private CableTwistSchemePainter painter;
 
         public int MaxQuantityElements { get { return builder.MaxTwistedElementsCount; } }
@@ -105,9 +105,8 @@ namespace CablesCraftMobile
 
         public TwistViewModel()
         {
-            var filePath = FileProvider.SendResourceFileToLocalApplicationFolder(twistInfoFilePath);
-            var repository = new JsonRepository();
-            var twistInfoData = repository.GetObjects<int, TwistInfo>(new FileInfo(filePath));
+            FileProvider.SendResourceFileToLocalApplicationFolder(twistInfoFileName);
+            var twistInfoData = App.JsonRepository.GetObjects<TwistInfo>(twistInfoFileName);
             builder = new TwistedCoreBuilder(twistInfoData);
             var twistInfo = builder.GetTwistInfo(2);
             twistMode = new TwistMode()

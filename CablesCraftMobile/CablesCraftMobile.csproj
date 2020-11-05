@@ -28,9 +28,13 @@
   <ItemGroup>
     <None Remove="JsonDataFiles\twistInfo.json" />
     <None Remove="JsonDataFiles\reels.json" />
+    <None Remove="JsonDataFiles\appData.json" />
+    <None Remove="JsonDataFiles\braidingMode.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JsonDataFiles\twistInfo.json" />
     <EmbeddedResource Include="JsonDataFiles\reels.json" />
+    <EmbeddedResource Include="JsonDataFiles\appData.json" />
+    <EmbeddedResource Include="JsonDataFiles\braidingMode.json" />
   </ItemGroup>
 </Project>

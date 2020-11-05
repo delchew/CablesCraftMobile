@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using Cables.CableCalculations;
 using Cables;
 
 namespace CablesCraftMobile
@@ -9,7 +8,7 @@ namespace CablesCraftMobile
     public class ReelsLengthsViewModel : INotifyPropertyChanged
     {
         private readonly ReelsLengthsMode reelsLengthsMode;
-        private const string reelsFilePath = "reels.json";
+        private const string reelsFileName = "reels.json";
 
         public List<ReelViewModel> Reels
         {
@@ -46,9 +45,9 @@ namespace CablesCraftMobile
 
         public ReelsLengthsViewModel()
         {
-            var filePath = FileProvider.SendResourceFileToLocalApplicationFolder(reelsFilePath);
+            var filePath = FileProvider.SendResourceFileToLocalApplicationFolder(reelsFileName);
             var jsonRepository = new JsonRepository();
-            var reelsList = jsonRepository.GetObjects<Reel>(new FileInfo(filePath));
+            var reelsList = jsonRepository.GetObjects<Reel>(reelsFileName);
             var reelViewModelsList = new List<ReelViewModel>(reelsList.Count);
             foreach(var reel in reelsList)
             {
@@ -71,10 +70,10 @@ namespace CablesCraftMobile
 
         private void RecalculateReelsLengths()
         {
-            foreach (var reel in Reels)
-            {
-                reel.Length = Calculations.CalculateMaxCableLengthOnReel(reel.Diameter, reel.ReelCoreDiameter, reel.Width, EdgeClearance, CoreDiameter);
-            }
+            //foreach (var reel in Reels)
+            //{
+            //    reel.Length = Calculations.CalculateMaxCableLengthOnReel(reel.Diameter, reel.ReelCoreDiameter, reel.Width, EdgeClearance, CoreDiameter);
+            //}
         }
     }
 }

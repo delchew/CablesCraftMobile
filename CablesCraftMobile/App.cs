@@ -4,6 +4,7 @@ namespace CablesCraftMobile
 {
     public class App : Application
     {
+        public static readonly string dataFileName = "appData.json";
         private static readonly JsonRepository jsonRepository;
         public static JsonRepository JsonRepository
         {
@@ -24,6 +25,9 @@ namespace CablesCraftMobile
 
         public App()
         {
+            FileProvider.SendResourceFileToLocalApplicationFolder(dataFileName);
+            FileProvider.SendResourceFileToLocalApplicationFolder("braidingMode.json");
+
             var controlsColor = Color.FromHex("#283593");
             var greyColor = Color.FromHex("#E8E8E8");
 

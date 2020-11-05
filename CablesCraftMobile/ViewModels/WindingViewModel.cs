@@ -3,8 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using Cables.Materials;
 using System.Collections.ObjectModel;
-using Cables.CableCalculations;
-using Cables;
+
 
 namespace CablesCraftMobile
 {
@@ -168,7 +167,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Лавсан", TapeMaterialDensity = 1400 },
+                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
                             Thickness = 15
                         }
                     }
@@ -180,7 +179,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Лавсан", TapeMaterialDensity = 1400 },
+                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
                             Thickness = 30
                         }
                     }
@@ -192,7 +191,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Лавсан", TapeMaterialDensity = 1400 },
+                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
                             Thickness = 50
                         }
                     }
@@ -204,12 +203,12 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Алюминий", TapeMaterialDensity = 2699 },
+                            TapeMaterial = new Metal { Name = "Алюминий", Density20 = 2699 },
                             Thickness = 30
                         },
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Лавсан", TapeMaterialDensity = 1400 },
+                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
                             Thickness = 20
                         }
                     }
@@ -221,12 +220,12 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Алюминий", TapeMaterialDensity = 2699 },
+                            TapeMaterial = new Metal { Name = "Алюминий", Density20 = 2699 },
                             Thickness = 50
                         },
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Лавсан", TapeMaterialDensity = 1400 },
+                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
                             Thickness = 20
                         }
                     }
@@ -238,7 +237,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Водоблокирующее волокно", TapeMaterialDensity = 252 },
+                            TapeMaterial = new Polymer { Name = "Водоблокирующее волокно", Density20 = 252 },
                             Thickness = 250
                         }
                     }
@@ -250,7 +249,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Водоблокирующее волокно, морское", TapeMaterialDensity = 760 },
+                            TapeMaterial = new Polymer { Name = "Водоблокирующее волокно, морское", Density20 = 760 },
                             Thickness = 500
                         }
                     }
@@ -262,7 +261,7 @@ namespace CablesCraftMobile
                     {
                         new TapeLayer
                         {
-                            TapeMaterial = new TapeMaterial { Name = "Медь", TapeMaterialDensity = 8890 },
+                            TapeMaterial = new Metal { Name = "Медь", Density20 = 8890 },
                             Thickness = 500
                         }
                     }
@@ -324,11 +323,11 @@ namespace CablesCraftMobile
 
         private void RecalculateWindingParametres()
         {
-            WindingAngle = Calculations.CalculateWindingAngle(WindingStep, WindingCoreDiameter, TapeThickness);
-            Overlap = Calculations.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, TapeThickness);
-            TapeExpenseKilometres = Calculations.CalculateTapeLength(WindingStep, WindingCoreDiameter, TapeThickness);
-            TapeExpenseSquareMetres = TapeExpenseKilometres * TapeWidth / 1000;
-            TapeExpenseKilogrames = Calculations.CalculateTapeWeight(windingMode.Tape, WindingStep, WindingCoreDiameter, TapeWidth, TapeThickness);
+            //WindingAngle = Calculations.CalculateWindingAngle(WindingStep, WindingCoreDiameter, TapeThickness);
+            //Overlap = Calculations.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, TapeThickness);
+            //TapeExpenseKilometres = Calculations.CalculateTapeLength(WindingStep, WindingCoreDiameter, TapeThickness);
+            //TapeExpenseSquareMetres = TapeExpenseKilometres * TapeWidth / 1000;
+            //TapeExpenseKilogrames = Calculations.CalculateTapeWeight(windingMode.Tape, WindingStep, WindingCoreDiameter, TapeWidth, TapeThickness);
         }
     }
 }
