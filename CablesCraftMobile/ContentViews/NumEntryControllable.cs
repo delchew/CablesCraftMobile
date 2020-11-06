@@ -5,38 +5,23 @@ namespace CablesCraftMobile
 {
     public class NumEntryControllable : ContentView
     {
-        private double offset;
-        public double Offset
-        {
-            get { return offset; }
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentException("Шаг кнопок не может быть меньше или равен 0!");
-                offset = value;
-            }
-        }
-
-        public double MinValue { get; set; }
-
-        public double MaxValue { get; set; }
-
-        public bool OnlyIntegerNumbersInput { get; set; }
-
-        public string Caption
-        {
-            get { return labelCaption.Text; }
-            set { labelCaption.Text = value; }
-        }
-
-        public Color EntryTextColor
-        {
-            get { return numEntry.TextColor; }
-            set { numEntry.TextColor = value; }
-        }
-
         public static readonly BindableProperty ValueProperty =
             BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), 0d);
+
+        public static readonly BindableProperty OffsetPropery =
+            BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable), 0.1, BindingMode.OneTime);
+
+        public static readonly BindableProperty MinValueProperty =
+            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(NumEntryControllable), 0d, BindingMode.OneTime);
+
+        public static readonly BindableProperty MaxValueProperty =
+            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(NumEntryControllable), 0d, BindingMode.OneTime);
+
+        public static readonly BindableProperty CaptionProperty =
+            BindableProperty.Create(nameof(Caption), typeof(string), typeof(NumEntryControllable), "NumEntryControllable", BindingMode.OneTime);
+
+        public static readonly BindableProperty EntryTextColorProperty =
+            BindableProperty.Create(nameof(EntryTextColor), typeof(Color), typeof(NumEntryControllable), Color.Default, BindingMode.OneTime);
 
         public double Value
         {
@@ -47,6 +32,38 @@ namespace CablesCraftMobile
                 numEntry.Text = value.ToString();
             }
         }
+
+        public double Offset
+        {
+            get { return (double)GetValue(OffsetPropery); }
+            set { SetValue(OffsetPropery, value); }
+        }
+
+        public double MinValue
+        {
+            get { return (double)GetValue(MinValueProperty); }
+            set { SetValue(MinValueProperty, value); }
+        }
+
+        public double MaxValue
+        {
+            get { return (double)GetValue(MaxValueProperty); }
+            set { SetValue(MaxValueProperty, value); }
+        }
+
+        public string Caption
+        {
+            get { return (string)GetValue(CaptionProperty); }
+            set { SetValue(CaptionProperty, value); }
+        }
+
+        public Color EntryTextColor
+        {
+            get { return (Color)GetValue(EntryTextColorProperty); }
+            set { SetValue(EntryTextColorProperty, value); }
+        }
+
+        public bool OnlyIntegerNumbersInput { get; set; }
 
         private readonly Entry numEntry;
         private readonly Label labelCaption;
@@ -65,8 +82,10 @@ namespace CablesCraftMobile
                 FontSize = 14,
                 TextColor = Color.Black,
                 HorizontalOptions = LayoutOptions.Center,
-                Margin = BottomMargin
+                Margin = BottomMargin,
+                BindingContext = this
             };
+            labelCaption.SetBinding(Label.TextProperty, nameof(Caption), BindingMode.OneWay);
 
             buttonPlus = new Button
             {
@@ -76,7 +95,6 @@ namespace CablesCraftMobile
                 TextColor = Color.Black,
                 BackgroundColor = Color.LightGray,
                 BorderWidth = 1.3
-
             };
             buttonPlus.Clicked += ButtonPlus_Clicked;
 
@@ -110,7 +128,9 @@ namespace CablesCraftMobile
                 FontSize = 20,
                 Keyboard = Keyboard.Numeric,
                 PlaceholderColor = Color.LightGray,
+                BindingContext = this
             };
+            numEntry.SetBinding(Entry.TextColorProperty, nameof(EntryTextColor), BindingMode.OneWay);
 
             numEntry.Focused += NumEntry_Focused;
             numEntry.Unfocused += NumEntry_Unfocused;

@@ -226,10 +226,18 @@ namespace CablesCraftMobile
             AbsoluteLayout.SetLayoutFlags(controlsGrid, AbsoluteLayoutFlags.PositionProportional);
 
             Content = absoluteLayout;
+
+            UpdateParametres();
         }
 
         public void SaveParametres() => braidingViewModel.SaveParametres();
 
-        public void LoadParametres() => braidingViewModel.LoadParametres();
+        public void LoadParametres()
+        {
+            braidingViewModel.LoadParametres();
+            UpdateParametres();
+        }
+
+        public void UpdateParametres() => braidingViewModel.RecalculateBraidingParametres();
     }
 }

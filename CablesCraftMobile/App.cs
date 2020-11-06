@@ -5,13 +5,13 @@ namespace CablesCraftMobile
     public class App : Application
     {
         public static readonly string dataFileName = "appData.json";
-        private static readonly JsonRepository jsonRepository;
+        private static JsonRepository jsonRepository;
         public static JsonRepository JsonRepository
         {
             get
             {
                 if (jsonRepository == null)
-                    return new JsonRepository();
+                    jsonRepository = new JsonRepository();
                 return jsonRepository;
             }
         }
@@ -135,7 +135,7 @@ namespace CablesCraftMobile
 
         protected override void OnResume()
         {
-            mainPage.LoadParametres();
+
         }
     }
 }

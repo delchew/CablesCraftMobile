@@ -152,7 +152,7 @@ namespace CablesCraftMobile
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RecalculateBraidingParametres()
+        public void RecalculateBraidingParametres()
         {
             BraidingDensity = BraidingBuilder.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter);
             BraidingAngle = BraidingBuilder.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter);
@@ -167,15 +167,15 @@ namespace CablesCraftMobile
         public void LoadParametres()
         {
             var (coils, wires, diam, material, step, corediam) = App.JsonRepository.LoadObject<(int, int, double, Metal, double, double)>(savedModeFileName);
-            //CoilsCount = coils;
-            //WiresCount = wires;
-            //WiresDiameter = diam;
-            //WiresMaterial = material;
-            //BraidingStep = step;
-            //BraidingCoreDiameter = corediam;
+            braidingMode.CoilsCount = coils;
+            braidingMode.WiresCount = wires;
+            braidingMode.WiresDiameter = diam;
+            braidingMode.WiresMaterial = material;
+            braidingMode.BraidingStep = step;
+            braidingMode.BraidingCoreDiameter = corediam;
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             CoilsCountCollection = App.JsonRepository.GetObjects<int>(App.dataFileName, @"$.Braiding.CoilsCountCollection").ToArray();
             WiresCountCollection = App.JsonRepository.GetObjects<int>(App.dataFileName, @"$.Braiding.WiresCountCollection").ToArray();

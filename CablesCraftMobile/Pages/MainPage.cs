@@ -15,8 +15,9 @@ namespace CablesCraftMobile
         {
             var iOS = Device.RuntimePlatform == Device.iOS;
 
-            BarBackgroundColor = iOS ? default : (Color)App.Current.Resources["controlsColor"];
-            BarTextColor = iOS ? (Color)App.Current.Resources["controlsColor"] : (Color)App.Current.Resources["greyColor"]; ;
+            var controlsColor = (Color)App.Current.Resources["controlsColor"];
+            BarBackgroundColor = iOS ? default : controlsColor;
+            BarTextColor = iOS ? controlsColor : (Color)App.Current.Resources["greyColor"]; ;
 
             reelLengthsPage = new ReelLengthsCalculationPage { Title = "ДЛИНЫ" };
 
@@ -40,8 +41,6 @@ namespace CablesCraftMobile
 
         public void LoadParametres()
         {
-            braidingPage.LoadParametres();
-
             if (App.Current.Properties.TryGetValue("CurrentPageName", out object obj))
             {
                 var pageType = Type.GetType(obj.ToString());
