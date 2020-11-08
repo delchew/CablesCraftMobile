@@ -50,6 +50,8 @@ namespace CablesCraftMobile
             }
             else
                 CurrentPage = reelLengthsPage;
+
+            braidingPage.LoadParametres();
         }
     }
 }

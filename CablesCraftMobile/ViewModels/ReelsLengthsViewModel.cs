@@ -45,7 +45,6 @@ namespace CablesCraftMobile
 
         public ReelsLengthsViewModel()
         {
-            var filePath = FileProvider.SendResourceFileToLocalApplicationFolder(reelsFileName);
             var jsonRepository = new JsonRepository();
             var reelsList = jsonRepository.GetObjects<Reel>(reelsFileName);
             var reelViewModelsList = new List<ReelViewModel>(reelsList.Count);

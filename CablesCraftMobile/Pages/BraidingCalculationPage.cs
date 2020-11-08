@@ -38,13 +38,12 @@ namespace CablesCraftMobile
                 MaxValue = 280,
                 MinValue = 1,
                 Offset = 1,
-                Value = 10
             };
             var braidingStepBinding = new Binding
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.BraidingStep),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, braidingStepBinding);
             controlsGrid.Children.Add(braidingStepNumEntry, 0, 0);
@@ -57,13 +56,12 @@ namespace CablesCraftMobile
                 MaxValue = 30,
                 MinValue = 0.5,
                 Offset = 0.1,
-                Value = 5
             };
             var coreDiameterBinding = new Binding
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.BraidingCoreDiameter),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
@@ -226,18 +224,10 @@ namespace CablesCraftMobile
             AbsoluteLayout.SetLayoutFlags(controlsGrid, AbsoluteLayoutFlags.PositionProportional);
 
             Content = absoluteLayout;
-
-            UpdateParametres();
         }
 
         public void SaveParametres() => braidingViewModel.SaveParametres();
 
-        public void LoadParametres()
-        {
-            braidingViewModel.LoadParametres();
-            UpdateParametres();
-        }
-
-        public void UpdateParametres() => braidingViewModel.RecalculateBraidingParametres();
+        public void LoadParametres() => braidingViewModel.LoadParametres();
     }
 }

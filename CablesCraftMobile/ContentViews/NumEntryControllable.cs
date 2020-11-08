@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace CablesCraftMobile
@@ -26,11 +27,7 @@ namespace CablesCraftMobile
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }
-            set
-            {
-                SetValue(ValueProperty, value);
-                numEntry.Text = value.ToString();
-            }
+            set { SetValue(ValueProperty, value); }
         }
 
         public double Offset
@@ -66,10 +63,6 @@ namespace CablesCraftMobile
         public bool OnlyIntegerNumbersInput { get; set; }
 
         private readonly Entry numEntry;
-        private readonly Label labelCaption;
-        private readonly Button buttonPlus;
-        private readonly Button buttonMinus;
-        private readonly Grid grid;
         private string savedEntryText;
 
         public NumEntryControllable()
@@ -77,7 +70,7 @@ namespace CablesCraftMobile
             var BottomMargin = new Thickness(0, 0, 0, 10);
             Margin = BottomMargin;
 
-            labelCaption = new Label
+            var labelCaption = new Label
             {
                 FontSize = 14,
                 TextColor = Color.Black,
@@ -87,25 +80,25 @@ namespace CablesCraftMobile
             };
             labelCaption.SetBinding(Label.TextProperty, nameof(Caption), BindingMode.OneWay);
 
-            buttonPlus = new Button
+            var buttonPlus = new Button
             {
                 Text = "+",
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 FontSize = 18,
                 TextColor = Color.Black,
                 BackgroundColor = Color.LightGray,
-                BorderWidth = 1.3
+                BorderWidth = 1.3,
             };
             buttonPlus.Clicked += ButtonPlus_Clicked;
 
-            buttonMinus = new Button
+            var buttonMinus = new Button
             {
                 Text = "-",
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 FontSize = 18,
                 TextColor = Color.Black,
                 BackgroundColor = Color.LightGray,
-                BorderWidth = 1.3
+                BorderWidth = 1.3,
             };
             buttonMinus.Clicked += ButtonMinus_Clicked;
 
@@ -127,6 +120,7 @@ namespace CablesCraftMobile
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = 20,
                 Keyboard = Keyboard.Numeric,
+                ReturnType = ReturnType.Send,
                 PlaceholderColor = Color.LightGray,
                 BindingContext = this
             };
@@ -135,7 +129,7 @@ namespace CablesCraftMobile
             numEntry.Focused += NumEntry_Focused;
             numEntry.Unfocused += NumEntry_Unfocused;
 
-            grid = new Grid
+            var grid = new Grid
             {
                 ColumnSpacing = 8,
                 RowSpacing = 0,
@@ -160,6 +154,15 @@ namespace CablesCraftMobile
             stackLayout.Children.Add(labelCaption);
             stackLayout.Children.Add(grid);
             Content = stackLayout;
+
+            PropertyChanged += NumEntryControllable_PropertyChanged;
+        }
+
+        private void NumEntryControllable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Value))
+                numEntry.Text = Value.ToString();
+            ;
         }
 
         private void NumEntry_Focused(object sender, FocusEventArgs e)
@@ -190,16 +193,14 @@ namespace CablesCraftMobile
         {
             if (Value == MaxValue) return;
             var increasedValue = Value + Offset;
-            if (increasedValue > MaxValue) increasedValue = MaxValue;
-            Value = increasedValue;
+            if (increasedValue <= MaxValue) Value = increasedValue;
         }
 
         private void ButtonMinus_Clicked(object sender, EventArgs e)
         {
             if (Value == MinValue) return;
             var decreasedValue = Value - Offset;
-            if (decreasedValue < MinValue) decreasedValue = MinValue;
-            Value = decreasedValue;
+            if (decreasedValue >= MinValue) Value = decreasedValue;
         }
     }
 }

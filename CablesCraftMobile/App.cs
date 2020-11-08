@@ -1,10 +1,20 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Xamarin.Forms;
 
 namespace CablesCraftMobile
 {
     public class App : Application
     {
         public static readonly string dataFileName = "appData.json";
+        private static readonly string[] dataFileNames = new string[]
+        {
+            dataFileName,
+            "braidingMode.json",
+            "reels.json",
+            "twistInfo.json"
+        };
         private static JsonRepository jsonRepository;
         public static JsonRepository JsonRepository
         {
@@ -25,8 +35,10 @@ namespace CablesCraftMobile
 
         public App()
         {
-            FileProvider.SendResourceFileToLocalApplicationFolder(dataFileName);
-            FileProvider.SendResourceFileToLocalApplicationFolder("braidingMode.json");
+            foreach (var fileName in dataFileNames)
+            {
+                SendResourceFileToLocalApplicationFolder(fileName);
+            }
 
             var controlsColor = Color.FromHex("#283593");
             var greyColor = Color.FromHex("#E8E8E8");
@@ -136,6 +148,23 @@ namespace CablesCraftMobile
         protected override void OnResume()
         {
 
+        }
+
+        public static void SendResourceFileToLocalApplicationFolder(string resourceFileName)
+        {
+            var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), resourceFileName);
+            if (!File.Exists(filePath))
+            {
+                var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
+                using (var stream = assembly.GetManifestResourceStream($"{typeof(App).Namespace}.JsonDataFiles.{resourceFileName}"))
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+                    {
+                        stream.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                }
+            }
         }
     }
 }

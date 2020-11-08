@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Cables;
 using Xamarin.Forms;
@@ -25,7 +26,7 @@ namespace CablesCraftMobile
                 if (twistMode.TwistStep != value)
                 {
                     twistMode.TwistStep = value;
-                    OnPropertyChanged(nameof(TwistStep));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -38,7 +39,7 @@ namespace CablesCraftMobile
                 if (twistMode.TwistedCoreDiameter != value)
                 {
                     twistMode.TwistedCoreDiameter = value;
-                    OnPropertyChanged(nameof(TwistedCoreDiameter));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -67,7 +68,7 @@ namespace CablesCraftMobile
                     twistMode.TwistedElementType = value;
 
                     RecalculateTwistParametres();
-                    OnPropertyChanged(nameof(TwistedElementType));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -83,7 +84,7 @@ namespace CablesCraftMobile
 
                     painter.DrawTwistScheme(twistMode.TwistInfo);
                     RecalculateTwistParametres();
-                    OnPropertyChanged(nameof(QuantityElements));
+                    OnPropertyChanged();
                     OnPropertyChanged(nameof(TwistScheme));
                 }
             }
@@ -98,14 +99,13 @@ namespace CablesCraftMobile
                 {
                     twistMode.TwistedElementDiameter = value;
                     RecalculateTwistParametres();
-                    OnPropertyChanged(nameof(TwistedElementDiameter));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public TwistViewModel()
         {
-            FileProvider.SendResourceFileToLocalApplicationFolder(twistInfoFileName);
             var twistInfoData = App.JsonRepository.GetObjects<TwistInfo>(twistInfoFileName);
             builder = new TwistedCoreBuilder(twistInfoData);
             var twistInfo = builder.GetTwistInfo(2);
@@ -138,7 +138,7 @@ namespace CablesCraftMobile
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName = "")
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

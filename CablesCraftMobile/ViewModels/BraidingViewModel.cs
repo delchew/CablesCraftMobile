@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using Cables.Materials;
 using Cables.Braiding;
+using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace CablesCraftMobile
 {
@@ -9,6 +11,8 @@ namespace CablesCraftMobile
     {
         private readonly BraidingMode braidingMode;
         private readonly string savedModeFileName = "braidingMode.json";
+
+        private readonly Action RecalculateParametres;
 
         public int[] CoilsCountCollection { get; private set; }
         public int[] WiresCountCollection { get; private set; }
@@ -23,7 +27,7 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingDensity != value)
                 {
                     braidingMode.BraidingDensity = value;
-                    OnPropertyChanged(nameof(BraidingDensity));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -36,7 +40,7 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingAngle != value)
                 {
                     braidingMode.BraidingAngle = value;
-                    OnPropertyChanged(nameof(BraidingAngle));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -49,8 +53,8 @@ namespace CablesCraftMobile
                 if (braidingMode.WiresWeight != value)
                 {
                     braidingMode.WiresWeight = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(WiresWeight));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -63,8 +67,8 @@ namespace CablesCraftMobile
                 if (braidingMode.CoilsCount != value)
                 {
                     braidingMode.CoilsCount = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(CoilsCount));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -77,8 +81,8 @@ namespace CablesCraftMobile
                 if (braidingMode.WiresCount != value)
                 {
                     braidingMode.WiresCount = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(WiresCount));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -91,8 +95,8 @@ namespace CablesCraftMobile
                 if (braidingMode.WiresDiameter != value)
                 {
                     braidingMode.WiresDiameter = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(WiresDiameter));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -105,8 +109,8 @@ namespace CablesCraftMobile
                 if (!braidingMode.WiresMaterial.Equals(value))
                 {
                     braidingMode.WiresMaterial = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(WiresMaterial));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -119,8 +123,8 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingStep != value)
                 {
                     braidingMode.BraidingStep = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(BraidingStep));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -133,8 +137,8 @@ namespace CablesCraftMobile
                 if (braidingMode.BraidingCoreDiameter != value)
                 {
                     braidingMode.BraidingCoreDiameter = value;
-                    RecalculateBraidingParametres();
-                    OnPropertyChanged(nameof(BraidingCoreDiameter));
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -144,10 +148,12 @@ namespace CablesCraftMobile
             braidingMode = new BraidingMode();
             LoadData();
             LoadParametres();
+            RecalculateParametres += RecalculateBraidingParametres;
+            RecalculateParametres();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propertyName = "")
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -167,12 +173,12 @@ namespace CablesCraftMobile
         public void LoadParametres()
         {
             var (coils, wires, diam, material, step, corediam) = App.JsonRepository.LoadObject<(int, int, double, Metal, double, double)>(savedModeFileName);
-            braidingMode.CoilsCount = coils;
-            braidingMode.WiresCount = wires;
-            braidingMode.WiresDiameter = diam;
-            braidingMode.WiresMaterial = material;
-            braidingMode.BraidingStep = step;
-            braidingMode.BraidingCoreDiameter = corediam;
+            CoilsCount = coils;
+            WiresCount = wires;
+            WiresDiameter = diam;
+            WiresMaterial = material;
+            BraidingStep = step;
+            BraidingCoreDiameter = corediam;
         }
 
         public void LoadData()

@@ -18,6 +18,7 @@ namespace CablesCraftMobile
                 var jsonString = JsonConvert.SerializeObject(obj, Formatting.Indented);
                 var filePath = Path.Combine(dataFolderPath, fileName);
                 File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+
                 return true;
             }
             return false;
