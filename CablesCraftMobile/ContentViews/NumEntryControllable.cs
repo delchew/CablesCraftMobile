@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
 namespace CablesCraftMobile
@@ -10,19 +12,19 @@ namespace CablesCraftMobile
             BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), 0d);
 
         public static readonly BindableProperty OffsetPropery =
-            BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable), 0.1, BindingMode.OneTime);
+            BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable), 0.1);
 
         public static readonly BindableProperty MinValueProperty =
-            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(NumEntryControllable), 0d, BindingMode.OneTime);
+            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(NumEntryControllable), 0d);
 
         public static readonly BindableProperty MaxValueProperty =
-            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(NumEntryControllable), 0d, BindingMode.OneTime);
+            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(NumEntryControllable), 0d);
 
         public static readonly BindableProperty CaptionProperty =
-            BindableProperty.Create(nameof(Caption), typeof(string), typeof(NumEntryControllable), "NumEntryControllable", BindingMode.OneTime);
+            BindableProperty.Create(nameof(Caption), typeof(string), typeof(NumEntryControllable), "NumEntryControllable");
 
         public static readonly BindableProperty EntryTextColorProperty =
-            BindableProperty.Create(nameof(EntryTextColor), typeof(Color), typeof(NumEntryControllable), Color.Default, BindingMode.OneTime);
+            BindableProperty.Create(nameof(EntryTextColor), typeof(Color), typeof(NumEntryControllable), Color.Default);
 
         public double Value
         {
@@ -60,10 +62,12 @@ namespace CablesCraftMobile
             set { SetValue(EntryTextColorProperty, value); }
         }
 
-        public bool OnlyIntegerNumbersInput { get; set; }
+        public bool OnlyIntegerNumbersInput { get; set; } = false;
 
         private readonly Entry numEntry;
         private string savedEntryText;
+        //private static readonly string separator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+        private bool textEditing = false;
 
         public NumEntryControllable()
         {
@@ -128,6 +132,7 @@ namespace CablesCraftMobile
 
             numEntry.Focused += NumEntry_Focused;
             numEntry.Unfocused += NumEntry_Unfocused;
+            numEntry.TextChanged += NumEntry_TextChanged;
 
             var grid = new Grid
             {
@@ -167,11 +172,12 @@ namespace CablesCraftMobile
 
         private void NumEntry_Focused(object sender, FocusEventArgs e)
         {
+            textEditing = true;
             savedEntryText = numEntry.Text;
             numEntry.Text = string.Empty;
         }
 
-        private void NumEntry_Unfocused(object sender, FocusEventArgs e)
+        private void NumEntry_Unfocused(object sender, FocusEventArgs e) // TODO доделать безглючную логику поведения
         {
             if (double.TryParse(numEntry.Text, out var result))
             {
@@ -184,9 +190,26 @@ namespace CablesCraftMobile
                     result = MaxValue;
                 }
                 Value = result;
-                return;
             }
-            numEntry.Text = savedEntryText;
+            else
+            {
+                numEntry.Text = savedEntryText;
+            }
+            textEditing = false;
+        }
+
+        private const string emptyStringRegex = @"^$";
+        private const string zeroAndNaturalNumbersRegex = @"^0$|^[1-9]\d*$";
+        private const string zeroAndPositiveRealNumbersRegex = @"^(0|[1-9]+[0-9]*)([.,]\d*)?$";
+
+        private void NumEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!textEditing) return;
+            var numbersTypeRegex = OnlyIntegerNumbersInput ? zeroAndNaturalNumbersRegex : zeroAndPositiveRealNumbersRegex;
+            var currentRegex = $"{emptyStringRegex}|{numbersTypeRegex}";
+            if (Regex.IsMatch(e.NewTextValue, currentRegex))
+                return;
+            (sender as Entry).Text = e.OldTextValue;
         }
 
         private void ButtonPlus_Clicked(object sender, EventArgs e)

@@ -38,6 +38,7 @@ namespace CablesCraftMobile
                 MaxValue = 280,
                 MinValue = 1,
                 Offset = 1,
+                OnlyIntegerNumbersInput = true
             };
             var braidingStepBinding = new Binding
             {
