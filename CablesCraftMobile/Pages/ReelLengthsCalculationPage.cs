@@ -38,15 +38,10 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0,
                 Offset = 5,
-                //Value = 50
+                OnlyIntegerNumbersInput = true,
+                BindingContext = reelsLengthsViewModel
             };
-            var edgeClearanceBinding = new Binding
-            {
-                Source = reelsLengthsViewModel,
-                Path = nameof(reelsLengthsViewModel.EdgeClearance),
-                Mode = BindingMode.TwoWay
-            };
-            edgeClearanceNumEntry.SetBinding(NumEntryControllable.ValueProperty, edgeClearanceBinding);
+            edgeClearanceNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(reelsLengthsViewModel.EdgeClearance), BindingMode.TwoWay);
             controlsGrid.Children.Add(edgeClearanceNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -57,15 +52,9 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0.5,
                 Offset = 0.1,
-                //Value = 10
+                BindingContext = reelsLengthsViewModel
             };
-            var coreDiameterBinding = new Binding
-            {
-                Source = reelsLengthsViewModel,
-                Path = nameof(reelsLengthsViewModel.CoreDiameter),
-                Mode = BindingMode.TwoWay
-            };
-            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(reelsLengthsViewModel.CoreDiameter), BindingMode.TwoWay);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion

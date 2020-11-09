@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
@@ -29,7 +28,13 @@ namespace CablesCraftMobile
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            set
+            {
+                SetValue(ValueProperty, value);
+                var textValue = value.ToString();
+                if (numEntry.Text != textValue)
+                    numEntry.Text = textValue;
+            }
         }
 
         public double Offset
@@ -66,7 +71,6 @@ namespace CablesCraftMobile
 
         private readonly Entry numEntry;
         private string savedEntryText;
-        //private static readonly string separator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private bool textEditing = false;
 
         public NumEntryControllable()
@@ -126,6 +130,7 @@ namespace CablesCraftMobile
                 Keyboard = Keyboard.Numeric,
                 ReturnType = ReturnType.Send,
                 PlaceholderColor = Color.LightGray,
+                Text = string.Empty,
                 BindingContext = this
             };
             numEntry.SetBinding(Entry.TextColorProperty, nameof(EntryTextColor), BindingMode.OneWay);
@@ -167,7 +172,6 @@ namespace CablesCraftMobile
         {
             if (e.PropertyName == nameof(Value))
                 numEntry.Text = Value.ToString();
-            ;
         }
 
         private void NumEntry_Focused(object sender, FocusEventArgs e)
@@ -177,7 +181,7 @@ namespace CablesCraftMobile
             numEntry.Text = string.Empty;
         }
 
-        private void NumEntry_Unfocused(object sender, FocusEventArgs e) // TODO доделать безглючную логику поведения
+        private void NumEntry_Unfocused(object sender, FocusEventArgs e)
         {
             if (double.TryParse(numEntry.Text, out var result))
             {
@@ -216,14 +220,16 @@ namespace CablesCraftMobile
         {
             if (Value == MaxValue) return;
             var increasedValue = Value + Offset;
-            if (increasedValue <= MaxValue) Value = increasedValue;
+            if (increasedValue <= MaxValue)
+                Value = increasedValue;
         }
 
         private void ButtonMinus_Clicked(object sender, EventArgs e)
         {
             if (Value == MinValue) return;
             var decreasedValue = Value - Offset;
-            if (decreasedValue >= MinValue) Value = decreasedValue;
+            if (decreasedValue >= MinValue)
+                Value = decreasedValue;
         }
     }
 }

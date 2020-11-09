@@ -44,14 +44,10 @@ namespace CablesCraftMobile
                 MaxValue = twistViewModel.MaxQuantityElements,
                 MinValue = 2,
                 Offset = 1,
+                OnlyIntegerNumbersInput = true,
+                BindingContext = twistViewModel
             };
-            var twistedElementsCountBinding = new Binding
-            {
-                Source = twistViewModel,
-                Path = nameof(twistViewModel.QuantityElements),
-                Mode = BindingMode.TwoWay
-            };
-            twistedElementsCountNumEntry.SetBinding(NumEntryControllable.ValueProperty, twistedElementsCountBinding);
+            twistedElementsCountNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(twistViewModel.QuantityElements), BindingMode.TwoWay);
             gridLayout.Children.Add(twistedElementsCountNumEntry, 0, 2);
 
             //coreDiameterNumEntry
@@ -62,14 +58,9 @@ namespace CablesCraftMobile
                 MaxValue = 20,
                 MinValue = 0.1,
                 Offset = 0.1,
+                BindingContext = twistViewModel
             };
-            var coreDiameterBinding = new Binding
-            {
-                Source = twistViewModel,
-                Path = nameof(twistViewModel.TwistedElementDiameter),
-                Mode = BindingMode.TwoWay
-            };
-            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(twistViewModel.TwistedElementDiameter), BindingMode.TwoWay);
             gridLayout.Children.Add(coreDiameterNumEntry, 0, 3);
 
             #endregion

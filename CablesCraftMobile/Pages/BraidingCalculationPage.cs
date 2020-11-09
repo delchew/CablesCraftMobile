@@ -30,6 +30,7 @@ namespace CablesCraftMobile
             #region Entries
 
             var controlsColor = (Color)App.Current.Resources["controlsColor"];
+
             //braidingStepNumEntry
             var braidingStepNumEntry = new NumEntryControllable()
             {
@@ -38,15 +39,9 @@ namespace CablesCraftMobile
                 MaxValue = 280,
                 MinValue = 1,
                 Offset = 1,
-                OnlyIntegerNumbersInput = true
+                BindingContext = braidingViewModel
             };
-            var braidingStepBinding = new Binding
-            {
-                Source = braidingViewModel,
-                Path = nameof(braidingViewModel.BraidingStep),
-                Mode = BindingMode.TwoWay
-            };
-            braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, braidingStepBinding);
+            braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(braidingViewModel.BraidingStep), BindingMode.TwoWay);
             controlsGrid.Children.Add(braidingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -57,14 +52,9 @@ namespace CablesCraftMobile
                 MaxValue = 30,
                 MinValue = 0.5,
                 Offset = 0.1,
+                BindingContext = braidingViewModel
             };
-            var coreDiameterBinding = new Binding
-            {
-                Source = braidingViewModel,
-                Path = nameof(braidingViewModel.BraidingCoreDiameter),
-                Mode = BindingMode.TwoWay
-            };
-            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, coreDiameterBinding);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(braidingViewModel.BraidingCoreDiameter), BindingMode.TwoWay);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion

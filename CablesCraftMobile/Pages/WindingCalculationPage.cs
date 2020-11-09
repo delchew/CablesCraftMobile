@@ -39,14 +39,9 @@ namespace CablesCraftMobile
                 MaxValue = 70,
                 MinValue = 5,
                 Offset = 1,
+                BindingContext = windingViewModel
             };
-            var windingStepBinding = new Binding
-            {
-                Source = windingViewModel,
-                Path = nameof(windingViewModel.WindingStep),
-                Mode = BindingMode.TwoWay
-            };
-            windingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, windingStepBinding);
+            windingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(windingViewModel.WindingStep), BindingMode.TwoWay);
             controlsGrid.Children.Add(windingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -57,14 +52,9 @@ namespace CablesCraftMobile
                 MaxValue = 50,
                 MinValue = 0.5,
                 Offset = 0.1,
+                BindingContext = windingViewModel
             };
-            var windingCoreDiameterBinding = new Binding
-            {
-                Source = windingViewModel,
-                Path = nameof(windingViewModel.WindingCoreDiameter),
-                Mode = BindingMode.TwoWay
-            };
-            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, windingCoreDiameterBinding);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(windingViewModel.WindingCoreDiameter), BindingMode.TwoWay);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion
