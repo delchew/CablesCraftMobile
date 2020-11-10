@@ -20,10 +20,10 @@ namespace CablesCraftMobile
         private readonly SKColor darkBlueSK;
         public Color BackgroundColor { get; set; }
         public TwistInfo CurrentTwistInfo { get; set; }
+        public View CanvasView { get => canvasView; }
 
-        public CableTwistSchemePainter(TwistInfo currentTwistInfo)
+        public CableTwistSchemePainter()
         {
-            CurrentTwistInfo = currentTwistInfo;
             canvasView = new SKCanvasView();
             defaultRadius = 70;
             edgeOffset = 30;
@@ -35,11 +35,6 @@ namespace CablesCraftMobile
             lightBlueSK = SKColor.Parse("#8a88f8");
             darkBlueSK = Color.DarkBlue.ToSKColor();
             canvasView.PaintSurface += CanvasView_PaintSurface;
-        }
-
-        public View GetCanvasView()
-        {
-            return canvasView;
         }
 
         public void DrawTwistScheme(TwistInfo currentTwistInfo)

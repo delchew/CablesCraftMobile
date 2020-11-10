@@ -6,10 +6,18 @@ namespace CablesCraftMobile
     public class TwistCalculationPage : ContentPage
     {
         private readonly TwistViewModel twistViewModel;
+        private readonly CableTwistSchemePainter painter;
 
         public TwistCalculationPage()
         {
             twistViewModel = new TwistViewModel();
+            painter = new CableTwistSchemePainter()
+            {
+                BackgroundColor = this.BackgroundColor,
+                CurrentTwistInfo = twistViewModel.TwistInfo
+            };
+            var canvasView = painter.CanvasView;
+            twistViewModel.QuantityElementsChanged += TwistViewModel_QuantityElementsChanged;
 
             var gridLayout = new Grid
             {
@@ -157,8 +165,13 @@ namespace CablesCraftMobile
             }
             gridLayout.Children.Add(twistParametresGrid, 0, 0);
 
-            var canvasView = twistViewModel.GetDrawingCanvasView(BackgroundColor);
             gridLayout.Children.Add(canvasView, 0, 1);
+        }
+
+        private void TwistViewModel_QuantityElementsChanged(object sender, QuantityElementsChangedEventArgs e)
+        {
+            var currentTwistInfo = e.TwistInfo;
+            painter.DrawTwistScheme(currentTwistInfo);
         }
     }
 }

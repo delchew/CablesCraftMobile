@@ -98,7 +98,6 @@ namespace CablesCraftMobile
             AbsoluteLayout.SetLayoutFlags(controlsGrid, AbsoluteLayoutFlags.PositionProportional);
 
             Content = absoluteLayout;
-
         }
 
         private Grid TableRow() //Шаблон для шапки заголовков в таблице барабанов

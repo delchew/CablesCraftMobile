@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Cables;
 
 namespace CablesCraftMobile
@@ -24,7 +25,7 @@ namespace CablesCraftMobile
                 {
                     reelsLengthsMode.CoreDiameter = value;
                     RecalculateReelsLengths();
-                    OnPropertyChanged(nameof(CoreDiameter));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -38,7 +39,7 @@ namespace CablesCraftMobile
                 {
                     reelsLengthsMode.EdgeClearance = value;
                     RecalculateReelsLengths();
-                    OnPropertyChanged(nameof(EdgeClearance));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -62,7 +63,7 @@ namespace CablesCraftMobile
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged (string propertyName = "")
+        private void OnPropertyChanged ([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

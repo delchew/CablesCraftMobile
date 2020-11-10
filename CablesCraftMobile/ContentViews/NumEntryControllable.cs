@@ -186,13 +186,9 @@ namespace CablesCraftMobile
             if (double.TryParse(numEntry.Text, out var result))
             {
                 if (result < MinValue)
-                {
                     result = MinValue;
-                }
                 else if (result > MaxValue)
-                {
                     result = MaxValue;
-                }
                 Value = result;
             }
             else

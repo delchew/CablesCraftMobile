@@ -190,7 +190,7 @@ namespace CablesCraftMobile
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) },
-                    new ColumnDefinition { Width = new GridLength(100, GridUnitType.Absolute) }
+                    new ColumnDefinition { Width = new GridLength(110, GridUnitType.Absolute) }
                 },
             };
             var rowIndex = -1;

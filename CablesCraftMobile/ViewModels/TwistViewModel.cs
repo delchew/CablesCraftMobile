@@ -1,20 +1,22 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Cables;
-using Xamarin.Forms;
 
 namespace CablesCraftMobile
 {
+    public delegate void QuantityElementsEventHandler(object sender, QuantityElementsChangedEventArgs e);
     public class TwistViewModel : INotifyPropertyChanged
     {
         private readonly TwistMode twistMode;
-        private readonly TwistedCoreBuilder builder;
         private const string twistInfoFileName = "twistInfo.json";
-        private CableTwistSchemePainter painter;
+        private readonly string savedModeFileName = "windingMode.json";
+        public event QuantityElementsEventHandler QuantityElementsChanged;
 
-        public int MaxQuantityElements { get { return builder.MaxTwistedElementsCount; } }
+        private readonly Action RecalculateParametres;
+
+        public int MaxQuantityElements { get { return TwistBuilder.MaxTwistedElementsCount; } }
 
         public TypeOfTwist[] TwistedElementTypesCollection { get; private set; }
 
@@ -67,7 +69,7 @@ namespace CablesCraftMobile
                 {
                     twistMode.TwistedElementType = value;
 
-                    RecalculateTwistParametres();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -80,10 +82,10 @@ namespace CablesCraftMobile
             {
                 if (twistMode.TwistInfo.QuantityElements != value)
                 {
-                    twistMode.TwistInfo = builder.GetTwistInfo(value);
+                    twistMode.TwistInfo = TwistBuilder.GetTwistInfo(value);
 
-                    painter.DrawTwistScheme(twistMode.TwistInfo);
-                    RecalculateTwistParametres();
+                    RecalculateParametres?.Invoke();
+                    QuantityElementsChanged?.Invoke(this, new QuantityElementsChangedEventArgs(twistMode.TwistInfo));
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(TwistScheme));
                 }
@@ -98,8 +100,20 @@ namespace CablesCraftMobile
                 if (twistMode.TwistedElementDiameter != value)
                 {
                     twistMode.TwistedElementDiameter = value;
-                    RecalculateTwistParametres();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
+                }
+            }
+        }
+
+        public TwistInfo TwistInfo
+        {
+            get { return twistMode.TwistInfo; }
+            set
+            {
+                if (!twistMode.Equals(value))
+                {
+                    twistMode.TwistInfo = value;
                 }
             }
         }
@@ -107,16 +121,19 @@ namespace CablesCraftMobile
         public TwistViewModel()
         {
             var twistInfoData = App.JsonRepository.GetObjects<TwistInfo>(twistInfoFileName);
-            builder = new TwistedCoreBuilder(twistInfoData);
-            var twistInfo = builder.GetTwistInfo(2);
-            twistMode = new TwistMode()
-            {
-                TwistedCoreDiameter = 2,
-                TwistedElementDiameter = 2,
-                TwistedElementType = TwistedElementType.single,
-                TwistStep = 30,
-                TwistInfo = twistInfo
-            };
+            TwistBuilder.SetTwistInfoList(twistInfoData);
+            twistMode = new TwistMode();
+            LoadData();
+            LoadParametres();
+            RecalculateParametres += RecalculateTwistParametres;
+            RecalculateParametres();
+            //{
+            //    TwistedCoreDiameter = 2,
+            //    TwistedElementDiameter = 2,
+            //    TwistedElementType = TwistedElementType.single,
+            //    TwistStep = 30,
+            //    TwistInfo = twistInfo
+            //};
 
             TwistedElementTypesCollection = new TypeOfTwist []
             {
@@ -125,15 +142,6 @@ namespace CablesCraftMobile
                 new TypeOfTwist { Name = "Тройка", TwistedElementType = TwistedElementType.triple },
                 new TypeOfTwist { Name = "Четвёрка", TwistedElementType = TwistedElementType.four }
             };
-        }
-
-        public View GetDrawingCanvasView(Color backgroundColor)
-        {
-            painter = new CableTwistSchemePainter(twistMode.TwistInfo)
-            {
-                BackgroundColor = backgroundColor
-            };
-            return painter.GetCanvasView();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -145,8 +153,8 @@ namespace CablesCraftMobile
 
         private void RecalculateTwistParametres()
         {
-            TwistedCoreDiameter = builder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TwistedElementType);
-            TwistStep = builder.GetTwistStep(TwistedElementType, TwistedCoreDiameter);
+            TwistedCoreDiameter = TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TwistedElementType);
+            TwistStep = TwistBuilder.GetTwistStep(TwistedElementType, TwistedCoreDiameter);
         }
 
         public void SaveParametres()
@@ -155,6 +163,11 @@ namespace CablesCraftMobile
         }
 
         public void LoadParametres()
+        {
+
+        }
+
+        public void LoadData()
         {
 
         }

@@ -30,8 +30,10 @@
     <None Remove="JsonDataFiles\reels.json" />
     <None Remove="JsonDataFiles\appData.json" />
     <None Remove="JsonDataFiles\braidingMode.json" />
+    <None Remove="JsonDataFiles\windingMode.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="JsonDataFiles\windingMode.json" />
     <EmbeddedResource Include="JsonDataFiles\twistInfo.json" />
     <EmbeddedResource Include="JsonDataFiles\reels.json" />
     <EmbeddedResource Include="JsonDataFiles\appData.json" />
