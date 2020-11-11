@@ -32,7 +32,7 @@ namespace CablesCraftMobile
             {
                 return typeOfTwist.TwistedElementType;
             }
-            throw new InvalidCastException();
+            throw new InvalidCastException(); //TODO: разобраться с исключением
         }
     }
 }

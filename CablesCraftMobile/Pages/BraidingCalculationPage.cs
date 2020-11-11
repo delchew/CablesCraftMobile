@@ -111,7 +111,7 @@ namespace CablesCraftMobile
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.CoilsCount),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             coilsCountPicker.SetBinding(Picker.SelectedItemProperty, coilsCountBinding);
 
@@ -128,7 +128,7 @@ namespace CablesCraftMobile
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.WiresCount),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             wiresCountPicker.SetBinding(Picker.SelectedItemProperty, wiresCountBinding);
 
@@ -145,7 +145,7 @@ namespace CablesCraftMobile
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.WiresDiameter),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             wiresDiameterPicker.SetBinding(Picker.SelectedItemProperty, wiresDiameterBinding);
 
@@ -163,7 +163,7 @@ namespace CablesCraftMobile
             {
                 Source = braidingViewModel,
                 Path = nameof(braidingViewModel.WiresMaterial),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             wiresMaterialPicker.SetBinding(Picker.SelectedItemProperty, wiresMaterialBinding);
 

@@ -112,7 +112,7 @@ namespace CablesCraftMobile
             get { return twistMode.TwistInfo; }
             private set
             {
-                if (!twistMode.Equals(value))
+                if (!twistMode.TwistInfo.Equals(value))
                 {
                     twistMode.TwistInfo = value;
                     OnPropertyChanged(nameof(QuantityElements));
@@ -147,7 +147,7 @@ namespace CablesCraftMobile
 
         public void SaveParametres()
         {
-            App.JsonRepository.SaveObject((TwistedElementDiameter, TwistedElementType, TwistInfo), savedModeFileName); //TODO разобраться с исключением
+            App.JsonRepository.SaveObject((TwistedElementDiameter, TwistedElementType, TwistInfo), savedModeFileName);
         }
 
         public void LoadParametres()

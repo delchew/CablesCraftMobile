@@ -126,7 +126,7 @@ namespace CablesCraftMobile
             {
                 Source = twistViewModel,
                 Path = nameof(twistViewModel.TwistedElementType),
-                Mode = BindingMode.OneWayToSource,
+                Mode = BindingMode.TwoWay,
                 Converter = new TypeOfTwistToTwistedElementTypeConverter()
             };
             twistedElementTypePicker.SetBinding(Picker.SelectedItemProperty, twistedElementTypeBinding);
