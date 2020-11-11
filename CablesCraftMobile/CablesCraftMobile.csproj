@@ -33,7 +33,7 @@
     <None Remove="JsonDataFiles\windingMode.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="JsonDataFiles\windingMode.json" />
+    <EmbeddedResource Include="JsonDataFiles\twistMode.json" />
     <EmbeddedResource Include="JsonDataFiles\twistInfo.json" />
     <EmbeddedResource Include="JsonDataFiles\reels.json" />
     <EmbeddedResource Include="JsonDataFiles\appData.json" />

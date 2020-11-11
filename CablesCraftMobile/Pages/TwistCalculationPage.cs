@@ -173,5 +173,9 @@ namespace CablesCraftMobile
             var currentTwistInfo = e.TwistInfo;
             painter.DrawTwistScheme(currentTwistInfo);
         }
+
+        public void SaveParametres() => twistViewModel.SaveParametres();
+
+        public void LoadParametres() => twistViewModel.LoadParametres();
     }
 }

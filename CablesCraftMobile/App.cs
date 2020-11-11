@@ -13,7 +13,8 @@ namespace CablesCraftMobile
             dataFileName,
             "braidingMode.json",
             "reels.json",
-            "twistInfo.json"
+            "twistInfo.json",
+            "twistMode.json"
         };
         private static JsonRepository jsonRepository;
         public static JsonRepository JsonRepository
@@ -132,7 +133,6 @@ namespace CablesCraftMobile
 
             mainPage = new MainPage();
             MainPage = mainPage;
-
         }
 
         protected override void OnStart()

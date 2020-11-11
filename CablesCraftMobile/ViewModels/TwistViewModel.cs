@@ -10,8 +10,10 @@ namespace CablesCraftMobile
     public class TwistViewModel : INotifyPropertyChanged
     {
         private readonly TwistMode twistMode;
+
         private const string twistInfoFileName = "twistInfo.json";
-        private readonly string savedModeFileName = "windingMode.json";
+        private const string savedModeFileName = "twistMode.json";
+
         public event QuantityElementsEventHandler QuantityElementsChanged;
 
         private readonly Action RecalculateParametres;
@@ -109,11 +111,13 @@ namespace CablesCraftMobile
         public TwistInfo TwistInfo
         {
             get { return twistMode.TwistInfo; }
-            set
+            private set
             {
                 if (!twistMode.Equals(value))
                 {
                     twistMode.TwistInfo = value;
+                    OnPropertyChanged(nameof(QuantityElements));
+                    OnPropertyChanged(nameof(TwistScheme));
                 }
             }
         }
@@ -127,21 +131,6 @@ namespace CablesCraftMobile
             LoadParametres();
             RecalculateParametres += RecalculateTwistParametres;
             RecalculateParametres();
-            //{
-            //    TwistedCoreDiameter = 2,
-            //    TwistedElementDiameter = 2,
-            //    TwistedElementType = TwistedElementType.single,
-            //    TwistStep = 30,
-            //    TwistInfo = twistInfo
-            //};
-
-            TwistedElementTypesCollection = new TypeOfTwist []
-            {
-                new TypeOfTwist { Name = "Одиночный", TwistedElementType = TwistedElementType.single },
-                new TypeOfTwist { Name = "Пара", TwistedElementType = TwistedElementType.pair },
-                new TypeOfTwist { Name = "Тройка", TwistedElementType = TwistedElementType.triple },
-                new TypeOfTwist { Name = "Четвёрка", TwistedElementType = TwistedElementType.four }
-            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -159,17 +148,26 @@ namespace CablesCraftMobile
 
         public void SaveParametres()
         {
-
+            App.JsonRepository.SaveObject((TwistedElementDiameter, TwistedElementType, TwistInfo), savedModeFileName); //TODO разобраться с исключением
         }
 
         public void LoadParametres()
         {
-
+            var (elementDiameter, elementType, twistInfo) = App.JsonRepository.LoadObject <(double, TwistedElementType, TwistInfo)> (savedModeFileName);
+            TwistedElementDiameter = elementDiameter;
+            TwistedElementType = elementType;
+            TwistInfo = twistInfo;
         }
 
         public void LoadData()
         {
-
+            TwistedElementTypesCollection = new TypeOfTwist []
+            {
+                new TypeOfTwist { Name = "Одиночный", TwistedElementType = TwistedElementType.single },
+                new TypeOfTwist { Name = "Пара", TwistedElementType = TwistedElementType.pair },
+                new TypeOfTwist { Name = "Тройка", TwistedElementType = TwistedElementType.triple },
+                new TypeOfTwist { Name = "Четвёрка", TwistedElementType = TwistedElementType.four }
+            };
         }
     }
 }
