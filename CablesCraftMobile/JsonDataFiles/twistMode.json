@@ -1,0 +1,9 @@
+﻿{
+  "Item1": 0.1,
+  "Item2": 0,
+  "Item3": {
+    "QuantityElements": 2,
+    "TwistCoefficient": 2.0,
+    "LayersElementsCount": [ 2 ]
+  }
+}

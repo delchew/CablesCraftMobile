@@ -30,6 +30,7 @@
     <None Remove="JsonDataFiles\reels.json" />
     <None Remove="JsonDataFiles\appData.json" />
     <None Remove="JsonDataFiles\braidingMode.json" />
+    <None Remove="JsonDataFiles\twistMode.json" />
     <None Remove="JsonDataFiles\windingMode.json" />
   </ItemGroup>
   <ItemGroup>

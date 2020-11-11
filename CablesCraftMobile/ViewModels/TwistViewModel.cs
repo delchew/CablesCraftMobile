@@ -6,7 +6,6 @@ using Cables;
 
 namespace CablesCraftMobile
 {
-    public delegate void QuantityElementsEventHandler(object sender, QuantityElementsChangedEventArgs e);
     public class TwistViewModel : INotifyPropertyChanged
     {
         private readonly TwistMode twistMode;
@@ -14,7 +13,7 @@ namespace CablesCraftMobile
         private const string twistInfoFileName = "twistInfo.json";
         private const string savedModeFileName = "twistMode.json";
 
-        public event QuantityElementsEventHandler QuantityElementsChanged;
+        public event QuantityElementsChangedEventHandler QuantityElementsChanged;
 
         private readonly Action RecalculateParametres;
 
