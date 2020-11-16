@@ -1,4 +1,26 @@
 ﻿{
+  "Twist":
+  {
+    "TypeOfTwistCollection":
+    [
+      {
+        "Name": "Одиночный",
+        "TwistedElementType": "single"
+      },
+      {
+        "Name": "Пара",
+        "TwistedElementType": "pair"
+      },
+      {
+        "Name": "Тройка",
+        "TwistedElementType": "triple"
+      },
+      {
+        "Name": "Четвёрка",
+        "TwistedElementType": "four"
+      }
+    ]
+  },
   "Braiding":
   {
     "CoilsCountCollection": [ 16, 24, 36 ],

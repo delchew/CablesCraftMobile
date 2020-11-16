@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Cables;
@@ -19,7 +20,7 @@ namespace CablesCraftMobile
 
         public int MaxQuantityElements { get { return TwistBuilder.MaxTwistedElementsCount; } }
 
-        public TypeOfTwist[] TwistedElementTypesCollection { get; private set; }
+        public TypeOfTwist[] TypeOfTwistCollection { get; private set; }
 
         public double TwistStep
         {
@@ -61,14 +62,14 @@ namespace CablesCraftMobile
             }
         }
 
-        public TwistedElementType TwistedElementType
+        public TypeOfTwist TypeOfTwist
         {
-            get { return twistMode.TwistedElementType; }
+            get { return twistMode.TypeOfTwist; }
             set
             {
-                if (twistMode.TwistedElementType != value)
+                if (!twistMode.TypeOfTwist.Equals(value))
                 {
-                    twistMode.TwistedElementType = value;
+                    twistMode.TypeOfTwist = value;
 
                     RecalculateParametres?.Invoke();
                     OnPropertyChanged();
@@ -141,32 +142,26 @@ namespace CablesCraftMobile
 
         private void RecalculateTwistParametres()
         {
-            TwistedCoreDiameter = TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TwistedElementType);
-            TwistStep = TwistBuilder.GetTwistStep(TwistedElementType, TwistedCoreDiameter);
+            TwistedCoreDiameter = TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TypeOfTwist.TwistedElementType);
+            TwistStep = TwistBuilder.GetTwistStep(TypeOfTwist.TwistedElementType, TwistedCoreDiameter);
         }
 
         public void SaveParametres()
         {
-            App.JsonRepository.SaveObject((TwistedElementDiameter, TwistedElementType, TwistInfo), savedModeFileName);
+            App.JsonRepository.SaveObject((TwistedElementDiameter, TypeOfTwist, TwistInfo), savedModeFileName);
         }
 
         public void LoadParametres()
         {
-            var (elementDiameter, elementType, twistInfo) = App.JsonRepository.LoadObject <(double, TwistedElementType, TwistInfo)> (savedModeFileName);
+            var (elementDiameter, typeOfTwist, twistInfo) = App.JsonRepository.LoadObject <(double, TypeOfTwist, TwistInfo)> (savedModeFileName);
             TwistedElementDiameter = elementDiameter;
-            TwistedElementType = elementType;
+            TypeOfTwist = typeOfTwist;
             TwistInfo = twistInfo;
         }
 
         public void LoadData()
         {
-            TwistedElementTypesCollection = new TypeOfTwist []
-            {
-                new TypeOfTwist { Name = "Одиночный", TwistedElementType = TwistedElementType.single },
-                new TypeOfTwist { Name = "Пара", TwistedElementType = TwistedElementType.pair },
-                new TypeOfTwist { Name = "Тройка", TwistedElementType = TwistedElementType.triple },
-                new TypeOfTwist { Name = "Четвёрка", TwistedElementType = TwistedElementType.four }
-            };
+            TypeOfTwistCollection = App.JsonRepository.GetObjects<TypeOfTwist>(App.dataFileName, @"$.Twist.TypeOfTwistCollection").ToArray();
         }
     }
 }

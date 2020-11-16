@@ -6,9 +6,9 @@ namespace CablesCraftMobile
     {
         private readonly ReelsLengthsViewModel reelsLengthsViewModel;
 
-        public ReelLengthsCalculationPage()
+        public ReelLengthsCalculationPage(ReelsLengthsViewModel viewModel)
         {
-            reelsLengthsViewModel = new ReelsLengthsViewModel();
+            reelsLengthsViewModel = viewModel;
 
             var controlsGrid = new Grid
             {

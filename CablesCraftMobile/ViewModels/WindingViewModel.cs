@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using Cables.Materials;
 using System.Collections.ObjectModel;
-
+using System.Runtime.CompilerServices;
+using System;
 
 namespace CablesCraftMobile
 {
@@ -17,6 +18,8 @@ namespace CablesCraftMobile
         public List<string> TapesNamesCollection { get; private set; }
         public ObservableCollection<double> CurrentTapeThicknessesCollection { get; private set; }
 
+        private readonly Action RecalculateParametres;
+
         public double Overlap
         {
             get { return windingMode.Overlap; }
@@ -25,7 +28,7 @@ namespace CablesCraftMobile
                 if (windingMode.Overlap != value)
                 {
                     windingMode.Overlap = value;
-                    OnPropertyChanged("Overlap");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -38,7 +41,7 @@ namespace CablesCraftMobile
                 if (windingMode.WindingAngle != value)
                 {
                     windingMode.WindingAngle = value;
-                    OnPropertyChanged("WindingAngle");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -51,7 +54,7 @@ namespace CablesCraftMobile
                 if (windingMode.TapeExpenseKilometres != value)
                 {
                     windingMode.TapeExpenseKilometres = value;
-                    OnPropertyChanged("TapeExpenseKilometres");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -64,7 +67,7 @@ namespace CablesCraftMobile
                 if (windingMode.TapeExpenseSquareMetres != value)
                 {
                     windingMode.TapeExpenseSquareMetres = value;
-                    OnPropertyChanged("TapeExpenseSquareMetres");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -77,7 +80,7 @@ namespace CablesCraftMobile
                 if (windingMode.TapeExpenseKilogrames != value)
                 {
                     windingMode.TapeExpenseKilogrames = value;
-                    OnPropertyChanged("TapeExpenseKilogrames");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -91,7 +94,7 @@ namespace CablesCraftMobile
                 {
                     windingMode.TapeWidth = value;
                     RecalculateWindingParametres();
-                    OnPropertyChanged("TapeWidth");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -106,7 +109,7 @@ namespace CablesCraftMobile
                     windingMode.Tape = tapesCollection.Where(tape => tape.Thickness == value && tape.Name == TapeName)
                                                       .Single();
                     RecalculateWindingParametres();
-                    OnPropertyChanged("TapeThickness");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -121,7 +124,7 @@ namespace CablesCraftMobile
                     windingMode.Tape = tapesCollection.Where(tape => tape.Name == value && tape.Thickness == TapeThickness)
                                                       .Single();
                     RecalculateWindingParametres();
-                    OnPropertyChanged("TapeName");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -135,7 +138,7 @@ namespace CablesCraftMobile
                 {
                     windingMode.WindingStep = value;
                     RecalculateWindingParametres();
-                    OnPropertyChanged("WindingStep");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -149,7 +152,7 @@ namespace CablesCraftMobile
                 {
                     windingMode.WindingCoreDiameter = value;
                     RecalculateWindingParametres();
-                    OnPropertyChanged("WindingCoreDiameter");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -303,7 +306,7 @@ namespace CablesCraftMobile
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName = "")
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace CablesCraftMobile
 {
-    public class TypeOfTwistToTwistedElementTypeConverter : IValueConverter
+    public class TwistedElementTypeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,22 +17,19 @@ namespace CablesCraftMobile
                                              .GetMember(twistedElementType.ToString())[0]
                                              .GetCustomAttribute<DescriptionAttribute>()
                                              .Description;
-                return new TypeOfTwist
-                {
-                    Name = name,
-                    TwistedElementType = twistedElementType
-                };
+                //return new TypeOfTwist
+                //{
+                //    Name = name,
+                //    TwistedElementType = twistedElementType
+                //};
+                return name;
             }
             throw new InvalidCastException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is TypeOfTwist typeOfTwist)
-            {
-                return typeOfTwist.TwistedElementType;
-            }
-            throw new InvalidCastException(); //TODO: разобраться с исключением
+            throw new NotImplementedException();
         }
     }
 }

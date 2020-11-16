@@ -9,9 +9,9 @@ namespace CablesCraftMobile
         private readonly TwistViewModel twistViewModel;
         private readonly CableTwistSchemePainter painter;
 
-        public TwistCalculationPage()
+        public TwistCalculationPage(TwistViewModel viewModel)
         {
-            twistViewModel = new TwistViewModel();
+            twistViewModel = viewModel;
             painter = new CableTwistSchemePainter()
             {
                 BackgroundColor = this.BackgroundColor,
@@ -116,8 +116,8 @@ namespace CablesCraftMobile
             var twistedElementTypesSourceBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = nameof(twistViewModel.TwistedElementTypesCollection),
-                Mode = BindingMode.OneWay,
+                Path = nameof(twistViewModel.TypeOfTwistCollection),
+                Mode = BindingMode.OneWay
             };
             twistedElementTypePicker.SetBinding(Picker.ItemsSourceProperty, twistedElementTypesSourceBinding);
             twistedElementTypePicker.ItemDisplayBinding = new Binding("Name");
@@ -125,9 +125,8 @@ namespace CablesCraftMobile
             var twistedElementTypeBinding = new Binding
             {
                 Source = twistViewModel,
-                Path = nameof(twistViewModel.TwistedElementType),
-                Mode = BindingMode.TwoWay,
-                Converter = new TypeOfTwistToTwistedElementTypeConverter()
+                Path = nameof(twistViewModel.TypeOfTwist),
+                Mode = BindingMode.TwoWay
             };
             twistedElementTypePicker.SetBinding(Picker.SelectedItemProperty, twistedElementTypeBinding);
 
@@ -174,9 +173,5 @@ namespace CablesCraftMobile
             var currentTwistInfo = e.TwistInfo;
             painter.DrawTwistScheme(currentTwistInfo);
         }
-
-        public void SaveParametres() => twistViewModel.SaveParametres();
-
-        public void LoadParametres() => twistViewModel.LoadParametres();
     }
 }

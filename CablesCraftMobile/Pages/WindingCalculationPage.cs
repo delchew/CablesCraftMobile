@@ -7,9 +7,9 @@ namespace CablesCraftMobile
     {
         private readonly WindingViewModel windingViewModel;
 
-        public WindingCalculationPage()
+        public WindingCalculationPage(WindingViewModel viewModel)
         {
-            windingViewModel = new WindingViewModel();
+            windingViewModel = viewModel;
 
             var controlsGrid = new Grid
             {

@@ -1,6 +1,9 @@
 ﻿{
   "Item1": 0.1,
-  "Item2": 0,
+  "Item2": {
+    "Name": "Одиночный",
+    "TwistedElementType": "single"
+  },
   "Item3": {
     "QuantityElements": 2,
     "TwistCoefficient": 2.0,

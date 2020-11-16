@@ -7,9 +7,9 @@ namespace CablesCraftMobile
     {
         private readonly BraidingViewModel braidingViewModel;
 
-        public BraidingCalculationPage()
+        public BraidingCalculationPage(BraidingViewModel viewModel)
         {
-            braidingViewModel =  new BraidingViewModel();
+            braidingViewModel =  viewModel;
 
             var controlsGrid = new Grid
             {
@@ -216,9 +216,5 @@ namespace CablesCraftMobile
 
             Content = absoluteLayout;
         }
-
-        public void SaveParametres() => braidingViewModel.SaveParametres();
-
-        public void LoadParametres() => braidingViewModel.LoadParametres();
     }
 }

@@ -1,15 +1,21 @@
 ﻿using Xamarin.Forms;
 using System.Linq;
+using System.Reflection;
 using System;
 
 namespace CablesCraftMobile
 {
     public class MainPage : TabbedPage
     {
-        public ReelLengthsCalculationPage reelLengthsPage;
-        public TwistCalculationPage twistPage;
-        public WindingCalculationPage windingPage;
-        public BraidingCalculationPage braidingPage;
+        private readonly ReelLengthsCalculationPage reelLengthsPage;
+        private readonly TwistCalculationPage twistPage;
+        private readonly WindingCalculationPage windingPage;
+        private readonly BraidingCalculationPage braidingPage;
+
+        private readonly ReelsLengthsViewModel reelsLengthsViewModel;
+        private readonly TwistViewModel twistViewModel;
+        private readonly WindingViewModel windingViewModel;
+        private readonly BraidingViewModel braidingViewModel;
 
         public MainPage()
         {
@@ -17,15 +23,19 @@ namespace CablesCraftMobile
 
             var controlsColor = (Color)App.Current.Resources["controlsColor"];
             BarBackgroundColor = iOS ? default : controlsColor;
-            BarTextColor = iOS ? controlsColor : (Color)App.Current.Resources["greyColor"]; ;
+            BarTextColor = iOS ? controlsColor : (Color)App.Current.Resources["greyColor"];
 
-            reelLengthsPage = new ReelLengthsCalculationPage { Title = "ДЛИНЫ" };
+            reelsLengthsViewModel = new ReelsLengthsViewModel();
+            reelLengthsPage = new ReelLengthsCalculationPage(reelsLengthsViewModel) { Title = "ДЛИНЫ" };
 
-            twistPage = new TwistCalculationPage { Title = "СКРУТКА" };
+            twistViewModel = new TwistViewModel();
+            twistPage = new TwistCalculationPage(twistViewModel) { Title = "СКРУТКА" };
 
-            windingPage = new WindingCalculationPage { Title = "ОБМОТКА" };
+            windingViewModel = new WindingViewModel();
+            windingPage = new WindingCalculationPage(windingViewModel) { Title = "ОБМОТКА" };
 
-            braidingPage = new BraidingCalculationPage() { Title = "ОПЛЁТКА" };
+            braidingViewModel = new BraidingViewModel();
+            braidingPage = new BraidingCalculationPage(braidingViewModel) { Title = "ОПЛЁТКА" };
 
             Children.Add(reelLengthsPage);
             Children.Add(twistPage);
@@ -35,25 +45,32 @@ namespace CablesCraftMobile
 
         public void SaveParametres()
         {
-            App.Current.Properties["CurrentPageName"] = CurrentPage.GetType().FullName;
-            braidingPage.SaveParametres();
-            twistPage.SaveParametres();
+            App.Current.Properties["CurrentPageName"] = CurrentPage.GetType().FullName; //Сохраняем имя типа текущей страницы во внутренний словарь Properties
+
+            twistViewModel.SaveParametres();
+            braidingViewModel.SaveParametres();
         }
 
         public void LoadParametres()
         {
+            CurrentPage = GetLastUsedSavedPage();
+
+            twistViewModel.LoadParametres();
+            braidingViewModel.LoadParametres();
+        }
+
+        private Page GetLastUsedSavedPage()
+        {
             if (App.Current.Properties.TryGetValue("CurrentPageName", out object obj))
             {
                 var pageType = Type.GetType(obj.ToString());
-                var pagefieldInfo = GetType().GetFields().Where(field => field.FieldType == pageType).First();
+                var pagefieldInfo = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                                             .Where(field => field.FieldType == pageType)
+                                             .First();
                 var currentPage = pagefieldInfo.GetValue(this);
-                CurrentPage = currentPage as Page;
+                return currentPage as Page;
             }
-            else
-                CurrentPage = reelLengthsPage;
-
-            twistPage.LoadParametres();
-            braidingPage.LoadParametres();
+            return reelLengthsPage; //возвращаем первую страницу по порядку, если в словаре Properties нет сохраненных значений.
         }
     }
 }
