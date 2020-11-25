@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Cables.Materials;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System;
+using Cables.Materials;
+using Cables;
 
 namespace CablesCraftMobile
 {
     public class WindingViewModel : INotifyPropertyChanged
     {
         private readonly WindingMode windingMode;
-        private List<Tape> tapesCollection;
-        private Dictionary<string, ObservableCollection<double>> tapesThicknesses;
 
-        public int[] TapesWidthsCollection { get; private set; }
-        public List<string> TapesNamesCollection { get; private set; }
-        public ObservableCollection<double> CurrentTapeThicknessesCollection { get; private set; }
+        private const string savedModeFileName = "windingMode.json";
+
+        public IList<double> TapesWidthsCollection { get; private set; }
+        public IDictionary<string, IList<Tape>> TapesCollections { get; private set; }
+        public IList<string> TapesCollectionsNames { get; private set; }
 
         private readonly Action RecalculateParametres;
 
@@ -93,37 +93,7 @@ namespace CablesCraftMobile
                 if (windingMode.TapeWidth != value)
                 {
                     windingMode.TapeWidth = value;
-                    RecalculateWindingParametres();
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public double TapeThickness
-        {
-            get { return windingMode.Tape.Thickness; }
-            set
-            {
-                if (windingMode.Tape.Thickness != value)
-                {
-                    windingMode.Tape = tapesCollection.Where(tape => tape.Thickness == value && tape.Name == TapeName)
-                                                      .Single();
-                    RecalculateWindingParametres();
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string TapeName
-        {
-            get { return windingMode.Tape.Name; }
-            set
-            {
-                if (windingMode.Tape.Name != value)
-                {
-                    windingMode.Tape = tapesCollection.Where(tape => tape.Name == value && tape.Thickness == TapeThickness)
-                                                      .Single();
-                    RecalculateWindingParametres();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -137,7 +107,7 @@ namespace CablesCraftMobile
                 if (windingMode.WindingStep != value)
                 {
                     windingMode.WindingStep = value;
-                    RecalculateWindingParametres();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -151,7 +121,50 @@ namespace CablesCraftMobile
                 if (windingMode.WindingCoreDiameter != value)
                 {
                     windingMode.WindingCoreDiameter = value;
-                    RecalculateWindingParametres();
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string currentTapeCollectionName;
+        public string CurrentTapesCollectionName
+        {
+            get { return currentTapeCollectionName; }
+            set
+            {
+                if (currentTapeCollectionName != value)
+                {
+                    currentTapeCollectionName = value;
+                    CurrentTapesCollection = TapesCollections[currentTapeCollectionName];
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public IList<Tape> CurrentTapesCollection
+        {
+            get { return windingMode.TapesCollection; }
+            set
+            {
+                if (windingMode.TapesCollection != value)
+                {
+                    windingMode.TapesCollection = value;
+                    OnPropertyChanged();
+                    CurrentTape = value[0];
+                }
+            }
+        }
+
+        public Tape CurrentTape
+        {
+            get { return windingMode.CurrentTape; }
+            set
+            {
+                if (!windingMode.CurrentTape.Equals(value))
+                {
+                    windingMode.CurrentTape = value;
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -159,149 +172,11 @@ namespace CablesCraftMobile
 
         public WindingViewModel()
         {
-            TapesWidthsCollection = new int[] { 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
-
-            tapesCollection = new List<Tape>
-            {
-                new Tape
-                {
-                    Name = "Лавсан",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
-                            Thickness = 15
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Лавсан",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
-                            Thickness = 30
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Лавсан",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
-                            Thickness = 50
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Фольга алюм.",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Metal { Name = "Алюминий", Density20 = 2699 },
-                            Thickness = 30
-                        },
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
-                            Thickness = 20
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Фольга алюм.",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Metal { Name = "Алюминий", Density20 = 2699 },
-                            Thickness = 50
-                        },
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Лавсан", Density20 = 1400 },
-                            Thickness = 20
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Lantor 3E5410",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Водоблокирующее волокно", Density20 = 252 },
-                            Thickness = 250
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Lantor 3M1890",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Polymer { Name = "Водоблокирующее волокно, морское", Density20 = 760 },
-                            Thickness = 500
-                        }
-                    }
-                },
-                new Tape
-                {
-                    Name = "Лента медн.",
-                    TapeLayers = new TapeLayer[]
-                    {
-                        new TapeLayer
-                        {
-                            TapeMaterial = new Metal { Name = "Медь", Density20 = 8890 },
-                            Thickness = 500
-                        }
-                    }
-                },
-            };
-
-            windingMode = new WindingMode
-            {
-                Overlap = 20,
-                TapeExpenseKilogrames = 20,
-                TapeExpenseKilometres = 1.2,
-                TapeExpenseSquareMetres = 23,
-                TapeWidth = 40,
-                WindingAngle = 45,
-                WindingStep = 23,
-                WindingCoreDiameter = 12,
-                Tape = tapesCollection.First()
-            };
-
-            TapesNamesCollection = GetTapeNamesCollection(tapesCollection);
-
-            tapesThicknesses = new Dictionary<string, ObservableCollection<double>>(TapesNamesCollection.Count);
-
-            foreach (var tape in tapesCollection)
-            {
-                if(tapesThicknesses.ContainsKey(tape.Name))
-                {
-                    tapesThicknesses[tape.Name].Add(tape.Thickness);
-                }
-                else
-                {
-                    var tapeThicknesses = new ObservableCollection<double>();
-                    tapeThicknesses.Add(tape.Thickness);
-                    tapesThicknesses.Add(tape.Name, tapeThicknesses);
-                }
-            }
-            CurrentTapeThicknessesCollection = tapesThicknesses[TapeName];
+            windingMode = new WindingMode();
+            LoadData();
+            LoadParametres();
+            RecalculateParametres += RecalculateWindingParametres;
+            RecalculateParametres();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -311,26 +186,35 @@ namespace CablesCraftMobile
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private List<string> GetTapeNamesCollection(List<Tape> tapes)
-        {
-            var tapesNamesCollection = new List<string>();
-            foreach (var tape in tapes)
-            {
-                if (!tapesNamesCollection.Contains(tape.Name))
-                {
-                    tapesNamesCollection.Add(tape.Name);
-                }
-            }
-            return tapesNamesCollection;
-        }
-
         private void RecalculateWindingParametres()
         {
-            //WindingAngle = Calculations.CalculateWindingAngle(WindingStep, WindingCoreDiameter, TapeThickness);
-            //Overlap = Calculations.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, TapeThickness);
-            //TapeExpenseKilometres = Calculations.CalculateTapeLength(WindingStep, WindingCoreDiameter, TapeThickness);
-            //TapeExpenseSquareMetres = TapeExpenseKilometres * TapeWidth / 1000;
-            //TapeExpenseKilogrames = Calculations.CalculateTapeWeight(windingMode.Tape, WindingStep, WindingCoreDiameter, TapeWidth, TapeThickness);
+            WindingAngle = WindingBuider.CalculateWindingAngle(WindingStep, WindingCoreDiameter, CurrentTape.Thickness);
+            Overlap = WindingBuider.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, CurrentTape.Thickness);
+            TapeExpenseKilometres = WindingBuider.CalculateTapeLength(WindingStep, WindingCoreDiameter, CurrentTape.Thickness);
+            TapeExpenseSquareMetres = TapeExpenseKilometres * TapeWidth;
+            TapeExpenseKilogrames = WindingBuider.CalculateTapeWeight(CurrentTape, WindingStep, WindingCoreDiameter, TapeWidth);
+        }
+
+        public void SaveParametres()
+        {
+            App.JsonRepository.SaveObject((TapeWidth, WindingStep, WindingCoreDiameter, CurrentTapesCollectionName, CurrentTape), savedModeFileName);
+        }
+
+        public void LoadParametres()
+        {
+            var (width, step, coreDiameter, collectionName, tape) = App.JsonRepository.LoadObject<(double, double, double, string, Tape)>(savedModeFileName);
+            TapeWidth = width;
+            WindingStep = step;
+            WindingCoreDiameter = coreDiameter;
+            CurrentTapesCollectionName = collectionName;
+            CurrentTape = tape;
+        }
+
+        private void LoadData()
+        {
+            TapesWidthsCollection = App.JsonRepository.GetObjects<double>(App.dataFileName, @"$.Winding.TapesWidthsCollection");
+            TapesCollections = App.JsonRepository.GetObjects<string, IList<Tape>>(App.dataFileName, @"$.Winding.TapesCollections");
+            TapesCollectionsNames = TapesCollections.Keys.ToList();
         }
     }
 }

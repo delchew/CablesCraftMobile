@@ -1,8 +1,7 @@
 ﻿{
   "Twist":
   {
-    "TypeOfTwistCollection":
-    [
+    "TypeOfTwistCollection": [
       {
         "Name": "Одиночный",
         "TwistedElementType": "single"
@@ -20,6 +19,132 @@
         "TwistedElementType": "four"
       }
     ]
+  },
+  "Winding":
+  {
+    "TapesWidthsCollection": [ 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 65.0, 70.0 ],
+    "TapesCollections": {
+      "Лавсан": [
+        {
+          "Name": "Лавсан",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Лавсан",
+                "Density20": 1400
+              },
+              "Thickness": 15.0
+            }
+          ]
+        },
+        {
+          "Name": "Лавсан",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Лавсан",
+                "Density20": 1400
+              },
+              "Thickness": 30.0
+            }
+          ]
+        },
+        {
+          "Name": "Лавсан",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Лавсан",
+                "Density20": 1400
+              },
+              "Thickness": 50.0
+            }
+          ]
+        }
+      ],
+      "Фольга алюм.": [
+        {
+          "Name": "Фольга алюм.",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Алюминий",
+                "Density20": 2699
+              },
+              "Thickness": 30.0
+            },
+            {
+              "TapeMaterial": {
+                "Name": "Лавсан",
+                "Density20": 1400
+              },
+              "Thickness": 20.0
+            }
+          ]
+        },
+        {
+          "Name": "Фольга алюм.",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Алюминий",
+                "Density20": 2699
+              },
+              "Thickness": 50.0
+            },
+            {
+              "TapeMaterial": {
+                "Name": "Лавсан",
+                "Density20": 1400
+              },
+              "Thickness": 20.0
+            }
+          ]
+        }
+      ],
+      "Lantor 3E5410": [
+        {
+          "Name": "Lantor 3E5410",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Водоблокирующее волокно",
+                "Density20": 252
+              },
+              "Thickness": 250.0
+            }
+          ]
+        }
+      ],
+      "Lantor 3M1890": [
+        {
+          "Name": "Lantor 3M1890",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Водоблокирующее волокно, морское",
+                "Density20": 760
+              },
+              "Thickness": 500.0
+            }
+          ]
+        }
+      ],
+      "Лента медн.": [
+        {
+          "Name": "Лента медн.",
+          "TapeLayers": [
+            {
+              "TapeMaterial": {
+                "Name": "Медь",
+                "Density20": 8890
+              },
+              "Thickness": 60.0
+            }
+          ]
+        }
+      ]
+    }
   },
   "Braiding":
   {

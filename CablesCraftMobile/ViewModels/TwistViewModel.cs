@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Cables;
@@ -20,7 +20,7 @@ namespace CablesCraftMobile
 
         public int MaxQuantityElements { get { return TwistBuilder.MaxTwistedElementsCount; } }
 
-        public TypeOfTwist[] TypeOfTwistCollection { get; private set; }
+        public IList<TypeOfTwist> TypeOfTwistCollection { get; private set; }
 
         public double TwistStep
         {
@@ -67,7 +67,7 @@ namespace CablesCraftMobile
             get { return twistMode.TypeOfTwist; }
             set
             {
-                if (!twistMode.TypeOfTwist.Equals(value))
+                if (twistMode.TypeOfTwist == null || !twistMode.TypeOfTwist.Equals(value))
                 {
                     twistMode.TypeOfTwist = value;
 
@@ -153,15 +153,15 @@ namespace CablesCraftMobile
 
         public void LoadParametres()
         {
-            var (elementDiameter, typeOfTwist, twistInfo) = App.JsonRepository.LoadObject <(double, TypeOfTwist, TwistInfo)> (savedModeFileName);
+            var (elementDiameter, typeOfTwist, twistInfo) = App.JsonRepository.LoadObject<(double, TypeOfTwist, TwistInfo)> (savedModeFileName);
             TwistedElementDiameter = elementDiameter;
             TypeOfTwist = typeOfTwist;
             TwistInfo = twistInfo;
         }
 
-        public void LoadData()
+        private void LoadData()
         {
-            TypeOfTwistCollection = App.JsonRepository.GetObjects<TypeOfTwist>(App.dataFileName, @"$.Twist.TypeOfTwistCollection").ToArray();
+            TypeOfTwistCollection = App.JsonRepository.GetObjects<TypeOfTwist>(App.dataFileName, @"$.Twist.TypeOfTwistCollection");
         }
     }
 }

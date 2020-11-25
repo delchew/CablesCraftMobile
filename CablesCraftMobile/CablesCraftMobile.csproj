@@ -39,5 +39,6 @@
     <EmbeddedResource Include="JsonDataFiles\reels.json" />
     <EmbeddedResource Include="JsonDataFiles\appData.json" />
     <EmbeddedResource Include="JsonDataFiles\braidingMode.json" />
+    <EmbeddedResource Include="JsonDataFiles\windingMode.json" />
   </ItemGroup>
 </Project>

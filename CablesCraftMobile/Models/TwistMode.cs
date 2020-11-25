@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-using Cables;
+﻿using Cables;
 
 namespace CablesCraftMobile
 {
@@ -14,22 +12,6 @@ namespace CablesCraftMobile
 
         public double TwistedElementDiameter { get; set; }
 
-        private TwistedElementType twistedElementType;
-        public TypeOfTwist TypeOfTwist
-        {
-            get
-            {
-                var name = twistedElementType.GetType()
-                                             .GetMember(twistedElementType.ToString())[0]
-                                             .GetCustomAttribute<DescriptionAttribute>()
-                                             .Description;
-                return new TypeOfTwist
-                {
-                    Name = name,
-                    TwistedElementType = twistedElementType
-                };
-            }
-            set { twistedElementType = value.TwistedElementType; }
-        }
+        public TypeOfTwist TypeOfTwist { get; set; }
     }
 }

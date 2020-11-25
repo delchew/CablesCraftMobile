@@ -200,7 +200,7 @@ namespace CablesCraftMobile
                 braidingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Resources["labelStyle"] }, 0, ++rowIndex);
                 braidingParametresGrid.Children.Add(pair.Value, 1, rowIndex);
                 if (pair.Value is Label label) label.Style = (Style)App.Current.Resources["changingLabelStyle"];
-                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; picker.SelectedIndex = 0; }
+                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; /*picker.SelectedIndex = 0;*/ }
             }
 
             var absoluteLayout = new AbsoluteLayout();

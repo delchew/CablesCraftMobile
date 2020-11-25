@@ -1,11 +1,18 @@
 ﻿{
-  "Item1": 16,
-  "Item2": 3,
-  "Item3": 0.12,
-  "Item4": {
-    "Name": "Медь",
-    "Density20": 8890
-  },
-  "Item5": 5,
-  "Item6": 0.5
+  "Item1": 20.0,
+  "Item2": 5.0,
+  "Item3": 0.5,
+  "Item4": "Лавсан",
+  "Item5": {
+    "Name": "Лавсан",
+    "TapeLayers": [
+      {
+        "TapeMaterial": {
+          "Name": "Лавсан",
+          "Density20": 1400
+        },
+        "Thickness": 15.0
+      }
+    ]
+  }
 }

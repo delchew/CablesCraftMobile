@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Cables;
 
 namespace CablesCraftMobile
@@ -18,7 +19,7 @@ namespace CablesCraftMobile
                 if (reel.Material != value)
                 {
                     reel.Material = value;
-                    OnPropertyChanged("Material");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -33,7 +34,7 @@ namespace CablesCraftMobile
                 if (reel.Color != value)
                 {
                     reel.Color = value;
-                    OnPropertyChanged("Color");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace CablesCraftMobile
                 if (reel.Note != value)
                 {
                     reel.Note = value;
-                    OnPropertyChanged("Note");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -63,7 +64,7 @@ namespace CablesCraftMobile
                 if (reel.Diameter != value)
                 {
                     reel.Diameter = value;
-                    OnPropertyChanged("Diameter");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -78,7 +79,7 @@ namespace CablesCraftMobile
                 if (reel.ReelCoreDiameter != value)
                 {
                     reel.ReelCoreDiameter = value;
-                    OnPropertyChanged("ReelCoreDiameter");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -93,7 +94,7 @@ namespace CablesCraftMobile
                 if (reel.Width != value)
                 {
                     reel.Width = value;
-                    OnPropertyChanged("Width");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -108,7 +109,7 @@ namespace CablesCraftMobile
                 if (reel.Length != value)
                 {
                     reel.Length = value;
-                    OnPropertyChanged("Length");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -119,7 +120,7 @@ namespace CablesCraftMobile
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propertyName = "")
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -126,15 +126,14 @@ namespace CablesCraftMobile
             {
                 Source = windingViewModel,
                 Path = nameof(windingViewModel.TapesWidthsCollection),
-                Mode = BindingMode.OneWay
+                Mode = BindingMode.OneWay,
             };
             tapeWidthPicker.SetBinding(Picker.ItemsSourceProperty, tapesWidthsSourceBinding);
-            tapeWidthPicker.SelectedIndex = 0;
             var tapeWidthBinding = new Binding
             {
                 Source = windingViewModel,
                 Path = nameof(windingViewModel.TapeWidth),
-                Mode = BindingMode.OneWayToSource
+                Mode = BindingMode.TwoWay
             };
             tapeWidthPicker.SetBinding(Picker.SelectedItemProperty, tapeWidthBinding);
 
@@ -143,34 +142,33 @@ namespace CablesCraftMobile
             var tapesTypesSourceBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = nameof(windingViewModel.TapesNamesCollection),
+                Path = nameof(windingViewModel.TapesCollectionsNames),
                 Mode = BindingMode.OneWay
             };
             tapeTypePicker.SetBinding(Picker.ItemsSourceProperty, tapesTypesSourceBinding);
-            tapeTypePicker.SelectedIndex = 0;
             var tapeTypeBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = nameof(windingViewModel.TapeName),
-                Mode = BindingMode.OneWayToSource
+                Path = nameof(windingViewModel.CurrentTapesCollectionName),
+                Mode = BindingMode.TwoWay
             };
-            //tapeTypePicker.SetBinding(Picker.SelectedItemProperty, tapeTypeBinding); //TODO
+            tapeTypePicker.SetBinding(Picker.SelectedItemProperty, tapeTypeBinding);
 
             //tapeThicknessPicker
             var tapeThicknessPicker = new Picker();
             var tapesThicknessSourceBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = nameof(windingViewModel.CurrentTapeThicknessesCollection),
+                Path = nameof(windingViewModel.CurrentTapesCollection),
                 Mode = BindingMode.OneWay
             };
             tapeThicknessPicker.SetBinding(Picker.ItemsSourceProperty, tapesThicknessSourceBinding);
-            tapeThicknessPicker.SelectedIndex = 0;
+            tapeThicknessPicker.ItemDisplayBinding = new Binding("Thickness", stringFormat: "{0:d}");
             var tapeThicknessBinding = new Binding
             {
                 Source = windingViewModel,
-                Path = nameof(windingViewModel.TapeThickness),
-                Mode = BindingMode.OneWayToSource
+                Path = nameof(windingViewModel.CurrentTape),
+                Mode = BindingMode.TwoWay
             };
             tapeThicknessPicker.SetBinding(Picker.SelectedItemProperty, tapeThicknessBinding);
 

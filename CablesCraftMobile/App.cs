@@ -14,7 +14,8 @@ namespace CablesCraftMobile
             "braidingMode.json",
             "reels.json",
             "twistInfo.json",
-            "twistMode.json"
+            "twistMode.json",
+            "windingMode.json"
         };
         private static JsonRepository jsonRepository;
         public static JsonRepository JsonRepository
@@ -28,11 +29,6 @@ namespace CablesCraftMobile
         }
 
         private readonly MainPage mainPage;
-
-        public readonly ReelsLengthsViewModel reelsLengthsViewModel;
-        public readonly TwistViewModel twistViewModel;
-        public readonly WindingViewModel windingViewModel;
-        public readonly BraidingViewModel braidingViewModel;
 
         public App()
         {
