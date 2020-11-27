@@ -47,7 +47,7 @@ namespace CablesCraftMobile
         {
             App.Current.Properties["CurrentPageName"] = CurrentPage.GetType().FullName; //Сохраняем имя типа текущей страницы во внутренний словарь Properties
 
-            reelsLengthsViewModel.SaveParametres();
+            reelsLengthsViewModel.SaveModel();
             twistViewModel.SaveModel();
             windingViewModel.SaveParametres();
             braidingViewModel.SaveModel();
@@ -55,7 +55,7 @@ namespace CablesCraftMobile
 
         public void LoadParametres()
         {
-            reelsLengthsViewModel.LoadParametres();
+            reelsLengthsViewModel.LoadModel();
             twistViewModel.LoadModel();
             windingViewModel.LoadParametres();
             braidingViewModel.LoadModel();

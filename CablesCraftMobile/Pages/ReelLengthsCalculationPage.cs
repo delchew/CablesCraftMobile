@@ -35,13 +35,14 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "ДО КРАЯ БАРАБАНА, ММ",
-                MaxValue = 50,
-                MinValue = 0,
-                Offset = 5,
                 OnlyIntegerNumbersInput = true,
                 BindingContext = reelsLengthsViewModel
             };
             edgeClearanceNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(reelsLengthsViewModel.EdgeClearance), BindingMode.TwoWay);
+            edgeClearanceNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(reelsLengthsViewModel.EdgeClearanceMaxValue), BindingMode.OneWay);
+            edgeClearanceNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(reelsLengthsViewModel.EdgeClearanceMinValue), BindingMode.OneWay);
+            edgeClearanceNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(reelsLengthsViewModel.EdgeClearanceOffset), BindingMode.OneWay);
+
             controlsGrid.Children.Add(edgeClearanceNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -49,12 +50,13 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø КАБЕЛЯ, ММ",
-                MaxValue = 50,
-                MinValue = 0.5,
-                Offset = 0.1,
                 BindingContext = reelsLengthsViewModel
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(reelsLengthsViewModel.CoreDiameter), BindingMode.TwoWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(reelsLengthsViewModel.CoreDiameterMaxValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(reelsLengthsViewModel.CoreDiameterMinValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(reelsLengthsViewModel.CoreDiameterOffset), BindingMode.OneWay);
+
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion
@@ -65,9 +67,9 @@ namespace CablesCraftMobile
             {
                 Margin = thickness,
                 HasUnevenRows = true,
-                ItemsSource = reelsLengthsViewModel.Reels,
+                ItemsSource = reelsLengthsViewModel.ReelViewModelsList,
                 ItemTemplate = new DataTemplate(GetTemplate),
-                Header = TableRow(),
+                Header = GetHeaderRow(),
             };
 
             var reelsListScrollView = new ScrollView
@@ -100,24 +102,23 @@ namespace CablesCraftMobile
             Content = absoluteLayout;
         }
 
-        private Grid TableRow() //Шаблон для шапки заголовков в таблице барабанов
+        private Grid GetHeaderRow() //Шаблон для шапки заголовков в таблице барабанов
         {
-            var grid = GetTableRowGrid();
+            var grid = GetCellGridTemplate();
             grid.Padding = new Thickness(5, 2, 0, 2);
             grid.BackgroundColor = Color.LightGray;
 
             var headerColumnsNames = new []{ "Ø, мм", "Материал", "Цвет", "Примеч.", "Длина, м" };
 
             for (int i = 0; i < headerColumnsNames.Length; i++)
-            {
                 grid.Children.Add(new Label { Text = headerColumnsNames[i], FontSize = 15 }, i, 0);
-            }
+
             return grid;
         }
         
         private ViewCell GetTemplate() //Шаблон отображения параметров барабана в ячейке таблицы барабанов
         {
-            var grid = GetTableRowGrid();
+            var grid = GetCellGridTemplate();
             grid.Padding = new Thickness(5, 3, 0, 0);
 
             int fontsize = 15;
@@ -151,7 +152,7 @@ namespace CablesCraftMobile
             return new ViewCell { View = grid };
         }
 
-        private Grid GetTableRowGrid()
+        private Grid GetCellGridTemplate()
         {
             var grid = new Grid
             {

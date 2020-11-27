@@ -1,7 +1,4 @@
 ﻿{
-  "BraidingDensity": 0,
-  "BraidingAngle": 0,
-  "WiresWeight": 0,
   "CoilsCount": 16,
   "WiresCount": 3,
   "WiresDiameter": 0.12,

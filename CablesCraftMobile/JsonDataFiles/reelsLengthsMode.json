@@ -1,4 +1,10 @@
 ﻿{
-  "Item1": 0.5,
-  "Item2": 0
+  "CoreDiameter": 0.5,
+  "EdgeClearance": 0,
+  "CoreDiameterMaxValue": 50,
+  "CoreDiameterMinValue": 0.5,
+  "CoreDiameterOffset": 0.1,
+  "EdgeClearanceMaxValue": 50,
+  "EdgeClearanceMinValue": 0,
+  "EdgeClearanceOffset": 5
 }

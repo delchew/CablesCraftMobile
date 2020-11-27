@@ -1,33 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System;
-using System.Runtime.CompilerServices;
 using Cables;
 
 namespace CablesCraftMobile
 {
     public class ReelsLengthsViewModel : INotifyPropertyChanged
     {
-        private readonly ReelsLengthsMode reelsLengthsMode;
+        private ReelsLengthsMode reelsLengthsMode;
 
         private const string reelsFileName = "reels.json";
         private readonly string savedModeFileName = "reelsLengthsMode.json";
 
         private readonly Action RecalculateParametres;
 
-        public List<ReelViewModel> Reels
-        {
-            get { return reelsLengthsMode.ReelsLengths; }
-            private set
-            {
-                if (reelsLengthsMode.ReelsLengths != value)
-                {
-                    reelsLengthsMode.ReelsLengths = value;
-                    RecalculateParametres?.Invoke();
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public ObservableCollection<ReelViewModel> ReelViewModelsList { get; private set; }
 
         public double CoreDiameter
         {
@@ -38,6 +26,45 @@ namespace CablesCraftMobile
                 {
                     reelsLengthsMode.CoreDiameter = value;
                     RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double CoreDiameterMaxValue
+        {
+            get { return reelsLengthsMode.CoreDiameterMaxValue; }
+            set
+            {
+                if (reelsLengthsMode.CoreDiameterMaxValue != value)
+                {
+                    reelsLengthsMode.CoreDiameterMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double CoreDiameterMinValue
+        {
+            get { return reelsLengthsMode.CoreDiameterMinValue; }
+            set
+            {
+                if (reelsLengthsMode.CoreDiameterMinValue != value)
+                {
+                    reelsLengthsMode.CoreDiameterMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double CoreDiameterOffset
+        {
+            get { return reelsLengthsMode.CoreDiameterOffset; }
+            set
+            {
+                if (reelsLengthsMode.CoreDiameterOffset != value)
+                {
+                    reelsLengthsMode.CoreDiameterOffset = value;
                     OnPropertyChanged();
                 }
             }
@@ -57,11 +84,49 @@ namespace CablesCraftMobile
             }
         }
 
+        public double EdgeClearanceMaxValue
+        {
+            get { return reelsLengthsMode.EdgeClearanceMaxValue; }
+            set
+            {
+                if (reelsLengthsMode.EdgeClearanceMaxValue != value)
+                {
+                    reelsLengthsMode.EdgeClearanceMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double EdgeClearanceMinValue
+        {
+            get { return reelsLengthsMode.EdgeClearanceMinValue; }
+            set
+            {
+                if (reelsLengthsMode.EdgeClearanceMinValue != value)
+                {
+                    reelsLengthsMode.EdgeClearanceMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double EdgeClearanceOffset
+        {
+            get { return reelsLengthsMode.EdgeClearanceOffset; }
+            set
+            {
+                if (reelsLengthsMode.EdgeClearanceOffset != value)
+                {
+                    reelsLengthsMode.EdgeClearanceOffset = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ReelsLengthsViewModel()
         {
-            reelsLengthsMode = new ReelsLengthsMode() { EdgeClearance = -1 };
             LoadData();
-            LoadParametres();
+            LoadModel();
             RecalculateParametres += RecalculateReelsLengths;
             RecalculateParametres();
         }
@@ -75,33 +140,20 @@ namespace CablesCraftMobile
 
         private void RecalculateReelsLengths()
         {
-            foreach (var reel in Reels)
-            {
+            foreach (var reel in ReelViewModelsList)
                 reel.Length = CableCalculations.CalculateMaxCableLengthOnReel(reel.Diameter, reel.ReelCoreDiameter, reel.Width, EdgeClearance, CoreDiameter);
-            }
         }
 
-        public void SaveParametres()
-        {
-            App.JsonRepository.SaveObject<(double, double)>((CoreDiameter, EdgeClearance), savedModeFileName);
-        }
+        public void SaveModel() => App.JsonRepository.SaveObject(reelsLengthsMode, savedModeFileName);
 
-        public void LoadParametres()
-        {
-            var (diameter, clearance) = App.JsonRepository.LoadObject<(double, double)>(savedModeFileName);
-            CoreDiameter = diameter;
-            EdgeClearance = clearance;
-        }
+        public void LoadModel() => reelsLengthsMode = App.JsonRepository.LoadObject<ReelsLengthsMode>(savedModeFileName);
 
-        public void LoadData()
+        private void LoadData()
         {
             var reelsList = App.JsonRepository.GetObjects<Reel>(reelsFileName);
-            var reelViewModelsList = new List<ReelViewModel>(reelsList.Count);
+            ReelViewModelsList = new ObservableCollection<ReelViewModel>();
             foreach (var reel in reelsList)
-            {
-                reelViewModelsList.Add(new ReelViewModel(reel));
-            }
-            Reels = reelViewModelsList;
+                ReelViewModelsList.Add(new ReelViewModel(reel));
         }
     }
 }
