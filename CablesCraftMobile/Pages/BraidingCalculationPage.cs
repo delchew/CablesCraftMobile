@@ -36,12 +36,12 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОПЛЕТКИ, ММ",
-                MaxValue = 280,
-                MinValue = 5,
-                Offset = 1,
                 BindingContext = braidingViewModel
             };
             braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(braidingViewModel.BraidingStep), BindingMode.TwoWay);
+            braidingStepNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(braidingViewModel.BraidingStepMaxValue), BindingMode.OneWay);
+            braidingStepNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(braidingViewModel.BraidingStepMinValue), BindingMode.OneWay);
+            braidingStepNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(braidingViewModel.BraidingStepOffset), BindingMode.OneWay);
             controlsGrid.Children.Add(braidingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -49,12 +49,12 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЗАГОТОВКИ, ММ",
-                MaxValue = 30,
-                MinValue = 0.5,
-                Offset = 0.1,
                 BindingContext = braidingViewModel
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(braidingViewModel.BraidingCoreDiameter), BindingMode.TwoWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(braidingViewModel.BraidingCoreDiameterMaxValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(braidingViewModel.BraidingCoreDiameterMinValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(braidingViewModel.BraidingCoreDiameterOffset), BindingMode.OneWay);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion

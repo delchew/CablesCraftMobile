@@ -10,7 +10,7 @@ namespace CablesCraftMobile
         public static readonly BindableProperty ValueProperty =
             BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), 0d);
 
-        public static readonly BindableProperty OffsetPropery =
+        public static readonly BindableProperty OffsetProperty =
             BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable), 0.1);
 
         public static readonly BindableProperty MinValueProperty =
@@ -39,8 +39,8 @@ namespace CablesCraftMobile
 
         public double Offset
         {
-            get { return (double)GetValue(OffsetPropery); }
-            set { SetValue(OffsetPropery, value); }
+            get { return (double)GetValue(OffsetProperty); }
+            set { SetValue(OffsetProperty, value); }
         }
 
         public double MinValue

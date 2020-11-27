@@ -50,13 +50,13 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "КОЛИЧЕСТВО ЭЛЕМЕНТОВ СКРУТКИ",
-                MaxValue = twistViewModel.MaxQuantityElements,
-                MinValue = 2,
-                Offset = 1,
                 OnlyIntegerNumbersInput = true,
                 BindingContext = twistViewModel
             };
             twistedElementsCountNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(twistViewModel.QuantityElements), BindingMode.TwoWay);
+            twistedElementsCountNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(twistViewModel.QuantityElementsMaxValue), BindingMode.OneWay);
+            twistedElementsCountNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(twistViewModel.QuantityElementsMinValue), BindingMode.OneWay);
+            twistedElementsCountNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(twistViewModel.QuantityElementsOffset), BindingMode.OneWay);
             gridLayout.Children.Add(twistedElementsCountNumEntry, 0, 2);
 
             //coreDiameterNumEntry
@@ -64,12 +64,12 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЭЛЕМЕНТА СКРУТКИ, ММ",
-                MaxValue = 20,
-                MinValue = 0.1,
-                Offset = 0.1,
                 BindingContext = twistViewModel
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(twistViewModel.TwistedElementDiameter), BindingMode.TwoWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(twistViewModel.TwistedElementDiameterMaxValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(twistViewModel.TwistedElementDiameterMinValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(twistViewModel.TwistedElementDiameterOffset), BindingMode.OneWay);
             gridLayout.Children.Add(coreDiameterNumEntry, 0, 3);
 
             #endregion

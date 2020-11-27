@@ -9,7 +9,7 @@ namespace CablesCraftMobile
 {
     public class BraidingViewModel : INotifyPropertyChanged
     {
-        private readonly BraidingMode braidingMode;
+        private BraidingMode braidingMode;
         private readonly string savedModeFileName = "braidingMode.json";
 
         private readonly Action RecalculateParametres;
@@ -129,6 +129,43 @@ namespace CablesCraftMobile
             }
         }
 
+        public double BraidingStepMaxValue
+        {
+            get { return braidingMode.BraidingStepMaxValue; }
+            private set
+            {
+                if (braidingMode.BraidingStepMaxValue != value)
+                {
+                    braidingMode.BraidingStepMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public double BraidingStepMinValue
+        {
+            get { return braidingMode.BraidingStepMinValue; }
+            private set
+            {
+                if (braidingMode.BraidingStepMinValue != value)
+                {
+                    braidingMode.BraidingStepMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public double BraidingStepOffset
+        {
+            get { return braidingMode.BraidingStepOffset; }
+            private set
+            {
+                if (braidingMode.BraidingStepOffset != value)
+                {
+                    braidingMode.BraidingStepOffset = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public double BraidingCoreDiameter
         {
             get { return braidingMode.BraidingCoreDiameter; }
@@ -143,11 +180,47 @@ namespace CablesCraftMobile
             }
         }
 
+        public double BraidingCoreDiameterMaxValue
+        {
+            get { return braidingMode.BraidingCoreDiameterMaxValue; }
+            private set
+            {
+                if (braidingMode.BraidingCoreDiameterMaxValue != value)
+                {
+                    braidingMode.BraidingCoreDiameterMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public double BraidingCoreDiameterMinValue
+        {
+            get { return braidingMode.BraidingCoreDiameterMinValue; }
+            private set
+            {
+                if (braidingMode.BraidingCoreDiameterMinValue != value)
+                {
+                    braidingMode.BraidingCoreDiameterMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public double BraidingCoreDiameterOffset
+        {
+            get { return braidingMode.BraidingCoreDiameterOffset; }
+            private set
+            {
+                if (braidingMode.BraidingCoreDiameterOffset != value)
+                {
+                    braidingMode.BraidingCoreDiameterOffset = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public BraidingViewModel()
         {
-            braidingMode = new BraidingMode();
             LoadData();
-            LoadParametres();
+            LoadModel();
             RecalculateParametres += RecalculateBraidingParametres;
             RecalculateParametres();
         }
@@ -165,21 +238,9 @@ namespace CablesCraftMobile
             WiresWeight = BraidingBuilder.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial);
         }
 
-        public void SaveParametres()
-        {
-            App.JsonRepository.SaveObject((CoilsCount, WiresCount, WiresDiameter, WiresMaterial, BraidingStep, BraidingCoreDiameter), savedModeFileName);
-        }
+        public void SaveModel() => App.JsonRepository.SaveObject(braidingMode, savedModeFileName);
 
-        public void LoadParametres()
-        {
-            var (coils, wires, diam, material, step, corediam) = App.JsonRepository.LoadObject<(int, int, double, Metal, double, double)>(savedModeFileName);
-            CoilsCount = coils;
-            WiresCount = wires;
-            WiresDiameter = diam;
-            WiresMaterial = material;
-            BraidingStep = step;
-            BraidingCoreDiameter = corediam;
-        }
+        public void LoadModel() => braidingMode = App.JsonRepository.LoadObject<BraidingMode>(savedModeFileName);
 
         public void LoadData()
         {

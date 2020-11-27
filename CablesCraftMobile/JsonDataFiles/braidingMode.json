@@ -1,11 +1,20 @@
 ﻿{
-  "Item1": 16,
-  "Item2": 3,
-  "Item3": 0.12,
-  "Item4": {
+  "BraidingDensity": 0,
+  "BraidingAngle": 0,
+  "WiresWeight": 0,
+  "CoilsCount": 16,
+  "WiresCount": 3,
+  "WiresDiameter": 0.12,
+  "WiresMaterial": {
     "Name": "Медь",
     "Density20": 8890
   },
-  "Item5": 5,
-  "Item6": 0.5
+  "BraidingStep": 5,
+  "BraidingCoreDiameter": 0.5,
+  "BraidingStepMaxValue": 280,
+  "BraidingStepMinValue": 5,
+  "BraidingStepOffset": 1,
+  "BraidingCoreDiameterMaxValue": 50,
+  "BraidingCoreDiameterMinValue": 0.5,
+  "BraidingCoreDiameterOffset": 0.1
 }

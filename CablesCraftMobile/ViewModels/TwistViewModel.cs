@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,43 +8,23 @@ namespace CablesCraftMobile
 {
     public class TwistViewModel : INotifyPropertyChanged
     {
-        private readonly TwistMode twistMode;
+        private TwistMode twistMode;
 
         private const string twistInfoFileName = "twistInfo.json";
         private const string savedModeFileName = "twistMode.json";
 
         public event QuantityElementsChangedEventHandler QuantityElementsChanged;
 
-        private readonly Action RecalculateParametres;
-
-        public int MaxQuantityElements { get { return TwistBuilder.MaxTwistedElementsCount; } }
-
         public IList<TypeOfTwist> TypeOfTwistCollection { get; private set; }
 
         public double TwistStep
         {
-            get { return twistMode.TwistStep; }
-            private set
-            {
-                if (twistMode.TwistStep != value)
-                {
-                    twistMode.TwistStep = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => TwistBuilder.GetTwistStep(TypeOfTwist.TwistedElementType, TwistedCoreDiameter);
         }
 
         public double TwistedCoreDiameter
         {
-            get { return twistMode.TwistedCoreDiameter; }
-            private set
-            {
-                if (twistMode.TwistedCoreDiameter != value)
-                {
-                    twistMode.TwistedCoreDiameter = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TypeOfTwist.TwistedElementType);
         }
 
         public string TwistScheme
@@ -71,8 +50,9 @@ namespace CablesCraftMobile
                 {
                     twistMode.TypeOfTwist = value;
 
-                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(TwistedCoreDiameter));
+                    OnPropertyChanged(nameof(TwistStep));
                 }
             }
         }
@@ -86,10 +66,42 @@ namespace CablesCraftMobile
                 {
                     twistMode.TwistInfo = TwistBuilder.GetTwistInfo(value);
 
-                    RecalculateParametres?.Invoke();
                     QuantityElementsChanged?.Invoke(this, new QuantityElementsChangedEventArgs(twistMode.TwistInfo));
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(TwistScheme));
+                    OnPropertyChanged(nameof(TwistedCoreDiameter));
+                    OnPropertyChanged(nameof(TwistStep));
+                }
+            }
+        }
+
+        public int QuantityElementsMaxValue
+        {
+            get { return TwistBuilder.MaxTwistedElementsCount; }
+        }
+
+        public int QuantityElementsMinValue
+        {
+            get { return twistMode.QuantityElementsMinValue; }
+            private set
+            {
+                if (twistMode.QuantityElementsMinValue != value)
+                {
+                    twistMode.QuantityElementsMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int QuantityElementsOffset
+        {
+            get { return twistMode.QuantityElementsOffset; }
+            private set
+            {
+                if (twistMode.QuantityElementsOffset != value)
+                {
+                    twistMode.QuantityElementsOffset = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -102,7 +114,47 @@ namespace CablesCraftMobile
                 if (twistMode.TwistedElementDiameter != value)
                 {
                     twistMode.TwistedElementDiameter = value;
-                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TwistedCoreDiameter));
+                    OnPropertyChanged(nameof(TwistStep));
+                }
+            }
+        }
+
+        public double TwistedElementDiameterMaxValue
+        {
+            get { return twistMode.TwistedElementDiameterMaxValue; }
+            private set
+            {
+                if (twistMode.TwistedElementDiameterMaxValue != value)
+                {
+                    twistMode.TwistedElementDiameterMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double TwistedElementDiameterMinValue
+        {
+            get { return twistMode.TwistedElementDiameterMinValue; }
+            private set
+            {
+                if (twistMode.TwistedElementDiameterMinValue != value)
+                {
+                    twistMode.TwistedElementDiameterMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double TwistedElementDiameterOffset
+        {
+            get { return twistMode.TwistedElementDiameterOffset; }
+            private set
+            {
+                if (twistMode.TwistedElementDiameterOffset != value)
+                {
+                    twistMode.TwistedElementDiameterOffset = value;
                     OnPropertyChanged();
                 }
             }
@@ -124,13 +176,8 @@ namespace CablesCraftMobile
 
         public TwistViewModel()
         {
-            var twistInfoData = App.JsonRepository.GetObjects<TwistInfo>(twistInfoFileName);
-            TwistBuilder.SetTwistInfoList(twistInfoData);
-            twistMode = new TwistMode();
             LoadData();
-            LoadParametres();
-            RecalculateParametres += RecalculateTwistParametres;
-            RecalculateParametres();
+            LoadModel();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -140,27 +187,14 @@ namespace CablesCraftMobile
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RecalculateTwistParametres()
-        {
-            TwistedCoreDiameter = TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TypeOfTwist.TwistedElementType);
-            TwistStep = TwistBuilder.GetTwistStep(TypeOfTwist.TwistedElementType, TwistedCoreDiameter);
-        }
+        public void SaveModel() => App.JsonRepository.SaveObject(twistMode, savedModeFileName);
 
-        public void SaveParametres()
-        {
-            App.JsonRepository.SaveObject((TwistedElementDiameter, TypeOfTwist, TwistInfo), savedModeFileName);
-        }
-
-        public void LoadParametres()
-        {
-            var (elementDiameter, typeOfTwist, twistInfo) = App.JsonRepository.LoadObject<(double, TypeOfTwist, TwistInfo)> (savedModeFileName);
-            TwistedElementDiameter = elementDiameter;
-            TypeOfTwist = typeOfTwist;
-            TwistInfo = twistInfo;
-        }
+        public void LoadModel() => twistMode = App.JsonRepository.LoadObject<TwistMode>(savedModeFileName);
 
         private void LoadData()
         {
+            var twistInfoData = App.JsonRepository.GetObjects<TwistInfo>(twistInfoFileName);
+            TwistBuilder.SetTwistInfoList(twistInfoData);
             TypeOfTwistCollection = App.JsonRepository.GetObjects<TypeOfTwist>(App.dataFileName, @"$.Twist.TypeOfTwistCollection");
         }
     }

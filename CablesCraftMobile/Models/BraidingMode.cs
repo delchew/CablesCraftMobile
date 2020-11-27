@@ -21,5 +21,17 @@ namespace CablesCraftMobile
         public double BraidingStep { get; set; }
 
         public double BraidingCoreDiameter { get; set; }
+
+        public double BraidingStepMaxValue { get; set; }
+
+        public double BraidingStepMinValue { get; set; }
+
+        public double BraidingStepOffset { get; set; }
+
+        public double BraidingCoreDiameterMaxValue { get; set; }
+
+        public double BraidingCoreDiameterMinValue { get; set; }
+
+        public double BraidingCoreDiameterOffset { get; set; }
     }
 }

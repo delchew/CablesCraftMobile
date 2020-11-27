@@ -1,12 +1,17 @@
 ﻿{
-  "Item1": 0.1,
-  "Item2": {
-    "Name": "Одиночный",
-    "TwistedElementType": "single"
-  },
-  "Item3": {
+  "TwistInfo": {
     "QuantityElements": 2,
     "TwistCoefficient": 2.0,
     "LayersElementsCount": [ 2 ]
-  }
+  },
+  "TwistedElementDiameter": 0.1,
+  "TypeOfTwist": {
+    "Name": "Одиночный",
+    "TwistedElementType": "single"
+  },
+  "QuantityElementsMinValue": 2,
+  "QuantityElementsOffset": 1,
+  "TwistedElementDiameterMaxValue": 20,
+  "TwistedElementDiameterMinValue": 0.1,
+  "TwistedElementDiameterOffset": 0.1
 }

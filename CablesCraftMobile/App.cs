@@ -134,7 +134,7 @@ namespace CablesCraftMobile
 
         protected override void OnStart()
         {
-            mainPage.LoadParametres();
+            mainPage.LoadCurrentPage();
         }
 
         protected override void OnSleep()
@@ -144,7 +144,7 @@ namespace CablesCraftMobile
 
         protected override void OnResume()
         {
-
+            mainPage.LoadParametres();
         }
 
         public static void SendResourceFileToLocalApplicationFolder(string resourceFileName)
