@@ -32,6 +32,7 @@
     <None Remove="JsonDataFiles\braidingMode.json" />
     <None Remove="JsonDataFiles\twistMode.json" />
     <None Remove="JsonDataFiles\windingMode.json" />
+    <None Remove="JsonDataFiles\reelsLengthsMode.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JsonDataFiles\twistMode.json" />
@@ -40,5 +41,6 @@
     <EmbeddedResource Include="JsonDataFiles\appData.json" />
     <EmbeddedResource Include="JsonDataFiles\braidingMode.json" />
     <EmbeddedResource Include="JsonDataFiles\windingMode.json" />
+    <EmbeddedResource Include="JsonDataFiles\reelsLengthsMode.json" />
   </ItemGroup>
 </Project>

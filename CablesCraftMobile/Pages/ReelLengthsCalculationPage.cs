@@ -61,20 +61,20 @@ namespace CablesCraftMobile
 
             var thickness = new Thickness(0);
 
-            var reelsTable = new ListView
+            var reelsListView = new ListView
             {
                 Margin = thickness,
                 HasUnevenRows = true,
                 ItemsSource = reelsLengthsViewModel.Reels,
-                ItemTemplate = new DataTemplate(LoadTemplate),
+                ItemTemplate = new DataTemplate(GetTemplate),
                 Header = TableRow(),
             };
 
-            var scrollView = new ScrollView
+            var reelsListScrollView = new ScrollView
             {
                 Margin = thickness,
                 Padding = thickness,
-                Content = reelsTable,
+                Content = reelsListView,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Always
             };
 
@@ -83,7 +83,7 @@ namespace CablesCraftMobile
                 Margin = thickness,
                 Padding = thickness,
                 HasShadow = true,
-                Content = scrollView
+                Content = reelsListScrollView
             };
 
             var absoluteLayout = new AbsoluteLayout();
@@ -115,7 +115,7 @@ namespace CablesCraftMobile
             return grid;
         }
         
-        private ViewCell LoadTemplate()
+        private ViewCell GetTemplate() //Шаблон отображения параметров барабана в ячейке таблицы барабанов
         {
             var grid = GetTableRowGrid();
             grid.Padding = new Thickness(5, 3, 0, 0);

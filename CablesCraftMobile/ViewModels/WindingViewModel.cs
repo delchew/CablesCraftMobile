@@ -14,11 +14,11 @@ namespace CablesCraftMobile
 
         private const string savedModeFileName = "windingMode.json";
 
+        private readonly Action RecalculateParametres;
+
         public IList<double> TapesWidthsCollection { get; private set; }
         public IDictionary<string, IList<Tape>> TapesCollections { get; private set; }
         public IList<string> TapesCollectionsNames { get; private set; }
-
-        private readonly Action RecalculateParametres;
 
         public double Overlap
         {

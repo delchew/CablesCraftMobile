@@ -11,11 +11,12 @@ namespace CablesCraftMobile
         private static readonly string[] dataFileNames = new string[]
         {
             dataFileName,
-            "braidingMode.json",
             "reels.json",
+            "reelsLengthsMode.json",
             "twistInfo.json",
             "twistMode.json",
-            "windingMode.json"
+            "windingMode.json",
+            "braidingMode.json"
         };
         private static JsonRepository jsonRepository;
         public static JsonRepository JsonRepository

@@ -37,7 +37,7 @@ namespace CablesCraftMobile
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОПЛЕТКИ, ММ",
                 MaxValue = 280,
-                MinValue = 1,
+                MinValue = 5,
                 Offset = 1,
                 BindingContext = braidingViewModel
             };
@@ -200,7 +200,7 @@ namespace CablesCraftMobile
                 braidingParametresGrid.Children.Add(new Label { Text = pair.Key, Style = (Style)App.Current.Resources["labelStyle"] }, 0, ++rowIndex);
                 braidingParametresGrid.Children.Add(pair.Value, 1, rowIndex);
                 if (pair.Value is Label label) label.Style = (Style)App.Current.Resources["changingLabelStyle"];
-                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; /*picker.SelectedIndex = 0;*/ }
+                if (pair.Value is Picker picker) { picker.Style = (Style)App.Current.Resources["pickerStyle"]; }
             }
 
             var absoluteLayout = new AbsoluteLayout();

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System;
 using System.Runtime.CompilerServices;
 using Cables;
 
@@ -9,11 +9,24 @@ namespace CablesCraftMobile
     public class ReelsLengthsViewModel : INotifyPropertyChanged
     {
         private readonly ReelsLengthsMode reelsLengthsMode;
+
         private const string reelsFileName = "reels.json";
+        private readonly string savedModeFileName = "reelsLengthsMode.json";
+
+        private readonly Action RecalculateParametres;
 
         public List<ReelViewModel> Reels
         {
             get { return reelsLengthsMode.ReelsLengths; }
+            private set
+            {
+                if (reelsLengthsMode.ReelsLengths != value)
+                {
+                    reelsLengthsMode.ReelsLengths = value;
+                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public double CoreDiameter
@@ -24,7 +37,7 @@ namespace CablesCraftMobile
                 if (reelsLengthsMode.CoreDiameter != value)
                 {
                     reelsLengthsMode.CoreDiameter = value;
-                    RecalculateReelsLengths();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -38,7 +51,7 @@ namespace CablesCraftMobile
                 if (reelsLengthsMode.EdgeClearance != value)
                 {
                     reelsLengthsMode.EdgeClearance = value;
-                    RecalculateReelsLengths();
+                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
                 }
             }
@@ -46,19 +59,11 @@ namespace CablesCraftMobile
 
         public ReelsLengthsViewModel()
         {
-            var jsonRepository = new JsonRepository();
-            var reelsList = jsonRepository.GetObjects<Reel>(reelsFileName);
-            var reelViewModelsList = new List<ReelViewModel>(reelsList.Count);
-            foreach(var reel in reelsList)
-            {
-                reelViewModelsList.Add(new ReelViewModel(reel));
-            }
-            reelsLengthsMode = new ReelsLengthsMode
-            {
-                CoreDiameter = 6,
-                EdgeClearance = 5,
-                ReelsLengths = reelViewModelsList
-            };
+            reelsLengthsMode = new ReelsLengthsMode() { EdgeClearance = -1 };
+            LoadData();
+            LoadParametres();
+            RecalculateParametres += RecalculateReelsLengths;
+            RecalculateParametres();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,10 +75,33 @@ namespace CablesCraftMobile
 
         private void RecalculateReelsLengths()
         {
-            //foreach (var reel in Reels)
-            //{
-            //    reel.Length = Calculations.CalculateMaxCableLengthOnReel(reel.Diameter, reel.ReelCoreDiameter, reel.Width, EdgeClearance, CoreDiameter);
-            //}
+            foreach (var reel in Reels)
+            {
+                reel.Length = CableCalculations.CalculateMaxCableLengthOnReel(reel.Diameter, reel.ReelCoreDiameter, reel.Width, EdgeClearance, CoreDiameter);
+            }
+        }
+
+        public void SaveParametres()
+        {
+            App.JsonRepository.SaveObject<(double, double)>((CoreDiameter, EdgeClearance), savedModeFileName);
+        }
+
+        public void LoadParametres()
+        {
+            var (diameter, clearance) = App.JsonRepository.LoadObject<(double, double)>(savedModeFileName);
+            CoreDiameter = diameter;
+            EdgeClearance = clearance;
+        }
+
+        public void LoadData()
+        {
+            var reelsList = App.JsonRepository.GetObjects<Reel>(reelsFileName);
+            var reelViewModelsList = new List<ReelViewModel>(reelsList.Count);
+            foreach (var reel in reelsList)
+            {
+                reelViewModelsList.Add(new ReelViewModel(reel));
+            }
+            Reels = reelViewModelsList;
         }
     }
 }
