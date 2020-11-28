@@ -1,9 +1,15 @@
 ﻿{
-  "Item1": 20.0,
-  "Item2": 5.0,
-  "Item3": 0.5,
-  "Item4": "Лавсан",
-  "Item5": {
+  "TapeWidth": 20,
+  "WindingStep": 5,
+  "WindingStepMaxValue": 70,
+  "WindingStepMinValue": 5,
+  "WindingStepOffset": 1,
+  "WindingCoreDiameter": 0.5,
+  "WindingCoreDiameterMaxValue": 50,
+  "WindingCoreDiameterMinValue": 0.5,
+  "WindingCoreDiameterOffset": 0.1,
+  "CurrentTapeCollectionName": "Лавсан",
+  "CurrentTape": {
     "Name": "Лавсан",
     "TapeLayers": [
       {

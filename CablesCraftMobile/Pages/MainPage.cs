@@ -49,7 +49,7 @@ namespace CablesCraftMobile
 
             reelsLengthsViewModel.SaveModel();
             twistViewModel.SaveModel();
-            windingViewModel.SaveParametres();
+            windingViewModel.SaveModel();
             braidingViewModel.SaveModel();
         }
 
@@ -57,7 +57,7 @@ namespace CablesCraftMobile
         {
             reelsLengthsViewModel.LoadModel();
             twistViewModel.LoadModel();
-            windingViewModel.LoadParametres();
+            windingViewModel.LoadModel();
             braidingViewModel.LoadModel();
         }
 

@@ -36,12 +36,12 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОБМОТКИ, ММ",
-                MaxValue = 70,
-                MinValue = 5,
-                Offset = 1,
                 BindingContext = windingViewModel
             };
             windingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(windingViewModel.WindingStep), BindingMode.TwoWay);
+            windingStepNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(windingViewModel.WindingStepMaxValue), BindingMode.OneWay);
+            windingStepNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(windingViewModel.WindingStepMinValue), BindingMode.OneWay);
+            windingStepNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(windingViewModel.WindingStepOffset), BindingMode.OneWay);
             controlsGrid.Children.Add(windingStepNumEntry, 0, 0);
 
             //coreDiameterNumEntry
@@ -49,12 +49,12 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "Ø ЗАГОТОВКИ",
-                MaxValue = 50,
-                MinValue = 0.5,
-                Offset = 0.1,
                 BindingContext = windingViewModel
             };
             coreDiameterNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(windingViewModel.WindingCoreDiameter), BindingMode.TwoWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(windingViewModel.WindingCoreDiameterMaxValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.MinValueProperty, nameof(windingViewModel.WindingCoreDiameterMinValue), BindingMode.OneWay);
+            coreDiameterNumEntry.SetBinding(NumEntryControllable.OffsetProperty, nameof(windingViewModel.WindingCoreDiameterOffset), BindingMode.OneWay);
             controlsGrid.Children.Add(coreDiameterNumEntry, 0, 1);
 
             #endregion

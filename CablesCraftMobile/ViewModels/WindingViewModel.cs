@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System;
 using Cables.Materials;
 using Cables;
 
@@ -10,80 +9,32 @@ namespace CablesCraftMobile
 {
     public class WindingViewModel : INotifyPropertyChanged
     {
-        private readonly WindingMode windingMode;
+        private WindingMode windingMode;
 
         private const string savedModeFileName = "windingMode.json";
-
-        private readonly Action RecalculateParametres;
 
         public IList<double> TapesWidthsCollection { get; private set; }
         public IDictionary<string, IList<Tape>> TapesCollections { get; private set; }
         public IList<string> TapesCollectionsNames { get; private set; }
 
         public double Overlap
-        {
-            get { return windingMode.Overlap; }
-            private set
-            {
-                if (windingMode.Overlap != value)
-                {
-                    windingMode.Overlap = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get => WindingBuider.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, CurrentTape.Thickness); }
 
         public double WindingAngle
-        {
-            get { return windingMode.WindingAngle; }
-            private set
-            {
-                if (windingMode.WindingAngle != value)
-                {
-                    windingMode.WindingAngle = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get => WindingBuider.CalculateWindingAngle(WindingStep, WindingCoreDiameter, CurrentTape.Thickness); }
 
         public double TapeExpenseKilometres
-        {
-            get { return windingMode.TapeExpenseKilometres; }
-            private set
-            {
-                if (windingMode.TapeExpenseKilometres != value)
-                {
-                    windingMode.TapeExpenseKilometres = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get => WindingBuider.CalculateTapeLength(WindingStep, WindingCoreDiameter, CurrentTape.Thickness); }
 
         public double TapeExpenseSquareMetres
-        {
-            get { return windingMode.TapeExpenseSquareMetres; }
-            private set
-            {
-                if (windingMode.TapeExpenseSquareMetres != value)
-                {
-                    windingMode.TapeExpenseSquareMetres = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get => TapeExpenseKilometres * TapeWidth; }
 
         public double TapeExpenseKilogrames
-        {
-            get { return windingMode.TapeExpenseKilogrames; }
-            private set
-            {
-                if (windingMode.TapeExpenseKilogrames != value)
-                {
-                    windingMode.TapeExpenseKilogrames = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get => WindingBuider.CalculateTapeWeight(CurrentTape, WindingStep, WindingCoreDiameter, TapeWidth); }
+
+        public IList<Tape> CurrentTapesCollection
+        { get => TapesCollections[CurrentTapesCollectionName]; }
+
 
         public double TapeWidth
         {
@@ -93,8 +44,10 @@ namespace CablesCraftMobile
                 if (windingMode.TapeWidth != value)
                 {
                     windingMode.TapeWidth = value;
-                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(Overlap));
+                    OnPropertyChanged(nameof(TapeExpenseSquareMetres));
+                    OnPropertyChanged(nameof(TapeExpenseKilogrames));
                 }
             }
         }
@@ -107,7 +60,50 @@ namespace CablesCraftMobile
                 if (windingMode.WindingStep != value)
                 {
                     windingMode.WindingStep = value;
-                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(WindingAngle));
+                    OnPropertyChanged(nameof(Overlap));
+                    OnPropertyChanged(nameof(TapeExpenseKilometres));
+                    OnPropertyChanged(nameof(TapeExpenseSquareMetres));
+                    OnPropertyChanged(nameof(TapeExpenseKilogrames));
+                }
+            }
+        }
+
+        public double WindingStepMaxValue
+        {
+            get { return windingMode.WindingStepMaxValue; }
+            set
+            {
+                if (windingMode.WindingStepMaxValue != value)
+                {
+                    windingMode.WindingStepMaxValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double WindingStepMinValue
+        {
+            get { return windingMode.WindingStepMinValue; }
+            set
+            {
+                if (windingMode.WindingStepMinValue != value)
+                {
+                    windingMode.WindingStepMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double WindingStepOffset
+        {
+            get { return windingMode.WindingStepOffset; }
+            set
+            {
+                if (windingMode.WindingStepOffset != value)
+                {
+                    windingMode.WindingStepOffset = value;
                     OnPropertyChanged();
                 }
             }
@@ -121,37 +117,65 @@ namespace CablesCraftMobile
                 if (windingMode.WindingCoreDiameter != value)
                 {
                     windingMode.WindingCoreDiameter = value;
-                    RecalculateParametres?.Invoke();
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(WindingAngle));
+                    OnPropertyChanged(nameof(Overlap));
+                    OnPropertyChanged(nameof(TapeExpenseKilometres));
+                    OnPropertyChanged(nameof(TapeExpenseSquareMetres));
+                    OnPropertyChanged(nameof(TapeExpenseKilogrames));
+                }
+            }
+        }
+
+        public double WindingCoreDiameterMaxValue
+        {
+            get { return windingMode.WindingCoreDiameterMaxValue; }
+            set
+            {
+                if (windingMode.WindingCoreDiameterMaxValue != value)
+                {
+                    windingMode.WindingCoreDiameterMaxValue = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string currentTapeCollectionName;
+        public double WindingCoreDiameterMinValue
+        {
+            get { return windingMode.WindingCoreDiameterMinValue; }
+            set
+            {
+                if (windingMode.WindingCoreDiameterMinValue != value)
+                {
+                    windingMode.WindingCoreDiameterMinValue = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double WindingCoreDiameterOffset
+        {
+            get { return windingMode.WindingCoreDiameterOffset; }
+            set
+            {
+                if (windingMode.WindingCoreDiameterOffset != value)
+                {
+                    windingMode.WindingCoreDiameterOffset = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string CurrentTapesCollectionName
         {
-            get { return currentTapeCollectionName; }
+            get { return windingMode.CurrentTapeCollectionName; }
             set
             {
-                if (currentTapeCollectionName != value)
+                if (windingMode.CurrentTapeCollectionName != value)
                 {
-                    currentTapeCollectionName = value;
-                    CurrentTapesCollection = TapesCollections[currentTapeCollectionName];
+                    windingMode.CurrentTapeCollectionName = value;
                     OnPropertyChanged();
-                }
-            }
-        }
-
-        public IList<Tape> CurrentTapesCollection
-        {
-            get { return windingMode.TapesCollection; }
-            set
-            {
-                if (windingMode.TapesCollection != value)
-                {
-                    windingMode.TapesCollection = value;
-                    OnPropertyChanged();
-                    CurrentTape = value[0];
+                    OnPropertyChanged(nameof(CurrentTapesCollection));
+                    CurrentTape = CurrentTapesCollection.First();
                 }
             }
         }
@@ -164,19 +188,20 @@ namespace CablesCraftMobile
                 if (!windingMode.CurrentTape.Equals(value))
                 {
                     windingMode.CurrentTape = value;
-                    RecalculateParametres?.Invoke();
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(WindingAngle));
+                    OnPropertyChanged(nameof(Overlap));
+                    OnPropertyChanged(nameof(TapeExpenseKilometres));
+                    OnPropertyChanged(nameof(TapeExpenseSquareMetres));
+                    OnPropertyChanged(nameof(TapeExpenseKilogrames));
                 }
             }
         }
 
         public WindingViewModel()
         {
-            windingMode = new WindingMode();
             LoadData();
-            LoadParametres();
-            RecalculateParametres += RecalculateWindingParametres;
-            RecalculateParametres();
+            LoadModel();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -186,29 +211,9 @@ namespace CablesCraftMobile
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RecalculateWindingParametres()
-        {
-            WindingAngle = WindingBuider.CalculateWindingAngle(WindingStep, WindingCoreDiameter, CurrentTape.Thickness);
-            Overlap = WindingBuider.CalculateWindingOverlap(WindingStep, TapeWidth, WindingCoreDiameter, CurrentTape.Thickness);
-            TapeExpenseKilometres = WindingBuider.CalculateTapeLength(WindingStep, WindingCoreDiameter, CurrentTape.Thickness);
-            TapeExpenseSquareMetres = TapeExpenseKilometres * TapeWidth;
-            TapeExpenseKilogrames = WindingBuider.CalculateTapeWeight(CurrentTape, WindingStep, WindingCoreDiameter, TapeWidth);
-        }
+        public void SaveModel() => App.JsonRepository.SaveObject(windingMode, savedModeFileName);
 
-        public void SaveParametres()
-        {
-            App.JsonRepository.SaveObject((TapeWidth, WindingStep, WindingCoreDiameter, CurrentTapesCollectionName, CurrentTape), savedModeFileName);
-        }
-
-        public void LoadParametres()
-        {
-            var (width, step, coreDiameter, collectionName, tape) = App.JsonRepository.LoadObject<(double, double, double, string, Tape)>(savedModeFileName);
-            TapeWidth = width;
-            WindingStep = step;
-            WindingCoreDiameter = coreDiameter;
-            CurrentTapesCollectionName = collectionName;
-            CurrentTape = tape;
-        }
+        public void LoadModel() => windingMode = App.JsonRepository.LoadObject<WindingMode>(savedModeFileName);
 
         private void LoadData()
         {
