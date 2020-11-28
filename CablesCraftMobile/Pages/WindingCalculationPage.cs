@@ -171,6 +171,14 @@ namespace CablesCraftMobile
                 Mode = BindingMode.TwoWay
             };
             tapeThicknessPicker.SetBinding(Picker.SelectedItemProperty, tapeThicknessBinding);
+            var pickerIsEnabledBinding = new Binding
+            {
+                Source = windingViewModel,
+                Path = nameof(windingViewModel.CurrentTapesCollection),
+                Mode = BindingMode.OneWay,
+                Converter = new IListToBoolPickerIsEnabledConverter(),
+            };
+            tapeThicknessPicker.SetBinding(IsEnabledProperty, pickerIsEnabledBinding);
 
             #endregion
 
