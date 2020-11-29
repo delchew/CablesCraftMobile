@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Cables.Materials;
 using Cables.Braiding;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
 
 namespace CablesCraftMobile
 {
@@ -17,20 +17,13 @@ namespace CablesCraftMobile
         public IList<Metal> WiresMaterialsCollection { get; private set; }
 
         public double BraidingDensity
-        {
-            get => BraidingBuilder.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter);
-        }
+        { get => BraidingBuilder.CalculateBraidingDensity(CoilsCount, WiresCount, BraidingStep, BraidingCoreDiameter, WiresDiameter); }
 
         public double BraidingAngle
-        {
-            get => BraidingBuilder.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter);
-        }
+        { get => BraidingBuilder.CalculateBraidingAngle(BraidingStep, BraidingCoreDiameter, WiresDiameter); }
 
         public double WiresWeight
-        {
-            get => BraidingBuilder.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial);
-
-        }
+        { get => BraidingBuilder.CalculateWiresWieght(CoilsCount, WiresCount, WiresDiameter, BraidingAngle, BraidingDensity, WiresMaterial); }
 
         public int CoilsCount
         {

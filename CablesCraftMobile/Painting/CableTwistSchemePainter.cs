@@ -1,7 +1,7 @@
-﻿using System;
-using Cables;
+﻿using SkiaSharp.Views.Forms;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
+using System;
+using Cables;
 using Xamarin.Forms;
 
 namespace CablesCraftMobile
@@ -10,7 +10,7 @@ namespace CablesCraftMobile
     {
         private readonly SKCanvasView canvasView;
         private float singleElementRadius;
-        private double R; // Радиус окружности для каждого повива, на которой лежат центры каждого элемента в повиве.
+        private double R; // Радиус окружности для каждого повива, на которой лежат центры каждого элемента (окружности) в повиве.
         private float centerX;
         private float centerY;
         private readonly SKPaint circleFill;
@@ -46,10 +46,8 @@ namespace CablesCraftMobile
         private void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             var layersElementsCount = CurrentTwistInfo.LayersElementsCount;
-            // получаем текущую поверхность из аргументов
-            var surface = e.Surface;
-            // Получаем холст на котором будет рисовать
-            var canvas = surface.Canvas;
+            var surface = e.Surface; // получаем текущую поверхность из аргументов
+            var canvas = surface.Canvas; // Получаем холст на котором будет рисовать
             var minSize = Math.Min(canvas.LocalClipBounds.Width, canvas.LocalClipBounds.Height);
             var sizableRadius = (minSize - edgeOffset) / (2 * CurrentTwistInfo.TwistCoefficient);
             singleElementRadius = (float)(sizableRadius > defaultRadius ? defaultRadius : sizableRadius);
@@ -74,14 +72,14 @@ namespace CablesCraftMobile
                 circleFill.Color = circleFill.Color == darkBlueSK ? lightBlueSK : darkBlueSK;
             }
         }
-        private double GetR(int countElements)
+        private double GetR(int countElements) //Метод получения радиуса окружности на которой лежат центры рисуемых окружностей для конкретного повива
         {
             var alpha = Math.PI / countElements;
             var beta = Math.PI * (1 - 1 / countElements) / 2;
             return singleElementRadius * Math.Sin(beta) / Math.Sin(alpha);
         }
 
-        private SKPoint GetCenterPoint(int countElements)
+        private SKPoint GetCenterPoint(int countElements) //Метод для получения центра первой рисуемой окружности в повиве
         {
             switch (countElements)
             {

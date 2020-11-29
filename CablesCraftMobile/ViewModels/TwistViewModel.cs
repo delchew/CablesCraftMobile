@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text;
 using Cables;
 
@@ -18,14 +18,10 @@ namespace CablesCraftMobile
         public IList<TypeOfTwist> TypeOfTwistCollection { get; private set; }
 
         public double TwistStep
-        {
-            get => TwistBuilder.GetTwistStep(TypeOfTwist.TwistedElementType, TwistedCoreDiameter);
-        }
+        { get => TwistBuilder.GetTwistStep(TypeOfTwist.TwistedElementType, TwistedCoreDiameter); }
 
         public double TwistedCoreDiameter
-        {
-            get => TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TypeOfTwist.TwistedElementType);
-        }
+        { get => TwistBuilder.GetTwistedCoreDiameterBySingleElement(QuantityElements, TwistedElementDiameter, TypeOfTwist.TwistedElementType); }
 
         public string TwistScheme
         {
