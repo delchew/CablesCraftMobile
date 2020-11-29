@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Text.RegularExpressions;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
+using System;
 using Xamarin.Forms;
 
 namespace CablesCraftMobile
@@ -8,22 +8,22 @@ namespace CablesCraftMobile
     public class NumEntryControllable : ContentView
     {
         public static readonly BindableProperty ValueProperty =
-            BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), 0d);
+            BindableProperty.Create(nameof(Value), typeof(double), typeof(NumEntryControllable), -1d); //Возможно костыль?
 
         public static readonly BindableProperty OffsetProperty =
-            BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable), 0.1);
+            BindableProperty.Create(nameof(Offset), typeof(double), typeof(NumEntryControllable));
 
         public static readonly BindableProperty MinValueProperty =
-            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(NumEntryControllable), 0d);
+            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(NumEntryControllable));
 
         public static readonly BindableProperty MaxValueProperty =
-            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(NumEntryControllable), 0d);
+            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(NumEntryControllable));
 
         public static readonly BindableProperty CaptionProperty =
-            BindableProperty.Create(nameof(Caption), typeof(string), typeof(NumEntryControllable), "NumEntryControllable");
+            BindableProperty.Create(nameof(Caption), typeof(string), typeof(NumEntryControllable));
 
         public static readonly BindableProperty EntryTextColorProperty =
-            BindableProperty.Create(nameof(EntryTextColor), typeof(Color), typeof(NumEntryControllable), Color.Default);
+            BindableProperty.Create(nameof(EntryTextColor), typeof(Color), typeof(NumEntryControllable));
 
         public double Value
         {
@@ -101,7 +101,7 @@ namespace CablesCraftMobile
 
             var buttonMinus = new Button
             {
-                Text = "-",
+                Text = "—",
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 FontSize = 18,
                 TextColor = Color.Black,
@@ -128,7 +128,7 @@ namespace CablesCraftMobile
                 VerticalOptions = LayoutOptions.Center,
                 FontSize = 20,
                 Keyboard = Keyboard.Numeric,
-                ReturnType = ReturnType.Send,
+                ReturnType = ReturnType.Done,
                 PlaceholderColor = Color.LightGray,
                 Text = string.Empty,
                 BindingContext = this
@@ -218,6 +218,8 @@ namespace CablesCraftMobile
             var increasedValue = Value + Offset;
             if (increasedValue <= MaxValue)
                 Value = increasedValue;
+            else
+                Value = MaxValue;
         }
 
         private void ButtonMinus_Clicked(object sender, EventArgs e)
@@ -226,6 +228,8 @@ namespace CablesCraftMobile
             var decreasedValue = Value - Offset;
             if (decreasedValue >= MinValue)
                 Value = decreasedValue;
+            else
+                Value = MinValue;
         }
     }
 }

@@ -70,6 +70,7 @@ namespace CablesCraftMobile
                 ItemsSource = reelsLengthsViewModel.ReelViewModelsList,
                 ItemTemplate = new DataTemplate(GetTemplate),
                 Header = GetHeaderRow(),
+                SelectionMode = ListViewSelectionMode.None
             };
 
             var reelsListScrollView = new ScrollView
