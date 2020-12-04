@@ -36,7 +36,8 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОПЛЕТКИ, ММ",
-                BindingContext = braidingViewModel
+                BindingContext = braidingViewModel,
+                OnlyIntegerNumbersInput = true
             };
             braidingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(braidingViewModel.BraidingStep), BindingMode.TwoWay);
             braidingStepNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(braidingViewModel.BraidingStepMaxValue), BindingMode.OneWay);

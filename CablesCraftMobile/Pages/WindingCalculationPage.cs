@@ -36,7 +36,8 @@ namespace CablesCraftMobile
             {
                 EntryTextColor = controlsColor,
                 Caption = "ШАГ ОБМОТКИ, ММ",
-                BindingContext = windingViewModel
+                BindingContext = windingViewModel,
+                OnlyIntegerNumbersInput = true
             };
             windingStepNumEntry.SetBinding(NumEntryControllable.ValueProperty, nameof(windingViewModel.WindingStep), BindingMode.TwoWay);
             windingStepNumEntry.SetBinding(NumEntryControllable.MaxValueProperty, nameof(windingViewModel.WindingStepMaxValue), BindingMode.OneWay);

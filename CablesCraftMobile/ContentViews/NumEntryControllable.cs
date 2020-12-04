@@ -31,7 +31,7 @@ namespace CablesCraftMobile
             set
             {
                 SetValue(ValueProperty, value);
-                var textValue = value.ToString();
+                var textValue = FormatValueToStringView(Value);
                 if (numEntry.Text != textValue)
                     numEntry.Text = textValue;
             }
@@ -171,7 +171,7 @@ namespace CablesCraftMobile
         private void NumEntryControllable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Value))
-                numEntry.Text = Value.ToString();
+                numEntry.Text = FormatValueToStringView(Value);
         }
 
         private void NumEntry_Focused(object sender, FocusEventArgs e)
@@ -230,6 +230,12 @@ namespace CablesCraftMobile
                 Value = decreasedValue;
             else
                 Value = MinValue;
+        }
+
+        private string FormatValueToStringView(double value)
+        {
+            var formattedString = OnlyIntegerNumbersInput ? "{0:F0}" : "{0:F2}";
+            return string.Format(formattedString, value);
         }
     }
 }
