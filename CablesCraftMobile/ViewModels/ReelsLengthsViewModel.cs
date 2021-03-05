@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System;
 using Cables;
+using Cables.Common;
 
 namespace CablesCraftMobile
 {
