@@ -95,7 +95,7 @@ namespace CablesCraftMobile
                 FontSize = 18,
                 TextColor = Color.Black,
                 BackgroundColor = Color.LightGray,
-                BorderWidth = 1.3,
+                BorderWidth = 1.3
             };
             buttonPlus.Clicked += ButtonPlus_Clicked;
 
@@ -106,7 +106,7 @@ namespace CablesCraftMobile
                 FontSize = 18,
                 TextColor = Color.Black,
                 BackgroundColor = Color.LightGray,
-                BorderWidth = 1.3,
+                BorderWidth = 1.3
             };
             buttonMinus.Clicked += ButtonMinus_Clicked;
 
