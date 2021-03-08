@@ -79,10 +79,6 @@
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
-    <AndroidResource Include="Resources\drawable\SPCableIconAndroid120x120.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\mipmap-hdpi\SPCableCraftAndroidIcon.png">
       <SubType></SubType>
       <Generator></Generator>
@@ -103,23 +99,23 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-hdpi\Splashscreen.9.png">
+    <AndroidResource Include="Resources\drawable-hdpi\splashscreen.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-mdpi\Splashscreen.9.png">
+    <AndroidResource Include="Resources\drawable-mdpi\splashscreen.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xhdpi\Splashscreen.9.png">
+    <AndroidResource Include="Resources\drawable-xhdpi\splashscreen.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxhdpi\Splashscreen.9.png">
+    <AndroidResource Include="Resources\drawable-xxhdpi\splashscreen.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Splashscreen.9.png">
+    <AndroidResource Include="Resources\drawable-xxxhdpi\splashscreen.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
