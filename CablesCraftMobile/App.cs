@@ -40,6 +40,8 @@ namespace CablesCraftMobile
 
             var controlsColor = Color.FromHex("#283593");
             var greyColor = Color.FromHex("#E8E8E8");
+            var lableFontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            var pickerFontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));
 
             var labelStyle = new Style(typeof(Label))
             {
@@ -59,6 +61,11 @@ namespace CablesCraftMobile
                     {
                         Property = Label.HorizontalOptionsProperty,
                         Value = LayoutOptions.StartAndExpand
+                    },
+                    new Setter
+                    {
+                        Property = Label.FontSizeProperty,
+                        Value = lableFontSize
                     }
                 }
             };
@@ -119,6 +126,11 @@ namespace CablesCraftMobile
                         Property = Picker.MarginProperty,
                         Value = new Thickness(0, 0, 0, 10)
                     },
+                    new Setter
+                    {
+                        Property = Picker.FontSizeProperty,
+                        Value = pickerFontSize
+                    }
                 }
             };
 

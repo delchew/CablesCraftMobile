@@ -110,9 +110,10 @@ namespace CablesCraftMobile
             grid.BackgroundColor = Color.LightGray;
 
             var headerColumnsNames = new []{ "Ø, мм", "Материал", "Цвет", "Примеч.", "Длина, м" };
+            var labelStyle = (Style)App.Current.Resources["labelStyle"];
 
             for (int i = 0; i < headerColumnsNames.Length; i++)
-                grid.Children.Add(new Label { Text = headerColumnsNames[i], FontSize = 15 }, i, 0);
+                grid.Children.Add(new Label { Text = headerColumnsNames[i], FontSize = 15, Style = labelStyle }, i, 0);
 
             return grid;
         }
